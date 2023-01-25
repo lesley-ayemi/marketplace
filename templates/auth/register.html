@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block slider %}
+<div class="rn-breadcrumb-inner ptb--30">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <h5 class="title text-center text-md-start">Sign Up</h5>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-list">
+                    <li class="item"><a href="/">Home</a></li>
+                    <li class="separator"><i class="feather-chevron-right"></i></li>
+                    <li class="item current">Sign Up</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock slider %}
+
+{% block content %}
+
+<div class="login-area rn-section-gapTop">
+    <div class="container">
+        <div class="row g-5">
+            <div class="offset-4 col-lg-4 col-md-6 ml_md--0 ml_sm--0 col-sm-12">
+                <div class="form-wrapper-one registration-area">
+                    {% include 'partials/messages.html' %}
+                    <h4>Sign up</h4>
+                    <form action="{% url 'register' %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-5">
+                            <label for="firstName" class="form-label">First name</label>
+                            <input type="text" name="first_name" id="firstName">
+                        </div>
+                        <div class="mb-5">
+                            <label for="sastName" class="form-label">Last name</label>
+                            <input type="text" name="last_name" id="sastName">
+                        </div>
+                        <div class="mb-5">
+                            <label for="exampleInputEmail1" class="form-label">Username</label>
+                            <input type="text" name="username" id="exampleInputEmail1">
+                        </div>
+                        <div class="mb-5">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" name="email" id="exampleInputEmail1">
+                        </div>
+                        <div class="mb-5">
+                            <label for="newPassword" class="form-label">Create Password</label>
+                            <input type="password" name="password" id="newPassword">
+                        </div>
+                        <div class="mb-5">
+                            <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                            <input type="password" name="password1" id="exampleInputPassword1">
+                        </div>
+                        <div class="mb-5 rn-check-box">
+                            <input type="checkbox" class="rn-check-box-input" id="exampleCheck1" required>
+                            <label class="rn-check-box-label" for="exampleCheck1">Allow to all tearms &amp;
+                                condition</label>
+                        </div>
+                        <div class="text-center">
+
+                            <button type="submit" class="btn btn-primary mr--15">Sign Up</button>
+                        </div>
+                        <div class="text-center">
+
+                            <label class="mt-3" for="">Already have an account? <a href="{% url 'login' %}">Click here to Login</a></label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="social-share-media form-wrapper-one">
+                    <h6>Another way to sign up</h6>
+                    <p> Lorem ipsum dolor sit, amet sectetur adipisicing elit.cumque.</p>
+                    <button class="another-login login-facebook"> <img class="small-image" src="assets/images/icons/google.png" alt=""> <span>Log in with Google</span></button>
+                    <button class="another-login login-facebook"> <img class="small-image" src="assets/images/icons/facebook.png" alt=""> <span>Log in with Facebook</span></button>
+                    <button class="another-login login-twitter"> <img class="small-image" src="assets/images/icons/tweeter.png" alt=""> <span>Log in with Twitter</span></button>
+                    <button class="another-login login-linkedin"> <img class="small-image" src="assets/images/icons/linkedin.png" alt=""> <span>Log in with linkedin</span></button>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}
+    

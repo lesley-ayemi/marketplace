@@ -1,0 +1,189 @@
+{% extends 'base.html' %} {% block slider %}
+<div class="rn-breadcrumb-inner ptb--30">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <h5 class="title text-center text-md-start">Create a New NFT</h5>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-list">
+                    <li class="item"><a href="{% url 'users' %}">My Profile</a></li>
+                    <li class="separator"><i class="feather-chevron-right"></i></li>
+                    <li class="item current">Create NFT</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock slider %} 
+{% block content %} 
+<div class="create-area rn-section-gapTop">
+    <div class="container">
+        <div class="row g-5">
+            <form action="{% url 'create-nft' %}" method="post" class="row" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="col-lg-3 offset-1 ml_md--0 ml_sm--0 my-2">
+                    <!-- file upload area -->
+                    <div class="upload-area">
+                        <div class="upload-formate mb--30">
+                            <h6 class="title">Upload file</h6>
+                            <p class="formate">Drag or choose your file to upload</p>
+                        </div>
+
+                        <div class="brows-file-wrapper">
+                            <!-- actual upload which is hidden -->
+                            <input name="upload_nft" id="createinputfile" type="file" class="inputfile" />
+                            <img id="createfileImage" src="/static/assets/images/portfolio/portfolio-05.jpg" alt=""
+                                data-black-overlay="6" />
+                            <!-- our custom upload button -->
+                            <label for="createinputfile" title="No File Choosen">
+                                <i class="feather-upload"></i>
+                                <span class="text-center">Choose a File</span>
+                                <p class="text-center mt--10">
+                                    PNG, GIF, WEBP, MP4 or MP3. <br />
+                                    Max 1Gb.
+                                </p>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- end upoad file area -->
+                </div>
+
+                <div class="col-lg-7 form-wrapper-one mx-5">
+                   
+
+                        {% include 'partials/messages.html' %}
+                    
+                        <div class="nuron-information">
+                            <div class="profile-form-wrapper">
+                                <div class="input-one-wrapper mb--15">
+                                    <div class="first-name half-wid">
+                                        <label for="contact-name" class="form-label">Product Name</label>
+                                        <input name="name" id="contact-name" type="text" placeholder="e. g. `Digital Awesome Game`" />
+                                    </div>
+                                    
+                                    
+                                </div>
+                                
+                            </div>
+
+                            <!-- edit bio area Start-->
+                            <div class="col-md-12">
+                                <div class="input-box pb--20">
+                                    <label for="Discription" class="form-label">Description(optional)</label>
+                                    <textarea id="Discription" name="description" rows="3" placeholder="e. g. “After purchasing the product you can get item...”"></textarea>
+                                </div>
+                            </div>
+                            <!-- edit bio area End -->
+
+                            <!--  -->
+                            <div class="input-two-wrapepr-prifile">
+                                <!-- start Role area -->
+                                <div class="role-area mt--15">
+                                    <label for="Role" class="form-label mb--10">Item Price in ETH</label>
+                                    <input name="item_price" id="Role" type="number" placeholder="e. g. `1ETH`" />
+                                </div>
+                                <!-- End Role area -->
+                                <!-- start Role area -->
+                                <div class="role-area mt--15">
+                                    <label for="Role" class="form-label mb--10">Size(optional)</label>
+                                    <input name="size" id="Role" type="text" placeholder="e. g. `Size`"/>
+                                </div>
+                                <div class="role-area mt--15">
+                                    <label for="Role" class="form-label mb--10">Properties(optional)</label>
+                                    <input name="properties" id="Role" type="text" placeholder="e. g. `Properties`"/>
+                                </div>
+                                <!-- End Role area -->
+                                
+                            </div>
+
+                            <div class="col-md-12 col-lg-12 col-sm-6 mt-5">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- select gender -->
+                                        <select name="nft_type" class="profile-edit-select" style="display: none">
+                                            <option value="">Select NFT Type</option>
+                                            <option value="art">Art</option>
+                                            <option value="video">Video</option>
+                                            <option value="music">Music</option>
+                                            <option value="trading-cards/collectible">Trading Card</option>
+                                            <option value="text">Text</option>
+                                            <option value="memes">Memes</option>
+                                            <option value="domain-name">Domain Names</option>
+                                            <option value="virtual-style">Virtual Style</option>
+                                            <option value="pdf">Pdf</option>
+                                        </select>
+
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <!-- select gender -->
+                                        <select name="collection" class="profile-edit-select" style="display: none">
+                                            <option value="">Select Collection (optional)</option>
+                                            {% for collection in collections %}
+                                            
+                                            {% if collection %}
+                                            <option value="{{collection.id}}">{{collection}}</option>
+                                            {% else %}
+                                            <option value="">
+                                                create one
+                                            </option>
+                                            {% endif %}
+        
+                                            {% endfor %}
+                                        </select>
+        
+                                        <!-- end gender -->
+
+                                    </div>
+                                </div>
+
+                                
+
+                            </div>
+
+                            <div class="col-md-12 mt--15">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="role-area">
+                                            <label for="Role" class="form-label mb--10">List for sale</label>
+                                        </div>
+                                        <select name="list_for_sale" class="profile-edit-select" style="display: none" required>
+                                            <option value="True" selected>Yes</option>
+                                            <option value="False">No</option>
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="role-area">
+                                            <label for="Role" class="form-label mb--10">Allow Bid</label>
+                                        </div>
+                                        <select name="bid" class="profile-edit-select" style="display: none" required>
+                                            <option value="NO" selected>No</option>
+                                            <option value="YES">Yes</option>
+                                            
+                                        </select>
+    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt--15">
+                                <div class="half-wid phone-number">
+                                    <label for="PhoneNumber" class="form-label">Royalties</label>
+                                    <input name="royalties" id="PhoneNumber" type="number"
+                                        placeholder="e. g. `1-10%`">
+                                </div>
+                            </div>
+                            
+                            <div class="button-area save-btn-edit">
+                                <button type="" class="btn btn-primary">Save</button>
+                                
+                            </div>
+                        </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

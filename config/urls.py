@@ -14,8 +14,49 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.views.generic import TemplateView
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from users.views import *
+from accounts.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    # Page Routes
+    path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    path('about/', TemplateView.as_view(template_name='pages/about.html'), name='about-us'),
+    path('faq/', TemplateView.as_view(template_name='pages/faq.html'), name='faq'),
+    path('terms-and-condition/', TemplateView.as_view(template_name='pages/about.html'), name='terms-and-condition'),
+    path('privacy-policy/', TemplateView.as_view(template_name='pages/privacy-policy.html'), name='privacy-policy'),
+    path('contact-us/', TemplateView.as_view(template_name='pages/contact-us.html'), name='contact-us'),
+    path('expore/', TemplateView.as_view(template_name='pages/explore.html'), name='explore'),
+    path('explore-users/', TemplateView.as_view(template_name='pages/explore-users.html'), name='explore-users'),
+    
+    
+    # Authentication Routes
+    path('login/', LoginView.as_view(), name='login'),
+    path('register/', RegisterView.as_view(), name='register'),
+    
+    
+    # Users Routes
+    path('users/', include([
+        path('', UsersDashboard.as_view(), name='users'),
+        path('edit-profile/', EditProfile.as_view(), name='edit-profile'),
+        path('update-profile/', UpdateDetails.as_view(), name='update-profile'),
+        path('change-password/', ChangePassword.as_view(), name='change-password'),
+        
+        #NFT routes
+        path('create-nft/', UploadNft.as_view(), name='create-nft'),
+        path('myarts/<slug:slug>/', UploadNftDetail.as_view(), name='nft_details'),
+    ]))
+    
+    # Lighthouse Admin Routes
+    
+    
 ]
+if settings.DEBUG:
+        urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)
