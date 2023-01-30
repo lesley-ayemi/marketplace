@@ -56,7 +56,9 @@ INSTALLED_APPS = [
     'lighthouse',
     
     #third party apps
-    'cloudinary'
+    'cloudinary',
+    'crispy_forms',
+
 ]
 
 MIDDLEWARE = [
@@ -175,3 +177,5 @@ SETTINGS_EXPORT = [
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,0 +1,485 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block slider %}
+<div class="rn-breadcrumb-inner ptb--30">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <h5 class="title text-center text-md-start">Product Details</h5>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-list">
+                    <li class="item"><a href="/">Home</a></li>
+                    <li class="separator"><i class="feather-chevron-right"></i></li>
+                    <li class="item current">Product Details-{{nft.name}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock slider %}
+
+{% block content %}
+<div class="product-details-area rn-section-gapTop">
+    <div class="container">
+        <div class="row g-5">
+            <!-- product image area -->
+
+            <div class="col-lg-7 col-md-12 col-sm-12">
+                <div class="product-tab-wrapper rbt-sticky-top-adjust" style="top: 100px;">
+                    <div class="pd-tab-inner">
+                        <div class="nav rn-pd-nav rn-pd-rt-content nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                <span class="rn-pd-sm-thumbnail">
+                                    {% if nft.nft_type == 'art' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="">
+                                    {% elif nft.nft_type == 'video' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
+                                    {% elif nft.nft_type == 'music' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-02.jpg' %}" alt="">
+                                    {% elif nft.nft_type == 'trading-cards/collectible' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'text' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'memes' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'domain-name' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'virtual-style' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'pdf' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    {% else %}
+                                     <p>file format is not supported</p>   
+                                    {% endif %}
+                                </span>
+                            </button>
+                            <!-- <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                <span class="rn-pd-sm-thumbnail">
+                                    <img src="{% static 'assets/images/portfolio/sm/portfolio-02.jpg' %}" alt="Nft_Profile">
+                                </span>
+                            </button>
+                            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                <span class="rn-pd-sm-thumbnail">
+                                    <img src="{% static 'assets/images/portfolio/sm/portfolio-03.jpg' %}" alt="Nft_Profile">
+                                </span>
+                            </button> -->
+                        </div>
+
+                        <div class="tab-content rn-pd-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                <div class="rn-pd-thumbnail">
+                                    
+                                    {% if nft.nft_type == 'art' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="">
+                                    {% elif nft.nft_type == 'video' %}
+                                    <video controls src="{{nft.upload_nft.url}}" width="620" poster="{{nft.upload_nft.url}}"></video>
+                                    {% elif nft.nft_type == 'music' %}
+                                    <audio src="{{nft.upload_nft.url}}" controls></audio>
+                                    {% elif nft.nft_type == 'trading-cards/collectible' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'text' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'memes' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'domain-name' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'virtual-style' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'pdf' %}
+                                    <p>Link to open pdf <a href="{{nft.upload_nft.url}}">Here</a></p>
+                                    {% else %}
+                                     <p>file format is not supported</p>   
+                                    {% endif %}
+                                        
+                                </div>
+                            </div>
+                            <!-- <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                <div class="rn-pd-thumbnail">
+                                    <img src="{% static 'assets/images/portfolio/lg/portfolio-02.jpg' %}" alt="Nft_Profile">
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                <div class="rn-pd-thumbnail">
+                                    <img src="{% static 'assets/images/portfolio/lg/portfolio-03.jpg' %}" alt="Nft_Profile">
+                                </div>
+                            </div> -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- product image area end -->
+
+            <div class="col-lg-5 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
+                <div class="rn-pd-content-area">
+                    <div class="pd-title-area">
+                        <h4 class="title">{{nft.name|capfirst}}</h4>
+                        <div class="pd-react-area">
+                            <div class="heart-count">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                <span>33</span>
+                            </div>
+                            <div class="count">
+                                <div class="share-btn share-btn-activation dropdown">
+                                    <button class="icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <svg viewBox="0 0 14 4" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN hOiKLt">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2C3.5 2.82843 2.82843 3.5 2 3.5C1.17157 3.5 0.5 2.82843 0.5 2C0.5 1.17157 1.17157 0.5 2 0.5C2.82843 0.5 3.5 1.17157 3.5 2ZM8.5 2C8.5 2.82843 7.82843 3.5 7 3.5C6.17157 3.5 5.5 2.82843 5.5 2C5.5 1.17157 6.17157 0.5 7 0.5C7.82843 0.5 8.5 1.17157 8.5 2ZM11.999 3.5C12.8274 3.5 13.499 2.82843 13.499 2C13.499 1.17157 12.8274 0.5 11.999 0.5C11.1706 0.5 10.499 1.17157 10.499 2C10.499 2.82843 11.1706 3.5 11.999 3.5Z" fill="currentColor"></path>
+                                        </svg>
+                                    </button>
+
+                                    <div class="share-btn-setting dropdown-menu dropdown-menu-end">
+                                        <button type="button" class="btn-setting-text share-text" data-bs-toggle="modal" data-bs-target="#shareModal">
+                                            Share
+                                        </button>
+                                        <button type="button" class="btn-setting-text report-text" data-bs-toggle="modal" data-bs-target="#reportModal">
+                                            Report
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="bid">Price <span class="price">{{nft.item_price}} ETH</span></span>
+                    <!-- <span class="bid">Height bid <span class="price">{{nft.item_price}} ETH</span></span> -->
+                    <h6 class="title-name">
+                        #22 Portal , Info bellow
+                    </h6>
+                    
+                    
+                    <div class="catagory-collection">
+                        <div class="catagory">
+                            <span>Royalties <span class="color-body">
+                                    {{nft.royalties}}% </span></span>
+                            <!-- <div class="top-seller-inner-one">
+                                <div class="top-seller-wrapper">
+                                    <div class="thumbnail">
+                                        <a href="#"><img src="{% static 'assets/images/client/client-1.png' %}" alt="Nft_Profile"></a>
+                                    </div>
+                                    <div class="top-seller-content">
+                                        <a href="#">
+                                            <h6 class="name">Brodband</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        {% if nft.collection %}
+                        <div class="collection">
+                            <span>Collections</span>
+                            <div class="top-seller-inner-one">
+                                <div class="top-seller-wrapper">
+                                    <div class="thumbnail">
+                                        <a href="#"><img src="{{nft.collection.logo_image.url}}" alt="Nft_Profile"></a>
+                                    </div>
+                                    <div class="top-seller-content">
+                                        <a href="javascript:void(0)">
+                                            <h6 class="name">{{nft.collection.name}}</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                    
+                        {% endif %}
+                    </div>
+                    
+                        
+                    <!-- <a class="btn btn-primary-alta" href="#">Unlockable content included</a> -->
+                    <div class="rn-bid-details">
+                        <div class="tab-wrapper-one">
+                            <nav class="tab-button-one">
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Bids</button>
+                                    <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Details</button>
+                                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">History</button>
+                                </div>
+                            </nav>
+                            <div class="tab-content rn-bid-content" id="nav-tabContent">
+                                <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <!-- single creator -->
+                                    <div class="top-seller-inner-one">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-3.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span>0.11wETH by <a href="#">Allen Waltker</a></span>
+                                                <span class="count-number">
+                                                    1 hours ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single creator -->
+                                    <!-- single creator -->
+                                    <div class="top-seller-inner-one">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-4.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span>0.09wETH by <a href="#">Joe Biden</a></span>
+                                                <span class="count-number">
+                                                    1.30 hours ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single creator -->
+                                    <!-- single creator -->
+                                    <div class="top-seller-inner-one">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-5.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span>0.07wETH by <a href="#">Sonial mridha</a></span>
+                                                <span class="count-number">
+                                                    1.35 hours ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single creator -->
+                                    <!-- single creator -->
+                                    <div class="top-seller-inner-one">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-6.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span>0.07wETH by <a href="#">Tribute Dhusra</a></span>
+                                                <span class="count-number">
+                                                    1.55 hours ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single creator -->
+                                    <!-- single creator -->
+                                    <div class="top-seller-inner-one">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-7.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span>0.07wETH by <a href="#">Sonia Sobnom</a></span>
+                                                <span class="count-number">
+                                                    2 hours ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single creator -->
+                                    <!-- single creator -->
+                                    <div class="top-seller-inner-one">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-8.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span>0.02wETH by <a href="#">Sadia Rummon</a></span>
+                                                <span class="count-number">
+                                                    2.5 hours ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single creator -->
+                                </div>
+                                <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <!-- single -->
+                                    <div class="rn-pd-bd-wrapper">
+                                        <div class="top-seller-inner-one">
+                                            <!-- <p class="disc">Lorem ipsum dolor, sit amet consectetur adipisicing
+                                                elit. Doloribus debitis nemo deserunt.</p> -->
+                                            <h6 class="name-title">
+                                                Owner
+                                            </h6>
+                                            <div class="top-seller-wrapper">
+                                                <div class="thumbnail">
+                                                    <a href="#"><img src="{{nft.creator.profile_pic.url}}" alt="Nft_Profile"></a>
+                                                </div>
+                                                <div class="top-seller-content">
+                                                    <a href="#">
+                                                        <h6 class="name">{{nft.creator.username}}</h6>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="rn-pd-md-property-wrapper">
+                                            <h6 class="pd-property-title">
+                                                Description
+                                            </h6>
+                                            <div class="property-wrapper">
+                                                <!-- single property -->
+                                                <div class="pd-property-inner col-lg-12">
+                                                    <!-- <span class="color-body type">Property TYPE</span> -->
+                                                    <span class="color-white value">{{nft.description}}</span>
+                                                </div>
+                                                <!-- single property End -->
+                                                
+                                            </div>
+                                        </div>
+
+                                        <!-- single -->
+                                        <div class="rn-pd-sm-property-wrapper">
+                                            <h6 class="pd-property-title">
+                                                Property
+                                            </h6>
+                                            <div class="property-wrapper">
+                                                <!-- single property -->
+                                                <div class="pd-property-inner">
+                                                    <span class="color-body type">Property TYPE</span>
+                                                    <span class="color-white value">{{nft.properties}}</span>
+                                                </div>
+                                                <!-- single property End -->
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- single -->
+                                        <!-- single -->
+                                        <div class="rn-pd-sm-property-wrapper">
+                                            <h6 class="pd-property-title">
+                                                Size
+                                            </h6>
+                                            <div class="catagory-wrapper">
+                                                <!-- single property -->
+                                                <div class="pd-property-inner">
+                                                    <span class="color-body type">{{nft.size}}</span>
+                                                    <!-- <span class="color-white value">APP</span> -->
+                                                </div>
+                                                <!-- single property End -->
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- single -->
+                                    </div>
+                                    <!-- single -->
+                                </div>
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                    <!-- single creator -->
+                                    <div class="top-seller-inner-one">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-3.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span>0.11wETH by<a href="#">Allen Waltker</a></span>
+                                                <span class="count-number">
+                                                    1 hours ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single creator -->
+                                    <!-- single creator -->
+                                    <div class="top-seller-inner-one mt--20">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-2.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span>0.11wETH by<a href="#">Allen Waltker</a></span>
+                                                <span class="count-number">
+                                                    1 hours ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single creator -->
+                                    <!-- single creator -->
+                                    <div class="top-seller-inner-one mt--20">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-4.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span>0.11wETH by<a href="#">Allen Waltker</a></span>
+                                                <span class="count-number">
+                                                    1 hours ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single creator -->
+                                    <!-- single creator -->
+                                    <div class="top-seller-inner-one mt--20">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-5.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span>0.11wETH by<a href="#">Allen Waltker</a></span>
+                                                <span class="count-number">
+                                                    1 hours ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single creator -->
+                                    <!-- single creator -->
+                                    <div class="top-seller-inner-one mt--20">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-8.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span>0.11wETH by<a href="#">Allen Waltker</a></span>
+                                                <span class="count-number">
+                                                    1 hours ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single creator -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="place-bet-area">
+                            <div class="rn-bet-create">
+                                <!-- <div class="bid-list winning-bid">
+                                    <h6 class="title">Winning bit</h6>
+                                    <div class="top-seller-inner-one">
+                                        <div class="top-seller-wrapper">
+                                            <div class="thumbnail">
+                                                <a href="#"><img src="{% static 'assets/images/client/client-7.png' %}" alt="Nft_Profile"></a>
+                                            </div>
+                                            <div class="top-seller-content">
+                                                <span class="heighest-bid">Heighest bid <a href="#">Atif
+                                                        aslam</a></span>
+                                                <span class="count-number">
+                                                    0.115wETH
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bid-list left-bid">
+                                    <h6 class="title">Auction has ended</h6>
+                                    <div class="countdown mt--15" data-date="2025-12-09"><div class="countdown-container days"><span class="countdown-value days-bottom">1045</span><span class="countdown-heading days-top">Day</span></div><div class="countdown-container hours"><span class="countdown-value hours-bottom">23</span><span class="countdown-heading hours-top">Hr's</span></div><div class="countdown-container minutes"><span class="countdown-value minutes-bottom">00</span><span class="countdown-heading minutes-top">Min's</span></div><div class="countdown-container seconds"><span class="countdown-value seconds-bottom">10</span><span class="countdown-heading seconds-top">Sec</span></div></div>
+                                </div> -->
+                            </div>
+                            <!-- <a class="btn btn-primary-alta mt--30" href="#">Place a Bid</a> -->
+                            
+                            {% if nft.minted == False %}
+                            <button type="button" class="btn btn-primary-alta mt--30">Artwork has yet to be minted</button>
+                            {% else %}
+                            <button type="button" disabled class="btn btn-primary-alta mt--30">Artwork minted</button>
+                                
+                            {% endif %}
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+    

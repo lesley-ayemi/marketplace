@@ -49,7 +49,7 @@ class CreateNftModel(TimeStampedModel):
     description = models.TextField()
     item_price = models.FloatField()
     size = models.CharField(blank=True, max_length=100)
-    upload_nft = CloudinaryField('raw', folder = "/nft-items/", blank=True, default='https://res.cloudinary.com/dbbfeegje/image/upload/v1674443265/coll-item-2_vqfk6q.jpg')
+    upload_nft = CloudinaryField(resource_type='raw', folder = "/nft-items/", blank=True, default='https://res.cloudinary.com/dbbfeegje/image/upload/v1674443265/coll-item-2_vqfk6q.jpg')
     properties = models.CharField(max_length=255, blank=True)
     royalties = models.CharField(max_length=100, blank=True)
     collection = models.ForeignKey('NftCollection', on_delete=models.SET_NULL, blank=True, null=True, related_name='nft_collections')
@@ -83,17 +83,26 @@ class BidNft(models.Model):
     
 
 class NftCollection(TimeStampedModel):
-    logo_image = CloudinaryField('image', folder = "/collection-images/logo/")
-    banner_image = CloudinaryField('raw', folder = "/collection-images/bannger/")
-    featured_image = CloudinaryField('image')
+    class BlockChainType(models.TextChoices):
+        Ethereum = 'ethereum'
+        Polygon = 'polygon'
+        Solana = 'solana'
+    logo_image = CloudinaryField('image', folder = "/collection-images/logo/", default='https://res.cloudinary.com/dbbfeegje/image/upload/v1674723310/collection-logo_yig2la.jpg')
+    banner_image = CloudinaryField('image', folder = "/collection-images/bannger/", default='https://res.cloudinary.com/dbbfeegje/image/upload/v1674723307/collection-cover_hcgj4r.png')
+    featured_image = CloudinaryField('image', folder="/collection-images/featured/", default='https://res.cloudinary.com/dbbfeegje/image/upload/v1674723307/collection-featured_lqyqxe.jpg')
     name = models.CharField(max_length=100)
+    custom_url = models.URLField(blank=True, null=True)
     # autoslugify value using custom `slugify` function
     def custom_slugify(value):
         return default_slugify(value).replace('-', '_')
     slug = AutoSlugField(populate_from='name',
                          slugify=custom_slugify)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     category = models.ForeignKey('Category', on_delete=models.DO_NOTHING, related_name='user_category')
+    creator_earning = models.CharField(blank=True, null=True, max_length=20)
+    payout_address = models.CharField(max_length=100, blank=True, null=True)
+    blockchain = models.CharField(max_length=40, choices=BlockChainType.choices, default='ethereum')
+    sensitive_content = models.BooleanField(default=False)
     user_collection = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='user_collections')
     
     def __str__(self):

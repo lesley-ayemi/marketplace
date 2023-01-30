@@ -50,7 +50,22 @@ urlpatterns = [
         
         #NFT routes
         path('create-nft/', UploadNft.as_view(), name='create-nft'),
+        path('edit-nft/<slug:slug>/', EditNft.as_view(), name='edit-nft'),
+        path('delete-nft/<slug:slug>/', DeleteNft.as_view(), name='delete-nft'),
         path('myarts/<slug:slug>/', UploadNftDetail.as_view(), name='nft_details'),
+        
+        path('create-collection/', CreateCollection.as_view(), name='create-collection'),
+        path('edit-collection/<slug:slug>/', EditCollection.as_view(), name='edit-collection'),
+        path('delete-collection/<slug:slug>/', DeleteCollection.as_view(), name='delete-collection'),
+        path ('mycollection/<slug:slug>/', ViewCollection.as_view(), name='collections'),
+        
+        #Wallet
+        path('add-wallet/', AddWallet.as_view(), name='add-wallet'),
+        path('delete-wallet/<int:id>/', DeleteWallet.as_view(), name='delete-wallet'),
+        
+        #Deposit
+        path('deposit-funds/', FundAccount.as_view(), name='fund-account'),
+        path('deposit-funds/<str:name>/', FundAccountDetail.as_view(), name='fund-account-details'),
     ]))
     
     # Lighthouse Admin Routes

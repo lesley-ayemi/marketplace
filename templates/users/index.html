@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block slider %}
 <div class="rn-author-bg-area bg_image--9 bg_image ptb--150" style="background-image: {% if request.user.cover_photo %} url({{request.user.cover_photo.url}}); {% else%} url(/static/assets/images/bg/bg-image-9.jpg); {% endif %}">
     <div class="container">
@@ -31,14 +31,15 @@
                             </a>
                             <div class="follow-area">
                                 <div class="follow followers">
-                                    <span>186k <a href="#" class="color-body">Total NFTs</a></span>
+                                    <span>{{created.count}} <a href="#" class="color-body">Total NFTs</a></span>
                                 </div>
                                 <div class="follow following">
-                                    <span>156 <a href="#" class="color-body">Sold NFTs</a></span>
+                                    <span>{{owned.count}} <a href="#" class="color-body">Puchased NFTs</a></span>
                                 </div>
                             </div>
                             <div class="author-button-area">
                                 <a href="{% url 'create-nft' %}" class="btn at-follw follow-button"> Upload NFT</a>
+                                <a href="{% url 'create-collection' %}" class="btn at-follw follow-button"> Create Collection</a>
                                 <span class="btn at-follw share-button" data-bs-toggle="modal" data-bs-target="#shareModal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg></span>
                                 <div class="count at-follw">
                                     <div class="share-btn share-btn-activation dropdown">
@@ -49,11 +50,14 @@
                                         </button>
 
                                         <div class="share-btn-setting dropdown-menu dropdown-menu-end" style="">
-                                            <button type="button" class="btn-setting-text report-text" data-bs-toggle="modal" data-bs-target="#reportModal">
-                                                Report
+                                            <button type="button" class="btn-setting-text report-text">
+                                                <a href="{% url 'add-wallet' %}">Add Wallet</a>
                                             </button>
                                             <button type="button" class="btn-setting-text report-text">
-                                                Claim Owenership
+                                                <a href="{% url 'fund-account' %}">Fund Account</a>
+                                            </button>
+                                            <button type="button" class="btn-setting-text report-text">
+                                                Request Withdrawal
                                             </button>
                                         </div>
                                     </div>
@@ -84,6 +88,7 @@
                             <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">On Sale</button>
                             <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Created</button>
                             <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Owned</button>
+                            <button class="nav-link" id="nav-contact-collection" data-bs-toggle="tab" data-bs-target="#nav-collection" type="button" role="tab" aria-controls="nav-collection" aria-selected="false">Collections</button>
                             <!-- <button class="nav-link" id="nav-liked-tab" data-bs-toggle="tab" data-bs-target="#nav-liked" type="button" role="tab" aria-controls="nav-liked" aria-selected="false">Liked</button> -->
                         </div>
                     </nav>
@@ -100,16 +105,38 @@
                     <div class="product-style-one no-overlay with-placeBid">
                         <div class="card-thumbnail">
                             <a href="{{sale.get_absolute_url}}">
-                                <img src="/static/assets/images/portfolio/portfolio-09.jpg" alt="NFT_portfolio">
+                                {% if sale.nft_type == 'art' %}
+                                    <img src="{{sale.upload_nft.url}}" alt="">
+                                    {% elif sale.nft_type == 'video' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
+                                    {% elif sale.nft_type == 'music' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-02.jpg' %}" alt="">
+                                    {% elif nft.nft_type == 'trading-cards/collectible' %}
+                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif sale.nft_type == 'text' %}
+                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif sale.nft_type == 'memes' %}
+                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif sale.nft_type == 'domain-name' %}
+                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif sale.nft_type == 'virtual-style' %}
+                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif sale.nft_type == 'pdf' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    {% else %}
+                                     <p>file format is not supported</p>   
+                                    {% endif %}
+                                <!-- <img src="{{sale.upload_nft.url}}" alt="NFT_portfolio"> -->
                             </a>
                             <a href="{{sale.get_absolute_url}}" class="btn btn-primary">Place Bid</a>
                         </div>
                         <div class="product-share-wrapper">
                             <div class="profile-share">
-                                <a href="javascript:void(0)" class="avatar" data-tooltip="Sadikur Ali"><img src="/static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
+                                <span class="text-danger">{{sale.nft_type|upper}}</span>
+                                <!-- <a href="javascript:void(0)" class="avatar" data-tooltip="Sadikur Ali"><img src="/static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
                                 <a href="javascript:void(0)" class="avatar" data-tooltip="Ali"><img src="/static/assets/images/client/client-3.png" alt="Nft_Profile"></a>
                                 <a href="javascript:void(0)" class="avatar" data-tooltip="Sadikur"><img src="/static/assets/images/client/client-4.png" alt="Nft_Profile"></a>
-                                <a class="more-author-text" href="#">9+ Place Bit.</a>
+                                <a class="more-author-text" href="#">9+ Place Bit.</a> -->
                             </div>
                             <div class="share-btn share-btn-activation dropdown">
                                 <button class="icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -117,24 +144,30 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2C3.5 2.82843 2.82843 3.5 2 3.5C1.17157 3.5 0.5 2.82843 0.5 2C0.5 1.17157 1.17157 0.5 2 0.5C2.82843 0.5 3.5 1.17157 3.5 2ZM8.5 2C8.5 2.82843 7.82843 3.5 7 3.5C6.17157 3.5 5.5 2.82843 5.5 2C5.5 1.17157 6.17157 0.5 7 0.5C7.82843 0.5 8.5 1.17157 8.5 2ZM11.999 3.5C12.8274 3.5 13.499 2.82843 13.499 2C13.499 1.17157 12.8274 0.5 11.999 0.5C11.1706 0.5 10.499 1.17157 10.499 2C10.499 2.82843 11.1706 3.5 11.999 3.5Z" fill="currentColor"></path>
                                     </svg>
                                 </button>
-
+                                
+                                {% if sale.status == 'BUY' %}
                                 <div class="share-btn-setting dropdown-menu dropdown-menu-end">
-                                    <button type="button" class="btn-setting-text share-text" data-bs-toggle="modal" data-bs-target="#shareModal">
-                                        Share
-                                    </button>
-                                    <button type="button" class="btn-setting-text report-text" data-bs-toggle="modal" data-bs-target="#reportModal">
-                                        Report
-                                    </button>
+                                    <a href="{% url 'edit-nft' sale.slug %}" class="btn-setting-text share-text">
+                                        Edit
+                                    </a>
+                                    <br>
+                                    <a href="{% url 'delete-nft' sale.slug %}" class="btn-setting-text report-text">
+                                        Delete
+                                    </a>
                                 </div>
+                                {% else %}
+                                    
+                                {% endif %}
+                                    
 
                             </div>
                         </div>
-                        <a href="{{sale.get_absolute_url}}"><span class="product-name">{{sale.name}}</span></a>
+                        <a href="{{sale.get_absolute_url}}"><span class="product-name">{{sale.name|upper}}</span></a>
                         
                         {% if sale.bid == 'YES' %}
                         <span class="latest-bid">Highest bid 6/20</span>
                         {% else %}
-                            ss
+                            Avaliale for bid
                         {% endif %}
                             
                         <div class="bid-react-area">
@@ -169,16 +202,40 @@
                     <div class="product-style-one no-overlay with-placeBid">
                         <div class="card-thumbnail">
                             <a href="{{create.get_absolute_url}}">
-                                <img style="object-fit:scale-down; width: 350px; height: 200px;" src="{{create.upload_nft.url}}" alt="NFT_portfolio">
+                                
+                                    {% if create.nft_type == 'art' %}
+                                    <img src="{{create.upload_nft.url}}" alt="">
+                                    {% elif create.nft_type == 'video' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
+                                    {% elif create.nft_type == 'music' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-02.jpg' %}" alt="">
+                                    {% elif nft.nft_type == 'trading-cards/collectible' %}
+                                    <img src="{{create.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif create.nft_type == 'text' %}
+                                    <img src="{{create.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif create.nft_type == 'memes' %}
+                                    <img src="{{create.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif create.nft_type == 'domain-name' %}
+                                    <img src="{{create.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif create.nft_type == 'virtual-style' %}
+                                    <img src="{{create.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif create.nft_type == 'pdf' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    {% else %}
+                                     <p>file format is not supported</p>   
+                                    {% endif %}
+                                    
+                                <!-- <img style="object-fit:scale-down; width: 350px; height: 200px;" src="{{create.upload_nft.url}}" alt="NFT_portfolio"> -->
                             </a>
                             <a href="{{create.get_absolute_url}}" class="btn btn-primary">View</a>
                         </div>
                         <div class="product-share-wrapper">
                             <div class="profile-share">
-                                <a href="javascript:void(0)" class="avatar" data-tooltip="Tawhid Sabir"><img src="/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                                <span class="text-danger">{{create.nft_type|upper}}</span>
+                                <!-- <a href="javascript:void(0)" class="avatar" data-tooltip="Tawhid Sabir"><img src="/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
                                 <a href="javascript:void(0)" class="avatar" data-tooltip="Tawhid"><img src="/static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
                                 <a href="javascript:void(0)" class="avatar" data-tooltip="Sabir"><img src="/static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
-                                <a class="more-author-text" href="#">5+ Place Bit.</a>
+                                <a class="more-author-text" href="#">5+ Place Bit.</a> -->
                             </div>
                             <div class="share-btn share-btn-activation dropdown">
                                 <button class="icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -186,28 +243,35 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2C3.5 2.82843 2.82843 3.5 2 3.5C1.17157 3.5 0.5 2.82843 0.5 2C0.5 1.17157 1.17157 0.5 2 0.5C2.82843 0.5 3.5 1.17157 3.5 2ZM8.5 2C8.5 2.82843 7.82843 3.5 7 3.5C6.17157 3.5 5.5 2.82843 5.5 2C5.5 1.17157 6.17157 0.5 7 0.5C7.82843 0.5 8.5 1.17157 8.5 2ZM11.999 3.5C12.8274 3.5 13.499 2.82843 13.499 2C13.499 1.17157 12.8274 0.5 11.999 0.5C11.1706 0.5 10.499 1.17157 10.499 2C10.499 2.82843 11.1706 3.5 11.999 3.5Z" fill="currentColor"></path>
                                     </svg>
                                 </button>
-
+                                
+                                {% if create.status == 'BUY' %}
                                 <div class="share-btn-setting dropdown-menu dropdown-menu-end">
-                                    <button type="button" class="btn-setting-text share-text" data-bs-toggle="modal" data-bs-target="#shareModal">
+                                    <a href="{% url 'edit-nft' create.slug %}" class="btn-setting-text share-text">
                                         Edit
-                                    </button>
-                                    <button type="button" class="btn-setting-text report-text" data-bs-toggle="modal" data-bs-target="#reportModal">
+                                    </a>
+                                    <br>
+                                    <a href="{% url 'delete-nft' create.slug %}" class="btn-setting-text share-text">
                                         Delete
-                                    </button>
+                                    </a>
                                 </div>
+                                {% else %}
+
+                                    
+                                {% endif %}
+                                    
 
                             </div>
                         </div>
-                        <a href="{{create.get_absolute_url}}"><span class="product-name">{{create.name|capfirst}}</span></a>
-                        <span class="latest-bid text-secondary">{{create.nft_type|upper}}</span>
+                        <a href="{{create.get_absolute_url}}"><span class="product-name">{{create.name|upper}}</span></a>
+                        <!-- <span class="latest-bid text-secondary">{{create.nft_type|upper}}</span> -->
                         <div class="bid-react-area">
                             <div class="last-bid">{{create.item_price}} ETH</div>
-                            <!-- <div class="react-area">
+                            <div class="react-area">
                                 <svg viewBox="0 0 17 16" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN kBvkOu">
                                     <path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path>
                                 </svg>
-                                <span class="number">532</span>
-                            </div> -->
+                                <!-- <span class="number">532</span> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -225,16 +289,38 @@
                     <div class="product-style-one no-overlay with-placeBid">
                         <div class="card-thumbnail">
                             <a href="{{mine.get_absolute_url}}">
-                                <img src="{{mine.upload_nft.urrl}}" alt="{{mine.nft_upload}}">
+                                {% if mine.nft_type == 'art' %}
+                                    <img src="{{mine.upload_nft.url}}" alt="">
+                                    {% elif mine.nft_type == 'video' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
+                                    {% elif mine.nft_type == 'music' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-02.jpg' %}" alt="">
+                                    {% elif nft.nft_type == 'trading-cards/collectible' %}
+                                    <img src="{{mine.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif mine.nft_type == 'text' %}
+                                    <img src="{{mine.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif mine.nft_type == 'memes' %}
+                                    <img src="{{mine.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif mine.nft_type == 'domain-name' %}
+                                    <img src="{{mine.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif mine.nft_type == 'virtual-style' %}
+                                    <img src="{{mine.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif mine.nft_type == 'pdf' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    {% else %}
+                                     <p>file format is not supported</p>   
+                                    {% endif %}
+                                <!-- <img src="{{mine.upload_nft.url}}" alt="{{mine.nft_upload}}"> -->
                             </a>
                             <a href="{{mine.get_absolute_url}}" class="btn btn-primary">Place Bid</a>
                         </div>
                         <div class="product-share-wrapper">
                             <div class="profile-share">
-                                <a href="javascript:void(0)" class="avatar" data-tooltip="Sadikur Ali"><img src="/static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
+                                <span class="text-danger">{{mine.nft_type|upper}}</span>
+                                <!-- <a href="javascript:void(0)" class="avatar" data-tooltip="Sadikur Ali"><img src="/static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
                                 <a href="javascript:void(0)" class="avatar" data-tooltip="Ali"><img src="/static/assets/images/client/client-3.png" alt="Nft_Profile"></a>
                                 <a href="javascript:void(0)" class="avatar" data-tooltip="Sadikur"><img src="/static/assets/images/client/client-4.png" alt="Nft_Profile"></a>
-                                <a class="more-author-text" href="#">9+ Place Bit.</a>
+                                <a class="more-author-text" href="#">9+ Place Bit.</a> -->
                             </div>
                             <div class="share-btn share-btn-activation dropdown">
                                 <button class="icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -244,20 +330,21 @@
                                 </button>
 
                                 <div class="share-btn-setting dropdown-menu dropdown-menu-end">
-                                    <button type="button" class="btn-setting-text share-text" data-bs-toggle="modal" data-bs-target="#shareModal">
-                                        Share
-                                    </button>
-                                    <button type="button" class="btn-setting-text report-text" data-bs-toggle="modal" data-bs-target="#reportModal">
-                                        Report
-                                    </button>
+                                    <a href="{% url 'edit-nft' mine.slug %}" class="btn-setting-text share-text" data-bs-toggle="modal" data-bs-target="#shareModal">
+                                        Edit
+                                    </a>
+                                    <br>
+                                    <a href="{% url 'delete-nft' mine.slug %}" class="btn-setting-text report-text" data-bs-toggle="modal" data-bs-target="#reportModal">
+                                        Delete
+                                    </a>
                                 </div>
 
                             </div>
                         </div>
-                        <a href="{{mine.get_absolute_url}}"><span class="product-name">BadBo66</span></a>
+                        <a href="{{mine.get_absolute_url}}"><span class="product-name">{{mine.name|capfirst}}</span></a>
                         <span class="latest-bid">Highest bid 6/20</span>
                         <div class="bid-react-area">
-                            <div class="last-bid">{{mine.item_pice}} ETH</div>
+                            <div class="last-bid">{{mine.item_price}} ETH</div>
                             <!-- <div class="react-area">
                                 <svg viewBox="0 0 17 16" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN kBvkOu">
                                     <path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path>
@@ -271,6 +358,42 @@
                 {% empty %}
                 <div class="text-center">
                     <h4>No NFTs purchased yet</h4>
+                </div>
+                    
+                {% endfor %}
+                    
+                <!-- end single product -->
+
+            </div>
+            <div class="tab-pane row g-5 d-flex fade" id="nav-collection" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <!-- start collection product -->
+                
+                {% for collection in my_collections %}
+                <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12 sal-animate">
+                    <a href="{% url 'collections' collection.slug %}" class="rn-collection-inner-one">
+                        <div class="collection-wrapper">
+                            <div class="collection-big-thumbnail">
+                                <img src="{{collection.banner_image.url}}" alt="Nft_Profile">
+                            </div>
+                            <div class="collenction-small-thumbnail">
+                                <img src="{{collection.banner_image.url}}" alt="Nft_Profile">
+                                <img src="{{request.user.cover_photo.url}}" alt="Nft_Profile">
+                                <img src="{{collection.featured_image.url}}" alt="Nft_Profile">
+                            </div>
+                            <div class="collection-profile">
+                                <img src="{{request.user.profile_pic.url}}" alt="{{request.user.profile_pic}}">
+                            </div>
+                            <div class="collection-deg">
+                                <h6 class="title">{{collection.name|upper}} - Collection</h6>
+                                <span class="items">{{collection_items}}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                {% empty %}
+                <div class="text-center">
+                    <h4>No Collections yet</h4>
                 </div>
                     
                 {% endfor %}

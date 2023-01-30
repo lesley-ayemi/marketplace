@@ -17,7 +17,7 @@ class User(AbstractUser):
     cover_photo = CloudinaryField('image', folder = "/cover-photo/", default="https://res.cloudinary.com/dbbfeegje/image/upload/v1673299668/cld-sample-2.jpg")
     
 
-class MoreDetails(models.Model):
+class MoreDetails(TimeStampedModel):
     class Genders(models.TextChoices):
         Male = 'male'
         Woman = 'woman'
@@ -41,10 +41,10 @@ class MoreDetails(models.Model):
     
     # post_save.connect(create_more_details, sender=User)
     
-class UserWallet(models.Model):
+class UserWallet(TimeStampedModel):
     user_wallet = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True, related_name='user_wallet')
     wallet_name = models.CharField(max_length=200)
-    wallet_address = models.CharField(max_length=255)
+    wallet_address = models.TextField()
     
     
 class UserTransactions(TimeStampedModel):
@@ -64,7 +64,7 @@ class UserTransactions(TimeStampedModel):
     t_status = models.CharField(max_length=10, choices=TRANSACTION_STATUS, default='pending')
     
     
-class WithdrawalGasFee(models.Model):
+class WithdrawalGasFee(TimeStampedModel):
     select_transaction = models.ForeignKey(UserTransactions, on_delete=models.DO_NOTHING, related_name='withdrawal_fee')
     withdrawal_charges = models.FloatField(default=0.1018)
     paid = models.BooleanField(default=False)

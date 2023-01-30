@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block slider %}
+<div class="rn-breadcrumb-inner ptb--30">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <h5 class="title text-center text-md-start">Delete Wallet</h5>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-list">
+                    <li class="item"><a href="{% url 'users' %}">My Profile</a></li>
+                    <li class="separator"><i class="feather-chevron-right"></i></li>
+                    <li class="item current">Delete {{wallet.wallet_name}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock slider %}
+    
+
+{% block content %}
+<div class="create-area rn-section-gapTop">
+    <div style="" class="container d-flex justify-content-center">
+        <div style="" class="row g-5">
+            <form style="" action="{% url 'delete-wallet' wallet.id %}" method="post" class="row" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-wrapper-one col-lg-12" id="reportModal" tabindex="-1" aria-hidden="true">
+                    <p>Are you sure you want to delete <strong class="text-white">{{wallet.wallet_name|upper}}-wallet?</strong> </p>
+                    
+                    <div class="report-form-box">
+                        <!-- <h6 class="title">Message</h6>
+                        <textarea name="message" placeholder="Write reason"></textarea> -->
+                        <div class="report-button">
+                            <button type="submit" class="btn btn-danger mr--10 w-auto">Delete</button>
+                            <a href="{% url 'users' %}" class="btn btn-primary-alta w-auto">Back to Dashboard</a>
+                        </div>
+                    </div>
+
+                    
+                    
+                </div>
+
+
+                
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+    

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block slider %}
+<div class="rn-breadcrumb-inner ptb--30">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <h5 class="title text-center text-md-start">Deposit</h5>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-list">
+                    <li class="item"><a href="{% url 'users' %}">My Profile</a></li>
+                    <li class="separator"><i class="feather-chevron-right"></i></li>
+                    <li class="item current">deposit {{wallet.coin_name}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock slider %}
+    
+
+{% block content %}
+<div class="create-area rn-section-gapTop">
+    <div style="" class="container d-flex justify-content-center">
+        <div style="" class="row g-5">
+            <form style="" action="{% url 'fund-account-details' wallet.coin_name %}" method="post" class="row" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-wrapper-one col-lg-12" id="reportModal" tabindex="-1" aria-hidden="true">
+                    {% include 'partials/messages.html' %}
+                    <p class="text-center">Deposit into <strong class="text-white">{{wallet.coin_name|upper}}</strong> </p>
+                    <div class="mb-3">
+                        <h6 class="title">Wallet Address</h6>
+                        
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="walletAddy" placeholder="Wallet address" value="{{wallet.coin_address}}">
+                            <a type="button" onclick="myFunction()" class="input-group-text" id="basic-addon2">Click to copy</a>
+                          </div>
+                        
+                    </div>
+                    <div class="card-thumbnail text-center">
+                        <img src="{{wallet.coin_qr_code.url}}" width="200" alt="">
+
+                    </div>
+                    <!-- <div class="cs-bid_input_group">
+                        <input type="text" class="cs-bid_value" id="walletAddy" value="{{wallet.coin_address}}">
+                        <button onclick="myFunction()" type="button" class="cs-btn cs-style1 cs-bid_quantity"><span>Copy</span></button>
+                       
+                    </div> -->
+                    
+                    
+
+                    <div class="report-form-box">
+                        <h6 class="title">Amount</h6>
+                        <span class="text-danger">Make sure amount deposit matches the amount you insert</span>
+                        <input type="number" name="amount" placeholder="insert amount deposited" class="mb-4 mt-4">
+                        <div class="report-button">
+                            <button type="submit" class="btn btn-danger mr--10 w-auto">Deposit</button>
+                            <a href="{% url 'users' %}" class="btn btn-primary-alta w-auto">Back to Dashboard</a>
+                        </div>
+                    </div>
+
+                    
+                    
+                </div>
+
+
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+      // Get the text field
+      var copyText = document.getElementById("walletAddy");
+    
+      // Select the text field
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+    
+       // Copy the text inside the text field
+      navigator.clipboard.writeText(copyText.value);
+    
+      // Alert the copied text
+      alert("Copied the text: " + copyText.value);
+    } 
+  </script>
+{% endblock content %}
+    
