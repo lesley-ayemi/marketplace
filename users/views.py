@@ -12,6 +12,8 @@ from django.shortcuts import HttpResponseRedirect, get_object_or_404, redirect, 
 from django.contrib.auth.hashers import check_password
 from django.db.models import Count
 from django.db.models import Q
+from django.db.models import Avg, Max, Min, Sum, Value as V
+from django.db.models.functions import Coalesce
 # Create your views here.
 
 """Dashboard"""
@@ -25,11 +27,15 @@ class UsersDashboard(TemplateView):
         # TODO: fix count for collection items 
         collection_items = CreateNftModel.objects.filter(Q(collection=my_collections) and Q(creator_id=self.request.user.uuid)).count()
         # collection_items = CreateNftModel.objects.filter(collection_id__user_collection_id=self.request.user.uuid).count()
+        unminted = CreateNftModel.objects.filter(Q(creator=request.user), Q(minted=False)).aggregate(Sum('gas_fee', default=0))
+        payments = PaymentMethod.objects.filter(wallet_type='minting', enable=True).order_by('-created')
         context = {
             'created':created,
             'owned':owned,
             'sales':sales,
             'my_collections':my_collections,
+            'unminted':unminted,
+            'payments':payments,
         }
         return render(request, self.template_name, context)
     
@@ -420,7 +426,8 @@ class FundAccount(TemplateView):
     template_name = 'users/deposits/add.html'
     def get(self, request):
         wallets = PaymentMethod.objects.filter(wallet_type='deposit', enable=True)
-        return render(request, self.template_name, {'wallets':wallets})
+        transactions = UserTransactions.objects.filter(t_type='deposit', user_id=self.request.user.uuid)
+        return render(request, self.template_name, {'wallets':wallets, 'transactions':transactions})
     
     
 class FundAccountDetail(TemplateView):
@@ -431,18 +438,20 @@ class FundAccountDetail(TemplateView):
     
     def post(self, request, name):
         amount = request.POST['amount']
+        upload_proof = request.FILES.get('upload_proof')
         wallet = get_object_or_404(PaymentMethod, coin_name=name)
         user = get_object_or_404(User, uuid=self.request.user.uuid)
         
         if amount:
-            if amount == 0:
+            if float(amount) > 0:
                 if user:
                     UserTransactions.objects.create(
                         user=user,
-                        amount=amount,
+                        amount=float(amount),
                         wallet_type=wallet,
                         t_type='deposit',
-                        t_staus='pending',
+                        t_status='pending',
+                        upload_proof=upload_proof,
                     ).save()
                     messages.success(request, 'Deposit successful and under review')
                     return redirect(request.META.get('HTTP_REFERER'))
@@ -454,4 +463,45 @@ class FundAccountDetail(TemplateView):
                 return redirect(request.META.get('HTTP_REFERER'))
         else:
             messages.error(request, 'amount cannot left empty')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        
+class WithdrawAccount(TemplateView):
+    template_name = 'users/withdrawals/request.html'
+    def get(self, request):
+        u_wallets = UserWallet.objects.filter(user_wallet_id=self.request.user.uuid)
+        transactions = UserTransactions.objects.filter(t_type='withdrawal', user_id=self.request.user.uuid)
+        return render(request, self.template_name, {'transactions':transactions, 'u_wallets':u_wallets})
+    
+    def post(self, request):
+        amount = request.POST['amount']
+        wallet_name = request.POST.get('wallet_name')
+        my_wallet = get_object_or_404(UserWallet, id=wallet_name)
+        # my_wallet = UserWallet.objects.filter(id=wallet_name)
+        user = get_object_or_404(User, uuid=self.request.user.uuid)
+        
+        if my_wallet:
+            if amount:
+                if float(amount) <= user.balance:
+                    if float(amount) != 0:
+                        UserTransactions.objects.create(
+                            user=user,
+                            amount=float(amount),
+                            t_type='withdrawal',
+                            t_status='pending',
+                            w_wallet=my_wallet,
+                        ).save()
+                        messages.success(request, 'Withdrawal in queue and pending')
+                        return redirect(request.META.get('HTTP_REFERER'))
+                    else:
+                        messages.error(request, 'Zero cannot be withdrawn')
+                        return redirect(request.META.get('HTTP_REFERER'))
+                else:
+                    messages.error(request, 'You amount cannot be greater than your balance')
+                    return redirect(request.META.get('HTTP_REFERER'))
+            else:
+                messages.error(request, 'Amount cannot be left empty')
+                return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.error(request, 'select wallet for withdrawal')
             return redirect(request.META.get('HTTP_REFERER'))

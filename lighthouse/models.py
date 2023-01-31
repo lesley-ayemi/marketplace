@@ -12,3 +12,6 @@ class PaymentMethod(TimeStampedModel):
     coin_network = models.CharField(max_length=300, blank=True, null=True, default='')
     wallet_type = models.CharField(max_length=30, choices=PaymentType.choices, default='deposit')
     enable = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return self.coin_name

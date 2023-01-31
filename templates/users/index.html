@@ -26,21 +26,22 @@
                         <div class="rn-author-info-content">
                             <h4 class="title">{{request.user.get_full_name}}</h4>
                             <a href="javascript:void(0)" class="social-follw">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-                                <span class="user-name">{{request.user.username}}</span>
+                                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg> -->
+                                <span class="user-name">@{{request.user.username}}</span>
+                                <span class="user-name px-2">ETH: {{request.user.balance}}</span>
                             </a>
                             <div class="follow-area">
                                 <div class="follow followers">
-                                    <span>{{created.count}} <a href="#" class="color-body">Total NFTs</a></span>
+                                    <span>{{created.count}} <a href="javascript:void(0)" class="color-body">Total NFTs</a></span>
                                 </div>
                                 <div class="follow following">
-                                    <span>{{owned.count}} <a href="#" class="color-body">Puchased NFTs</a></span>
+                                    <span>{{owned.count}} <a href="javascript:void(0)" class="color-body">Puchased NFTs</a></span>
                                 </div>
                             </div>
                             <div class="author-button-area">
-                                <a href="{% url 'create-nft' %}" class="btn at-follw follow-button"> Upload NFT</a>
+                                <a href="{% url 'create-nft' %}" class="btn at-follw follow-button"> Create NFT</a>
                                 <a href="{% url 'create-collection' %}" class="btn at-follw follow-button"> Create Collection</a>
-                                <span class="btn at-follw share-button" data-bs-toggle="modal" data-bs-target="#shareModal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg></span>
+                                <!-- <span class="btn at-follw share-button" data-bs-toggle="modal" data-bs-target="#shareModal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg></span> -->
                                 <div class="count at-follw">
                                     <div class="share-btn share-btn-activation dropdown">
                                         <button class="icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,7 +58,7 @@
                                                 <a href="{% url 'fund-account' %}">Fund Account</a>
                                             </button>
                                             <button type="button" class="btn-setting-text report-text">
-                                                Request Withdrawal
+                                                <a href="{% url 'withdraw-funds' %}">Request Withdrawal</a>
                                             </button>
                                         </div>
                                     </div>
@@ -89,7 +90,14 @@
                             <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Created</button>
                             <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Owned</button>
                             <button class="nav-link" id="nav-contact-collection" data-bs-toggle="tab" data-bs-target="#nav-collection" type="button" role="tab" aria-controls="nav-collection" aria-selected="false">Collections</button>
-                            <!-- <button class="nav-link" id="nav-liked-tab" data-bs-toggle="tab" data-bs-target="#nav-liked" type="button" role="tab" aria-controls="nav-liked" aria-selected="false">Liked</button> -->
+                            
+                            
+                            {% if unminted.gas_fee__sum == 0 %}
+                            
+                            {% else %}
+
+                            <button class="nav-link" id="nav-contact-unminted" data-bs-toggle="tab" data-bs-target="#nav-unminted" type="button" role="tab" aria-controls="nav-unminted" aria-selected="false">Total GasFee: {{unminted.gas_fee__sum}} ETH</button>
+                            {% endif %}
                         </div>
                     </nav>
                 </div>
@@ -397,6 +405,60 @@
                 </div>
                     
                 {% endfor %}
+                    
+                <!-- end single product -->
+
+            </div>
+            <div class="tab-pane row g-5 d-flex fade" id="nav-unminted" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <!-- start collection product -->
+                <p>Select wallet to pay gas fee, once paid contact support on the live chat</p>
+                {% for payment in payments %}
+                <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="product-style-one no-overlay with-placeBid">
+                        <div class="card-thumbnail">
+                            <a onclick="myFunction()" type="button">
+                                
+                                <img src="{{payment.coin_qr_code.url}}" alt="{{payment.coin_qr_code}}">
+                            </a>
+                            <input type="text" class="form-control" id="walletAddy" placeholder="Wallet address" value="{{payment.coin_address}}" style="display: none;">
+                            <a onclick="myFunction()" type="button" class="btn btn-primary">copy address</a>
+                        </div>
+                        <div class="product-share-wrapper">
+                            <div class="profile-share">
+                                <!-- <span class="text-danger">{{payment.wallet_type|upper}}</span>
+                                <a href="javascript:void(0)" class="avatar" data-tooltip="Sadikur Ali"><img src="/static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
+                                <a href="javascript:void(0)" class="avatar" data-tooltip="Ali"><img src="/static/assets/images/client/client-3.png" alt="Nft_Profile"></a>
+                                <a href="javascript:void(0)" class="avatar" data-tooltip="Sadikur"><img src="/static/assets/images/client/client-4.png" alt="Nft_Profile"></a> -->
+                                <a class="more-author-text text-danger" href="javascript:void(0)">{{payment.coin_network|upper}}- Network</a>
+                            </div>
+                            <div class="share-btn share-btn-activation dropdown">
+                                <!-- <button class="icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <svg viewBox="0 0 14 4" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN hOiKLt">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2C3.5 2.82843 2.82843 3.5 2 3.5C1.17157 3.5 0.5 2.82843 0.5 2C0.5 1.17157 1.17157 0.5 2 0.5C2.82843 0.5 3.5 1.17157 3.5 2ZM8.5 2C8.5 2.82843 7.82843 3.5 7 3.5C6.17157 3.5 5.5 2.82843 5.5 2C5.5 1.17157 6.17157 0.5 7 0.5C7.82843 0.5 8.5 1.17157 8.5 2ZM11.999 3.5C12.8274 3.5 13.499 2.82843 13.499 2C13.499 1.17157 12.8274 0.5 11.999 0.5C11.1706 0.5 10.499 1.17157 10.499 2C10.499 2.82843 11.1706 3.5 11.999 3.5Z" fill="currentColor"></path>
+                                    </svg>
+                                </button> -->
+                            </div>
+                        </div>
+                        <a href="#"><span class="product-name text-warning">{{'Click on image to copy address'|upper}}</span></a>
+                        <!-- <span class="latest-bid text-white">{{payment.coin_address|truncatechars:30}}</span> -->
+                        <div class="bid-react-area">
+                            <div class="last-bid">{{payment.coin_name|upper}} - Wallet Address</div>
+                            <!-- <div class="react-area">
+                                <svg viewBox="0 0 17 16" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN kBvkOu">
+                                    <path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path>
+                                </svg>
+                                <span class="number">322</span>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                {% empty %}
+
+                <p>No Payment address avaliable</p>
+                    
+                {% endfor %}
+                    
                     
                 <!-- end single product -->
 
@@ -887,5 +949,21 @@
     </div>
 </div>
     
+<script>
+    function myFunction() {
+      // Get the text field
+      var copyText = document.getElementById("walletAddy");
+    
+      // Select the text field
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+    
+       // Copy the text inside the text field
+      navigator.clipboard.writeText(copyText.value);
+    
+      // Alert the copied text
+      alert("Wallet address copied: " + copyText.value);
+    } 
+  </script>
 {% endblock content %}
     
