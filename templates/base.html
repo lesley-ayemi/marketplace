@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Home Four || Nuron - NFT Marketplace Template</title>
+    <title>{{settings.DOMAIN_NAME}} - NFT Marketplace</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -126,15 +126,15 @@
                     <div class="widget-content-wrapper">
                         <div class="footer-left">
                             <div class="logo-thumbnail logo-custom-css">
-                                <a class="logo-light" href="/"><img src="/static/assets/images/logo/logo-white.png" alt="nft-logo"></a>
-                                <a class="logo-dark" href="/"><img src="/static/assets/images/logo/logo-dark.png" alt="nft-logo"></a>
+                                <a class="logo-light" href="/"><img src="/static/assets/images/logo/{{settings.SITE_LOGO}}" alt="nft-logo"></a>
+                                <a class="logo-dark" href="/"><img src="/static/assets/images/logo/{{settings.SITE_LOGO}}" alt="nft-logo"></a>
                             </div>
                             <p class="rn-footer-describe">
-                                Created with the collaboration of over 60 of the world's best Nuron Artists.
+                                Created with the collaboration of over 60 of the world's best {{settings.DOMAIN_NAME}} Artists.
                             </p>
                         </div>
                         <div class="widget-bottom mt--40 pt--40">
-                            <h6 class="title">Get The Latest Nuron Updates </h6>
+                            <h6 class="title">Get The Latest {{settings.DOMAIN_NAME}} Updates </h6>
                             <div class="input-group">
                                 <input type="text" class="form-control bg-color--2" placeholder="Your username" aria-label="Recipient's username">
                                 <div class="input-group-append">
@@ -150,7 +150,7 @@
 
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt_mobile--40">
                     <div class="footer-widget widget-quicklink">
-                        <h6 class="widget-title">Nuron</h6>
+                        <h6 class="widget-title">{{settings.DOMAIN_NAME}}</h6>
                         <ul class="footer-list-one">
                             <li class="single-list"><a href="{% url 'register' %}">Register</a></li>
                             <li class="single-list"><a href="{% url 'login' %}">Login</a></li>
@@ -231,7 +231,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="copyright-left">
-                        <span>©2022 Nuron, Inc. All rights reserved.</span>
+                        <span>©2022 {{settings.DOMAIN_NAME}}, Inc. All rights reserved.</span>
                         <ul class="privacy">
                             <li><a href="{% url 'terms-and-condition' %}">Terms</a></li>
                             <li><a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
