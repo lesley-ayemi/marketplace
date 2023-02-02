@@ -5,6 +5,8 @@ from django.urls import reverse
 from autoslug import AutoSlugField
 from autoslug.settings import slugify as default_slugify
 from cloudinary.models import CloudinaryField
+from .utils import unique_order_id_generator
+from django.db.models.signals import pre_save
 
 class CreateNftModel(TimeStampedModel):
     ALLOW_BID = (
@@ -37,6 +39,7 @@ class CreateNftModel(TimeStampedModel):
     #     ('incidental-internet-based-things', 'incidental-internet-based-things'),
     #     ('pdf', 'pdf'),
     # )
+    order_id = models.CharField(max_length=200, blank=True, null=True)
     name = models.CharField(max_length=100)
     creator = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='creator_nft', blank=True, null=True)
     # autoslugify value using custom `slugify` function
@@ -67,7 +70,12 @@ class CreateNftModel(TimeStampedModel):
     def get_absolute_url(self):
         return reverse("nft_details", kwargs={"slug": self.slug})
     
-    
+def pre_save_create_order_id(sender, instance, *args, **kwargs):
+        if not instance.order_id:
+            instance.order_id= unique_order_id_generator(instance)
+
+
+pre_save.connect(pre_save_create_order_id, sender=CreateNftModel)
     # slug = AutoSlugField()
 
     
@@ -79,7 +87,17 @@ class BidNft(models.Model):
     end_bid = models.BooleanField(default=False)
     
     def __str__(self):
-        return self.bid_item
+        return str(self.bid_item)
+    
+    # def save(self, *args, **kwargs):
+    #     try:
+    #         bid_item = CreateNftModel.objects.filter(bid='YES').get()
+            
+    #         # if self.id is None:
+    #     except Exception as e:
+    #         print (e)
+    #         super(BidNft, self).save(*args, **kwargs)
+                
     
 
 class NftCollection(TimeStampedModel):

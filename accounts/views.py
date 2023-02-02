@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.db.models import Q
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
 from django.db import transaction
 from accounts.models import User
@@ -90,3 +90,10 @@ class LoginView(TemplateView):
         else:
             messages.error(request, 'Username and password required')
             return redirect(request.META.get('HTTP_REFERER'))
+        
+        
+class LogoutView(TemplateView):
+    def get(self, request):
+        logout(request)
+        messages.info(request, 'Logged out')
+        return redirect('login')

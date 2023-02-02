@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from accounts.models import MoreDetails, User, UserTransactions, UserWallet
 from lighthouse.models import PaymentMethod
-from marketplace.models import Category, CreateNftModel, NftCollection
+from marketplace.models import BidNft, Category, CreateNftModel, NftCollection
 
 from users.forms import EditCollectionForm, EditMoreDetailsForm, EditNftForm, EditProfileForm, UploadNftForm, UserAddWalletForm
 from django.contrib import messages
@@ -14,10 +14,12 @@ from django.db.models import Count
 from django.db.models import Q
 from django.db.models import Avg, Max, Min, Sum, Value as V
 from django.db.models.functions import Coalesce
+from django.db import transaction
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 """Dashboard"""
-class UsersDashboard(TemplateView):
+class UsersDashboard(LoginRequiredMixin, TemplateView):
     template_name = 'users/index.html'
     def get(self, request):
         created = CreateNftModel.objects.filter(creator=self.request.user.uuid).order_by('-created')
@@ -41,7 +43,7 @@ class UsersDashboard(TemplateView):
     
 
 """Profile Page"""
-class EditProfile(TemplateView):
+class EditProfile(LoginRequiredMixin, TemplateView):
     ##Update for Profile Picture and cover image
     template_name = 'users/edit-profile.html'
     def get(self, request):
@@ -66,7 +68,7 @@ class EditProfile(TemplateView):
             return redirect(request.META.get('HTTP_REFERER'))
         
 """More on Profile""" 
-class UpdateDetails(TemplateView):
+class UpdateDetails(LoginRequiredMixin, TemplateView):
     def post(self, request):
         ## user model
         first_name = request.POST['first_name']
@@ -103,7 +105,7 @@ class UpdateDetails(TemplateView):
             return redirect('edit-profile')
         
 """Change Password"""
-class ChangePassword(TemplateView):
+class ChangePassword(LoginRequiredMixin, TemplateView):
     template_name = 'users/edit-profile.html'
     def get(self, request):
         return render(request, self.template_name)
@@ -136,14 +138,14 @@ class ChangePassword(TemplateView):
         
 
 """Create NFT"""
-class UploadNft(TemplateView):
+class UploadNft(LoginRequiredMixin, TemplateView):
     template_name = 'users/nft/upload.html'
     def get(self, request):
         collections = NftCollection.objects.filter(user_collection=self.request.user)
         form = UploadNftForm()
         context = {'collections':collections, 'form':form}
         return render(request, self.template_name, context)
-    
+    @transaction.atomic
     def post(self, request):
         upload_nft = request.FILES.get('upload_nft')
         name = request.POST.get('name')
@@ -161,17 +163,17 @@ class UploadNft(TemplateView):
             if nft_type:
                 if item_price:
                     CreateNftModel.objects.create(upload_nft=upload_nft, 
-                                                  name=name, 
-                                                  description=description, 
-                                                  item_price=item_price, 
-                                                  size=size, 
-                                                  properties=properties, 
-                                                  nft_type=nft_type, 
-                                                  collection_id=collection, 
-                                                  royalties=royalties,
-                                                  list_for_sale=list_for_sale,
-                                                  bid=bid,
-                                                  creator=self.request.user).save()
+                                                name=name, 
+                                                description=description, 
+                                                item_price=item_price, 
+                                                size=size, 
+                                                properties=properties, 
+                                                nft_type=nft_type, 
+                                                collection_id=collection, 
+                                                royalties=royalties,
+                                                list_for_sale=list_for_sale,
+                                                bid=bid,
+                                                creator=self.request.user).save()
                     messages.success(request, 'Art successfully uploaded')
                     return redirect('users')
                 else:
@@ -185,7 +187,7 @@ class UploadNft(TemplateView):
             return redirect(request.META.get('HTTP_REFERER'))
         
 """Edit NFT"""
-class EditNft(TemplateView):
+class EditNft(LoginRequiredMixin, TemplateView):
     template_name = 'users/nft/edit-nft.html'
     def get(self, request, slug):
         nft = get_object_or_404(CreateNftModel, slug=slug)
@@ -253,7 +255,7 @@ class EditNft(TemplateView):
         
         
 """Delete NFT"""
-class DeleteNft(TemplateView):
+class DeleteNft(LoginRequiredMixin, TemplateView):
     template_name = 'users/nft/delete-nft.html'
     def get(self, request, slug):
         nft = get_object_or_404(CreateNftModel, slug=slug)
@@ -271,7 +273,7 @@ class DeleteNft(TemplateView):
                     
                     
 """Details Page NFT"""
-class UploadNftDetail(TemplateView):
+class UploadNftDetail(LoginRequiredMixin, TemplateView):
     template_name = 'users/nft/details.html'
     def get(self, request, slug):
         # get_collection = get_object_or_404(NftCollection, name=collection)
@@ -281,7 +283,7 @@ class UploadNftDetail(TemplateView):
     
 
 """Collections"""
-class CreateCollection(TemplateView):
+class CreateCollection(LoginRequiredMixin, TemplateView):
     template_name = 'users/nft/create-collection.html'
     def get(self, request):
         categories = Category.objects.all()
@@ -338,7 +340,7 @@ class CreateCollection(TemplateView):
         
 """Edit Collections"""
 
-class EditCollection(TemplateView):
+class EditCollection(LoginRequiredMixin, TemplateView):
     template_name = 'users/nft/edit-collection.html'
     def get(self, request, slug):
         collection = get_object_or_404(NftCollection, slug=slug)
@@ -358,7 +360,7 @@ class EditCollection(TemplateView):
         
         
 """Delete Collection"""
-class DeleteCollection(TemplateView):
+class DeleteCollection(LoginRequiredMixin, TemplateView):
     template_name = 'users/nft/delete-collection.html'
     def get(self, request, slug):
         collection = get_object_or_404(NftCollection, slug=slug)
@@ -376,7 +378,7 @@ class DeleteCollection(TemplateView):
         
         
 """View Collection"""
-class ViewCollection(TemplateView):
+class ViewCollection(LoginRequiredMixin, TemplateView):
     template_name = 'users/nft/view-collection.html'
     def get(self, request, slug):
         collection = get_object_or_404(NftCollection, slug=slug)
@@ -386,7 +388,7 @@ class ViewCollection(TemplateView):
     
 """Wallet View"""
 
-class AddWallet(TemplateView):
+class AddWallet(LoginRequiredMixin, TemplateView):
     template_name = 'users/wallets/add.html'
     def get(self, request):
         form = UserAddWalletForm()
@@ -406,7 +408,7 @@ class AddWallet(TemplateView):
             return redirect(request.META.get('HTTP_REFERER'))
         
         
-class DeleteWallet(TemplateView):
+class DeleteWallet(LoginRequiredMixin, TemplateView):
     def get(self, request, id):
         wallet = get_object_or_404(UserWallet, id=id)
         return render(request, 'users/wallets/delete.html', {'wallet':wallet})
@@ -422,7 +424,7 @@ class DeleteWallet(TemplateView):
             return redirect('add-wallet')
 
 
-class FundAccount(TemplateView):
+class FundAccount(LoginRequiredMixin, TemplateView):
     template_name = 'users/deposits/add.html'
     def get(self, request):
         wallets = PaymentMethod.objects.filter(wallet_type='deposit', enable=True)
@@ -430,7 +432,7 @@ class FundAccount(TemplateView):
         return render(request, self.template_name, {'wallets':wallets, 'transactions':transactions})
     
     
-class FundAccountDetail(TemplateView):
+class FundAccountDetail(LoginRequiredMixin, TemplateView):
     template_name = 'users/deposits/add-details.html'
     def get(self, request, name):
         wallet = get_object_or_404(PaymentMethod, coin_name=name)
@@ -466,7 +468,7 @@ class FundAccountDetail(TemplateView):
             return redirect(request.META.get('HTTP_REFERER'))
         
         
-class WithdrawAccount(TemplateView):
+class WithdrawAccount(LoginRequiredMixin, TemplateView):
     template_name = 'users/withdrawals/request.html'
     def get(self, request):
         u_wallets = UserWallet.objects.filter(user_wallet_id=self.request.user.uuid)

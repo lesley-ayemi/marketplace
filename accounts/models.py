@@ -16,6 +16,9 @@ class User(AbstractUser):
     profile_pic = CloudinaryField('image', folder = "/profile-pic/", default='https://res.cloudinary.com/dbbfeegje/image/upload/v1673299668/cld-sample.jpg')
     cover_photo = CloudinaryField('image', folder = "/cover-photo/", default="https://res.cloudinary.com/dbbfeegje/image/upload/v1673299668/cld-sample-2.jpg")
     
+    def __str__(self):
+        return self.username
+    
 
 class MoreDetails(TimeStampedModel):
     class Genders(models.TextChoices):

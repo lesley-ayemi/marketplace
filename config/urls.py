@@ -22,6 +22,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from users.views import *
 from accounts.views import *
+from marketplace.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     
@@ -32,13 +33,19 @@ urlpatterns = [
     path('terms-and-condition/', TemplateView.as_view(template_name='pages/about.html'), name='terms-and-condition'),
     path('privacy-policy/', TemplateView.as_view(template_name='pages/privacy-policy.html'), name='privacy-policy'),
     path('contact-us/', TemplateView.as_view(template_name='pages/contact-us.html'), name='contact-us'),
-    path('expore/', TemplateView.as_view(template_name='pages/explore.html'), name='explore'),
-    path('explore-users/', TemplateView.as_view(template_name='pages/explore-users.html'), name='explore-users'),
+    path('explore/', ExploreNft.as_view(), name='explore'),
+    path('explore/<slug:slug>/', ExploreNftPageDetail.as_view(), name='explore-detail'),
+    path('explore/bid/<int:id>/', PlaceBid.as_view(), name='place-bid'),
+    path('explore-users/', ExploreUsers.as_view(), name='explore-users'),
+    
+    #Search Routes
+    path('search/', SearchNft.as_view(), name='search-nft'),
     
     
     # Authentication Routes
     path('login/', LoginView.as_view(), name='login'),
     path('register/', RegisterView.as_view(), name='register'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     
     
     # Users Routes

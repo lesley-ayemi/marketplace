@@ -12,15 +12,15 @@
                         <br> are now being touted as the digital answer to collectables.
                     </p>
                     <div class="button-group">
-                        <a class="btn btn-large btn-primary" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" href="#">Get Started</a>
-                        <a class="btn btn-large btn-primary-alta" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" href="create.html">Create</a>
+                        <a class="btn btn-large btn-primary" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" href="{% url 'register' %}">Get Started</a>
+                        <a class="btn btn-large btn-primary-alta" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" href="{% url 'create-nft' %}">Create</a>
                     </div>
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 order-1 order-lg-2">
                 <div class="slider slick-activation-04">
                     <div class="slider-thumbnail thumbnail-overlay">
-                        <a href="product-details.html"><img src="static/assets/images/banner/banner-04.jpg" alt="NFT_portfolio"></a>
+                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-04.jpg" alt="NFT_portfolio"></a>
                         <div class="read-wrapper">
                             <h5>Sukanli</h5>
                             <span>Bordcast</span>
@@ -28,23 +28,23 @@
                     </div>
 
                     <div class="slider-thumbnail thumbnail-overlay">
-                        <a href="product-details.html"><img src="static/assets/images/banner/banner-01.jpg" alt="NFT_portfolio"></a>
+                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-01.jpg" alt="NFT_portfolio"></a>
                         <div class="read-wrapper">
-                            <h5><a href="product-details.html">HasLivbe</a></h5>
+                            <h5><a href="javascript:void(0)">HasLivbe</a></h5>
                             <span>Md. Master</span>
                         </div>
                     </div>
 
                     <div class="slider-thumbnail thumbnail-overlay">
-                        <a href="product-details.html"><img src="static/assets/images/banner/banner-02.jpg" alt="NFT_portfolio"></a>
+                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-02.jpg" alt="NFT_portfolio"></a>
                         <div class="read-wrapper">
-                            <h5><a href="product-details.html">Ladicon Mos</a></h5>
+                            <h5><a href="javascript:void(0)">Ladicon Mos</a></h5>
                             <span>John Lee</span>
                         </div>
                     </div>
 
                     <div class="slider-thumbnail thumbnail-overlay">
-                        <a href="product-details.html"><img src="static/assets/images/banner/banner-03.jpg" alt="NFT_portfolio"></a>
+                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-03.jpg" alt="NFT_portfolio"></a>
                         <div class="read-wrapper">
                             <h5>Masters</h5>
                             <span>Keenlee</span>
@@ -59,7 +59,7 @@
 {% endblock slider %}
 
 {% block auction %}
-<div class="rn-live-bidding-area rn-section-gapTop">
+{% comment %} <div class="rn-live-bidding-area rn-section-gapTop">
     <div class="container">
         <div class="row mb--50">
             <div class="col-lg-12">
@@ -461,7 +461,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> {% endcomment %}
 {% endblock auction %}
     
 {% block explore %}
@@ -1334,7 +1334,7 @@
 {% endblock howto %}
 
 {% block top_collection %}
-<div class="rn-collection-area rn-section-gapTop">
+{% comment %} <div class="rn-collection-area rn-section-gapTop">
     <div class="container">
         <div class="row mb--50 align-items-center">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
@@ -1442,6 +1442,6 @@
             <!-- End single collention -->
         </div>
     </div>
-</div>
+</div> {% endcomment %}
 {% endblock top_collection %}
     
