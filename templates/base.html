@@ -122,7 +122,7 @@
     <div class="rn-footer-one rn-section-gap bg-color--1 mt--100 mt_md--80 mt_sm--80">
         <div class="container">
             <div class="row gx-5">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                     <div class="widget-content-wrapper">
                         <div class="footer-left">
                             <div class="logo-thumbnail logo-custom-css">
@@ -148,14 +148,14 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt_mobile--40">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt_mobile--40">
                     <div class="footer-widget widget-quicklink">
                         <h6 class="widget-title">{{settings.DOMAIN_NAME}}</h6>
                         <ul class="footer-list-one">
                             <li class="single-list"><a href="{% url 'register' %}">Register</a></li>
                             <li class="single-list"><a href="{% url 'login' %}">Login</a></li>
                             <li class="single-list"><a href="{% url 'contact-us'%}">Contact Us</a></li>
-                            <li class="single-list"><a href="{% url 'add-wallet' %}">Wallet Connect</a></li>
+                            {% comment %} <li class="single-list"><a href="{% url 'add-wallet' %}">Wallet Connect</a></li> {% endcomment %}
                             {% comment %} <li class="single-list"><a href="#">Fadeup System</a></li>
                             <li class="single-list"><a href="#">Activity Log</a></li>
                             <li class="single-list"><a href="#">System Auto Since</a></li> {% endcomment %}
@@ -163,7 +163,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt_md--40 mt_sm--40">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt_md--40 mt_sm--40">
                     <div class="footer-widget widget-information">
                         <h6 class="widget-title">Information</h6>
                         <ul class="footer-list-one">
@@ -178,7 +178,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt_md--40 mt_sm--40">
+                {% comment %} <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt_md--40 mt_sm--40">
                     <div class="footer-widget">
                         <h6 class="widget-title">Recent Sold Out</h6>
                         <ul class="footer-recent-post">
@@ -220,7 +220,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> {% endcomment %}
             </div>
         </div>
     </div>
@@ -231,7 +231,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="copyright-left">
-                        <span>©2022 {{settings.DOMAIN_NAME}}, Inc. All rights reserved.</span>
+                        <span>©2023 {{settings.DOMAIN_NAME}}, Inc. All rights reserved.</span>
                         <ul class="privacy">
                             <li><a href="{% url 'terms-and-condition' %}">Terms</a></li>
                             <li><a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
@@ -241,11 +241,11 @@
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="copyright-right">
                         <ul class="social-copyright">
-                            <li><a href="#"><i data-feather="facebook"></i></a></li>
+                            {% comment %} <li><a href="#"><i data-feather="facebook"></i></a></li> {% endcomment %}
                             <li><a href="#"><i data-feather="twitter"></i></a></li>
                             <li><a href="#"><i data-feather="instagram"></i></a></li>
-                            <li><a href="#"><i data-feather="linkedin"></i></a></li>
-                            <li><a href="#"><i data-feather="mail"></i></a></li>
+                            {% comment %} <li><a href="#"><i data-feather="linkedin"></i></a></li>
+                            <li><a href="#"><i data-feather="mail"></i></a></li> {% endcomment %}
                         </ul>
                     </div>
                 </div>
