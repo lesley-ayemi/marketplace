@@ -9,7 +9,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-12">
                 <ul class="breadcrumb-list">
-                    <li class="item"><a href="index.html">Home</a></li>
+                    <li class="item"><a href="/">Home</a></li>
                     <li class="separator"><i class="feather-chevron-right"></i></li>
                     <li class="item current">Support Center</li>
                 </ul>
@@ -20,90 +20,139 @@
 {% endblock slider %}
     
 {% block content %}
-<div class="rn-service-area rn-section-gapTop">
+<div class="rn-support-area rn-section-gapTop">
     <div class="container">
-        <div class="row">
-            <div class="col-12 mb--50">
-                <h3 class="title sal-animate" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">Create and sell your NFTs</h3>
-            </div>
-        </div>
-        <div class="row g-5">
-            <!-- start single service -->
-            <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="rn-service-one color-shape-7 sal-animate">
-                    <div class="inner">
-                        <div class="icon">
-                            <img src="assets/images/icons/shape-7.png" alt="Shape">
-                        </div>
-                        <div class="subtitle">Step-01</div>
+        <div class="row g-6">
+            <!-- <div class="col-lg-6">
+                <div class="rn-support-read">
+                    <div class="read-card">
+                        <h4>How to start as a seller?</h4>
                         <div class="content">
-                            <h4 class="title"><a href="#">Set up your wallet</a></h4>
-                            <p class="description">Powerful features and inclusions, which makes {{settings.DOMAIN_NAME}} standout,
-                                easily customizable and scalable.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
+                            <p>All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as
+                                necessary, making this the first true generator on the Internet.</p>
+                            <p>Various versions have evolved over the years, sometimes by accident, sometimes on purpose
+                                (injected humour and the like).</p>
                         </div>
                     </div>
-                    <a class="over-link" href="#"></a>
-                </div>
-            </div>
-            <!-- End single service -->
-            <!-- start single service -->
-            <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                <div data-sal="slide-up" data-sal-delay="200" data-sal-duration="800" class="rn-service-one color-shape-1 sal-animate">
-                    <div class="inner">
-                        <div class="icon">
-                            <img src="assets/images/icons/shape-1.png" alt="Shape">
-                        </div>
-                        <div class="subtitle">Step-02</div>
+                    <div class="read-card">
+                        <h4>What happens when there are no orders?</h4>
                         <div class="content">
-                            <h4 class="title"><a href="#">Create your collection</a></h4>
-                            <p class="description">A great collection of beautiful website templates for your need.
-                                Choose the best suitable template.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
+                            <p>All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as
+                                necessary, making this the first true generator on the Internet.</p>
+                            <p>Various versions have evolved over the years, sometimes by accident, sometimes on purpose
+                                (injected humour and the like).</p>
                         </div>
                     </div>
-                    <a class="over-link" href="#"></a>
-                </div>
-            </div>
-            <!-- End single service -->
-            <!-- start single service -->
-            <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                <div data-sal="slide-up" data-sal-delay="250" data-sal-duration="800" class="rn-service-one color-shape-5 sal-animate">
-                    <div class="inner">
-                        <div class="icon">
-                            <img src="assets/images/icons/shape-5.png" alt="Shape">
-                        </div>
-                        <div class="subtitle">Step-03</div>
+                    <div class="read-card">
+                        <h4>Why are you getting rejected shares?</h4>
                         <div class="content">
-                            <h4 class="title"><a href="#">Add your NFT's</a></h4>
-                            <p class="description">We've made the template fully responsive, so it looks great on
-                                all devices: desktop, tablets and.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
+                            <p>All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as
+                                necessary, making this the first true generator on the Internet.
+                                Various versions have evolved over the years, sometimes by accident, sometimes on purpose
+                                (injected humour and the like).</p>
                         </div>
                     </div>
-                    <a class="over-link" href="#"></a>
+                    <a href="create.html" class="btn btn-primary mr--15">Create</a>
+                    <a href="contact.html" class="btn btn-primary-alta">Contact Us</a>
                 </div>
-            </div>
-            <!-- End single service -->
-            <!-- start single service -->
-            <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                <div data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" class="rn-service-one color-shape-6 sal-animate">
-                    <div class="inner">
-                        <div class="icon">
-                            <img src="assets/images/icons/shape-6.png" alt="Shape">
+            </div> -->
+            <div class="col-lg-12">
+                <div class="support-accordion">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    What is {{settings.DOMAIN_NAME}}?
+                                    <i class="feather-chevron-up"></i>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{settings.DOMAIN_NAME}} is a marketplace for buying, selling, and discovering unique digital assets, such as non-fungible tokens (NFTs) such as collectibles, art, and virtual real estate.
+                                </div>
+                            </div>
                         </div>
-                        <div class="subtitle">Step-04</div>
-                        <div class="content">
-                            <h4 class="title"><a href="#">Sell Your NFT's</a></h4>
-                            <p class="description">I throw myself down among the tall grass by the stream as I
-                                lie close to the earth NFT's.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    What are NFTs?
+                                    <i class="feather-chevron-up"></i>
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    NFTs are digital assets that represent ownership of a unique item or piece of content, such as a piece of artwork or a collectible. They are stored on a blockchain and cannot be duplicated or divided.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    How does {{settings.DOMAIN_NAME}} work?
+                                    <i class="feather-chevron-up"></i>
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{settings.DOMAIN_NAME}} allows users to create and list their own NFTs for sale, or browse and purchase NFTs from other creators. Users can also discover and explore the growing library of NFTs available on the platform.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    What types of NFTs can I find on {{settings.DOMAIN_NAME}}?
+                                    <i class="feather-chevron-up"></i>
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{settings.DOMAIN_NAME}} has a wide range of NFTs, including but not limited to: art, collectibles, virtual real estate, gaming items, and more.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    How do I purchase NFTs on {{settings.DOMAIN_NAME}}?
+                                    <i class="feather-chevron-up"></i>
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    To purchase NFTs on {{settings.DOMAIN_NAME}}, users need to connect their wallet, such as MetaMask, to the platform. Once connected, they can browse and purchase NFTs using cryptocurrency, such as Ethereum.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    Can I sell my own NFTs on {{settings.DOMAIN_NAME}}?
+                                    <i class="feather-chevron-up"></i>
+                                </button>
+                            </h2>
+                            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    Yes, {{settings.DOMAIN_NAME}} allows users to create and list their own NFTs for sale to the community.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSeven">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSix">
+                                    How secure is {{settings.DOMAIN_NAME}} for buying and selling NFTs?
+                                    <i class="feather-chevron-up"></i>
+                                </button>
+                            </h2>
+                            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{settings.DOMAIN_NAME}} uses blockchain technology to securely store NFTs and to ensure that transactions are secure and transparent. However, as with any platform that involves the exchange of valuable assets, it is important to exercise caution and to do proper research before making a purchase.
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <a class="over-link" href="#"></a>
                 </div>
             </div>
-            <!-- End single service -->
         </div>
     </div>
 </div>
