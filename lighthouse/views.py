@@ -11,15 +11,23 @@ from marketplace.models import Category, CreateNftModel
 class LighthouseDashboard(TemplateView):
     template_name = 'lighthouse/dashboard.html'
     def get(self, request, *args):
-        return render(request, self.template_name, *args)
+        if request.user.is_authenticated and request.user.is_admin == True:
+            return render(request, self.template_name, *args)
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
     
 class Categories(TemplateView):
     template_name = 'lighthouse/category/all.html'
     def get(self, request, *args):
-        categories = Category.objects.all()
-        form = CategoryForm()
-        return render(request, self.template_name, {'categories': categories, 'form': form})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            categories = Category.objects.all()
+            form = CategoryForm()
+            return render(request, self.template_name, {'categories': categories, 'form': form})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
     def post(self, request):
         form = CategoryForm(request.POST or None)
@@ -36,8 +44,12 @@ class Categories(TemplateView):
 class CreateUser(TemplateView):
     template_name = 'lighthouse/users/create.html'
     def get(self, request):
-        form = CreateUserForm()
-        return render(request, self.template_name, {'form': form})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            form = CreateUserForm()
+            return render(request, self.template_name, {'form': form})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
     def post(self, request):
         form = CreateUserForm(request.POST or None, request.FILES or None)
@@ -56,15 +68,23 @@ class CreateUser(TemplateView):
 class AllUsers(TemplateView):
     template_name = 'lighthouse/users/all.html'
     def get(self, request):
-        all_users = User.objects.filter(is_user=True).order_by('-date_joined')
-        return render(request, self.template_name, {'all_users': all_users})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            all_users = User.objects.filter(is_user=True).order_by('-date_joined')
+            return render(request, self.template_name, {'all_users': all_users})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
 
 class AllWalletUsers(TemplateView):
     template_name = 'lighthouse/users/wallets.html'
     def get(self, request, *args, **kwargs):
-        wallets = UserWallet.objects.all()
-        return render(request, self.template_name, {'wallets':wallets})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            wallets = UserWallet.objects.all()
+            return render(request, self.template_name, {'wallets':wallets})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
     
     
@@ -72,15 +92,23 @@ class AllWalletUsers(TemplateView):
 class AllNft(TemplateView):
     template_name = 'lighthouse/nft/all.html'
     def get(self, request, *args, **kwargs):
-        nfts = CreateNftModel.objects.all().order_by('name')
-        return render(request, self.template_name, {'nfts':nfts})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            nfts = CreateNftModel.objects.all().order_by('name')
+            return render(request, self.template_name, {'nfts':nfts})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
     
 class CreateNft(TemplateView):
     template_name = 'lighthouse/nft/create-nft.html'
     def get(self, request, *args, **kwargs):
-        form = CreateNftForm()
-        return render(request, self.template_name, {'form':form})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            form = CreateNftForm()
+            return render(request, self.template_name, {'form':form})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
     def post(self, request, *args, **kwargs):
         form = CreateNftForm(request.POST or None, request.FILES or None)
@@ -96,46 +124,74 @@ class CreateNft(TemplateView):
 class UnmintedNft(TemplateView):
     template_name = 'lighthouse/nft/unminted.html'
     def get(self, request, *args, **kwargs):
-        unminted = CreateNftModel.objects.filter(minted=False).order_by('-created')
-        return render(request, self.template_name, {'unminted':unminted})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            unminted = CreateNftModel.objects.filter(minted=False).order_by('-created')
+            return render(request, self.template_name, {'unminted':unminted})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
 
 class ApprovedDeposits(TemplateView):
     template_name = 'lighthouse/deposits/approved.html'
     def get(self, request, *args, **kwargs):
-        deposits = UserTransactions.objects.filter(t_type='deposit', t_status='approved').order_by('-created')
-        return render(request, self.template_name, {'deposits':deposits})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            deposits = UserTransactions.objects.filter(t_type='deposit', t_status='approved').order_by('-created')
+            return render(request, self.template_name, {'deposits':deposits})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
 class PendingDeposits(TemplateView):
     template_name = 'lighthouse/deposits/pending.html'
     def get(self, request, *args, **kwargs):
-        deposits = UserTransactions.objects.filter(t_type='deposit', t_status='pending').order_by('-created')
-        return render(request, self.template_name, {'deposits':deposits})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            deposits = UserTransactions.objects.filter(t_type='deposit', t_status='pending').order_by('-created')
+            return render(request, self.template_name, {'deposits':deposits})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
 class DeclinedDeposits(TemplateView):
     template_name = 'lighthouse/deposits/declined.html'
     def get(self, request, *args, **kwargs):
-        deposits = UserTransactions.objects.filter(t_type='deposit', t_status='declined').order_by('-created')
-        return render(request, self.template_name, {'deposits':deposits})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            deposits = UserTransactions.objects.filter(t_type='deposit', t_status='declined').order_by('-created')
+            return render(request, self.template_name, {'deposits':deposits})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
     
 class ApprovedWithdrawals(TemplateView):
     template_name = 'lighthouse/withdrawals/approved.html'
     def get(self, request, *args, **kwargs):
-        withdrawals = UserTransactions.objects.filter(t_type='withdrawal', t_status='approved').order_by('-created')
-        return render(request, self.template_name, {'withdrawals':withdrawals})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            withdrawals = UserTransactions.objects.filter(t_type='withdrawal', t_status='approved').order_by('-created')
+            return render(request, self.template_name, {'withdrawals':withdrawals})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
     
 class PendingWithdrawals(TemplateView):
     template_name = 'lighthouse/withdrawals/pending.html'
     def get(self, request, *args, **kwargs):
-        withdrawals = UserTransactions.objects.filter(t_type='withdrawal', t_status='pending').order_by('-created')
-        return render(request, self.template_name, {'withdrawals':withdrawals})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            withdrawals = UserTransactions.objects.filter(t_type='withdrawal', t_status='pending').order_by('-created')
+            return render(request, self.template_name, {'withdrawals':withdrawals})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
 class DeclinedWithdrawals(TemplateView):
     template_name = 'lighthouse/withdrawals/declined.html'
     def get(self, request, *args, **kwargs):
-        withdrawals = UserTransactions.objects.filter(t_type='withdrawal', t_status='declined').order_by('-created')
-        return render(request, self.template_name, {'withdrawals':withdrawals})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            withdrawals = UserTransactions.objects.filter(t_type='withdrawal', t_status='declined').order_by('-created')
+            return render(request, self.template_name, {'withdrawals':withdrawals})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
     
     
@@ -143,9 +199,13 @@ class DeclinedWithdrawals(TemplateView):
 class AddPaymentMethod(TemplateView):
     template_name = 'lighthouse/payment-methods/add.html'
     def get(self, request):
-        form = AddPaymentMethodForm()
-        payments = PaymentMethod.objects.all().order_by('coin_name')
-        return render(request, self.template_name, {'form':form, 'payments':payments})
+        if request.user.is_authenticated and request.user.is_admin == True:
+            form = AddPaymentMethodForm()
+            payments = PaymentMethod.objects.all().order_by('coin_name')
+            return render(request, self.template_name, {'form':form, 'payments':payments})
+        else:
+            messages.error(request, 'You do not have permission to access this page')
+            return redirect('login')
     
     def post(self, request):
         form = AddPaymentMethodForm(request.POST or None, request.FILES or None)
@@ -156,3 +216,5 @@ class AddPaymentMethod(TemplateView):
         else:
             messages.error(request, 'Payment method not added successfully')
             return redirect(request.META.get('HTTP_REFERER'))
+        
+    
