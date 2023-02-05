@@ -170,6 +170,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django_settings_export.settings_export',
 ]
 SITE_LOGO = os.environ['SITE_LOGO']
+SITE_LOGO_DARK = os.environ['SITE_LOGO_DARK']
 DOMAIN_NAME = os.environ['DOMAIN_NAME']
 SITE_EMAIL = os.environ['SITE_EMAIL']
 SITE_NUMBER = os.environ['SITE_NUMBER']
@@ -177,6 +178,7 @@ SITE_ADDRESS = os.environ['SITE_ADDRESS']
 
 SETTINGS_EXPORT = [
     'SITE_LOGO',
+    'SITE_LOGO_DARK',
     'DOMAIN_NAME',
     'SITE_EMAIL',
     'SITE_NUMBER',
@@ -193,6 +195,15 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = '127.0.0.1'
-EMAIL_PORT = 1025
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_PORT = os.environ['EMAIL_PORT']
+EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
+# EMAIL_USE_SSL = os.environ['EMAIL_USE_SSL']
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = '127.0.0.1'
+# EMAIL_PORT = 1025
