@@ -1,0 +1,45 @@
+{% extends 'lighthouse_base.html' %}
+{% load crispy_forms_tags %}
+{% block breadcrumbs %}
+<div class="row breadcrumbs-top">
+    <div class="col-12">
+        <h2 class="content-header-title float-start mb-0">Create NFT</h2>
+        <div class="breadcrumb-wrapper">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Create NFT
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+    
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="col-md-8 col-12 mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">NFT Form</h4>
+            </div>
+            <div class="card-body">
+                <form class="form form-vertical" method="post" action="{% url 'create-nfts' %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        {{form|crispy}}
+                        <div class="col-12 mt-2">
+                            <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Submit</button>
+                            <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+    
+{% endblock content %}
+    

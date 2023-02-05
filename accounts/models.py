@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class User(AbstractUser):
+    email = models.EmailField(unique=True)
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     balance = models.FloatField(null=True, blank=True, default=0)
     is_admin = models.BooleanField(default=False)

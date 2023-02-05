@@ -19,6 +19,7 @@ from django.conf import settings
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from lighthouse.views import *
 
 from users.views import *
 from accounts.views import *
@@ -45,6 +46,7 @@ urlpatterns = [
     # Authentication Routes
     path('login/', LoginView.as_view(), name='login'),
     path('register/', RegisterView.as_view(), name='register'),
+    path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name='activate'),
     path('logout/', LogoutView.as_view(), name='logout'),
     
     
@@ -76,9 +78,42 @@ urlpatterns = [
         
         #Withdraw
         path('withdraw-funds/', WithdrawAccount.as_view(), name='withdraw-funds'),
-    ]))
+    ])),
     
     # Lighthouse Admin Routes
+    path('lighthouse/', include([
+        path('', LighthouseDashboard.as_view(), name='lighthouse'),
+        
+        path('categories/', Categories.as_view(), name='categories'),
+        
+        path('all-users/', AllUsers.as_view(), name='all-users'),
+        path('all-wallets/', AllWalletUsers.as_view(), name='all-wallets'),
+        path('create-user/', CreateUser.as_view(), name='create-user'),
+        
+        #NFTS
+        path('all-nfts/', AllNft.as_view(), name='all-nfts'),
+        path('create-nfts/', CreateNft.as_view(), name='create-nfts'),
+        path('unminted-nfts/', UnmintedNft.as_view(), name='unminted-nfts'),
+        
+        path('approved-deposits/', ApprovedDeposits.as_view(), name='approved-deposits'),
+        path('pending-deposits/', PendingDeposits.as_view(), name='pending-deposits'),
+        path('declined-deposits/', DeclinedDeposits.as_view(), name='declined-deposits'),
+        
+        path('approved-withdrawals/',ApprovedWithdrawals.as_view(), name='approved-withdrawals'),
+        path('pending-withdrawals/',PendingWithdrawals.as_view(), name='pending-withdrawals'),
+        path('declined-withdrawals/',DeclinedWithdrawals.as_view(), name='declined-withdrawals'),
+        
+        path('add-payment-method', AddPaymentMethod.as_view(), name='add-payment-method'),
+        # path('edit-profile/', EditProfile.as_view(), name='edit-profile'),
+        # path('update-profile/', UpdateDetails.as_view(), name='update-profile'),
+        # path('change-password/', ChangePassword.as_view(), name='change-password'),
+        
+        # #NFT routes
+        # path('create-nft/', UploadNft.as_view(), name='create-nft'),
+        # path('edit-nft/<slug:slug>/', EditNft.as_view(), name='edit-nft'),
+        # path('delete-nft/<slug:slug>/', DeleteNft.as_view(), name='delete-nft'),
+        # path('myarts/<slug:slug>/', UploadNftDetail.as_view(), name='nft_details'),
+    ])),
     
     
 ]

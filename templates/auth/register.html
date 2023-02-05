@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block slider %}
 <div class="rn-breadcrumb-inner ptb--30">
     <div class="container">
@@ -24,13 +24,14 @@
 <div class="login-area rn-section-gapTop">
     <div class="container">
         <div class="row g-5">
-            <div class="offset-4 col-lg-4 col-md-6 ml_md--0 ml_sm--0 col-sm-12">
+            <div class="offset-3 col-lg-6 col-md-6 ml_md--0 ml_sm--0 col-sm-12">
                 <div class="form-wrapper-one registration-area">
                     {% include 'partials/messages.html' %}
                     <h4>Sign up</h4>
-                    <form action="{% url 'register' %}" method="post">
+                    <form action="{% url 'register' %}" method="post" class="search-form-wrapper">
                         {% csrf_token %}
-                        <div class="mb-5">
+                        {{form|crispy}}
+                        <!-- <div class="mb-5">
                             <label for="firstName" class="form-label">First name</label>
                             <input type="text" name="first_name" id="firstName">
                         </div>
@@ -58,7 +59,7 @@
                             <input type="checkbox" class="rn-check-box-input" id="exampleCheck1" required>
                             <label class="rn-check-box-label" for="exampleCheck1">Allow to all tearms &amp;
                                 condition</label>
-                        </div>
+                        </div> -->
                         <div class="text-center">
 
                             <button type="submit" class="btn btn-primary mr--15">Sign Up</button>
