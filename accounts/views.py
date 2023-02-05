@@ -142,7 +142,7 @@ class LoginView(TemplateView):
                             return redirect('users')
                         elif user.is_admin == True:
                             login(request, user)
-                            return redirect('home')
+                            return redirect('lighthouse')
                         else:
                             messages.error(request, 'You have role')
                             return redirect(request.META.get('HTTP_REFERER'))
