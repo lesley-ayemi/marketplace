@@ -170,6 +170,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django_settings_export.settings_export',
 ]
 SITE_LOGO = os.environ['SITE_LOGO']
+SITE_LOGO_DARK = os.environ['SITE_LOGO_DARK']
 DOMAIN_NAME = os.environ['DOMAIN_NAME']
 SITE_EMAIL = os.environ['SITE_EMAIL']
 SITE_NUMBER = os.environ['SITE_NUMBER']
@@ -177,6 +178,7 @@ SITE_ADDRESS = os.environ['SITE_ADDRESS']
 
 SETTINGS_EXPORT = [
     'SITE_LOGO',
+    'SITE_LOGO_DARK',
     'DOMAIN_NAME',
     'SITE_EMAIL',
     'SITE_NUMBER',
