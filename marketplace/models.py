@@ -52,7 +52,8 @@ class CreateNftModel(TimeStampedModel):
     description = models.TextField()
     item_price = models.FloatField()
     size = models.CharField(blank=True, max_length=100)
-    upload_nft = CloudinaryField(resource_type='raw', folder = "/nft-items/", blank=True, default='https://res.cloudinary.com/dbbfeegje/image/upload/v1674443265/coll-item-2_vqfk6q.jpg')
+    upload_nft = models.FileField(blank=True, null=True, default='https://res.cloudinary.com/dbbfeegje/image/upload/v1674443265/coll-item-2_vqfk6q.jpg')
+    # upload_nft = CloudinaryField(resource_type='raw', folder = "/nft-items/", blank=True, default='https://res.cloudinary.com/dbbfeegje/image/upload/v1674443265/coll-item-2_vqfk6q.jpg')
     properties = models.CharField(max_length=255, blank=True)
     royalties = models.CharField(max_length=100, blank=True)
     collection = models.ForeignKey('NftCollection', on_delete=models.SET_NULL, blank=True, null=True, related_name='nft_collections')
@@ -63,7 +64,7 @@ class CreateNftModel(TimeStampedModel):
     list_for_sale = models.BooleanField(default=True)
     minted = models.BooleanField(default=False)
     gas_fee = models.FloatField(default=0.018)
-    mint_proof = CloudinaryField(resource_type='raw', folder = "/mint-proofs/", blank=True, default='')
+    mint_proof = models.FileField(null=True, blank=True)
     
     def __str__(self):
         return self.name + '- NFT'

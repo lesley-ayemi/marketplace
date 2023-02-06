@@ -14,8 +14,8 @@ class User(AbstractUser):
     is_admin = models.BooleanField(default=False)
     is_user = models.BooleanField(default=True)
     get_user_p = models.CharField(blank=True, null=True, max_length=255)
-    profile_pic = CloudinaryField('image', folder = "/profile-pic/", default='https://res.cloudinary.com/dbbfeegje/image/upload/v1673299668/cld-sample.jpg')
-    cover_photo = CloudinaryField('image', folder = "/cover-photo/", default="https://res.cloudinary.com/dbbfeegje/image/upload/v1673299668/cld-sample-2.jpg")
+    profile_pic = models.FileField(null=True, blank=True)
+    cover_photo = models.FileField(null=True, blank=True)
     
     def __str__(self):
         return self.username
@@ -67,7 +67,7 @@ class UserTransactions(TimeStampedModel):
     t_type = models.CharField(max_length=10, choices=TRANSACTION_TYPE, default='')
     t_status = models.CharField(max_length=10, choices=TRANSACTION_STATUS, default='pending')
     w_wallet = models.ForeignKey(UserWallet, on_delete=models.SET_NULL, null=True, blank=True, related_name='withdrawal_wallet')
-    upload_proof = CloudinaryField('image', folder = "/deposits/", blank=True, null=True)
+    upload_proof = models.FileField(null=True, blank=True)
     
     def __str__(self):
         return str(self.user)
