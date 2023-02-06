@@ -5,8 +5,8 @@ from django.core.exceptions import ValidationError
 
 # Sign Up Form
 class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=False, help_text='Optional')
-    last_name = forms.CharField(max_length=30, required=False, help_text='Optional')
+    first_name = forms.CharField(max_length=30, required=True, help_text='Enter First Name')
+    last_name = forms.CharField(max_length=30, required=True, help_text='Enter Last Name')
     email = forms.EmailField(max_length=254, help_text='Enter a valid email address')
 
     class Meta:
@@ -19,8 +19,8 @@ class SignUpForm(UserCreationForm):
             'password1', 
             'password2', 
         )
-    def __init__(self, *args, **kwargs):
-        super(SignUpForm, self).__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     super(SignUpForm, self).__init__(*args, **kwargs)
 
-        for fieldname in ['first_name', 'last_name']:
-            self.fields[fieldname].help_text = None
+    #     for fieldname in ['first_name', 'last_name']:
+    #         self.fields[fieldname].help_text = None

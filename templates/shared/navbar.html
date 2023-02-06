@@ -113,7 +113,15 @@
                             <li><a href="{% url 'contact-us' %}">Contact</a></li>
                             
                             {% if user.is_authenticated %}
+                            
+                            {% if user.is_user == True %}
                             <li><a href="{% url 'users' %}">Dashboard</a></li>
+                            {% elif user.is_admin == True %}
+                            <li><a href="{% url 'lighthouse' %}">Admin</a></li>
+                            {% else %}
+                            <li><a href="{% url 'register' %}">Register</a></li>
+                            {% endif %}
+                                
                             {% else %}
                             <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
                             {% endif %}
@@ -125,10 +133,11 @@
             </div>
             <div class="header-right">
                 <div class="setting-option d-none d-lg-block">
-                    <form class="search-form-wrapper" action="#">
-                        <input type="search" placeholder="Search Here" aria-label="Search">
+                    <form class="search-form-wrapper" action="{% url 'search-nft' %}" method="get">
+                        
+                        <input type="search" name="q" placeholder="Search Here" aria-label="Search">
                         <div class="search-icon">
-                            <button><i class="feather-search"></i></button>
+                            <button type="submit"><i class="feather-search"></i></button>
                         </div>
                     </form>
                 </div>

@@ -3,12 +3,12 @@
 {% block breadcrumbs %}
 <div class="row breadcrumbs-top">
     <div class="col-12">
-        <h2 class="content-header-title float-start mb-0">Create User</h2>
+        <h2 class="content-header-title float-start mb-0">Edit Category</h2>
         <div class="breadcrumb-wrapper">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a>
                 </li>
-                <li class="breadcrumb-item active">Create User
+                <li class="breadcrumb-item active">Edit Category
                 </li>
             </ol>
         </div>
@@ -22,16 +22,17 @@
     <div class="col-md-8 col-12 mt-4">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Create a user</h4>
+                <h4 class="card-title">Edit {{category.name}}</h4>
             </div>
             <div class="card-body">
-                <form class="form form-vertical" method="post" action="{% url 'create-user' %}">
+                <form class="form form-vertical" method="post" action="{% url 'edit-category' category.slug %}">
                     {% csrf_token %}
                     <div class="row">
                         {{form|crispy}}
+                        
                         <div class="col-12 mt-2">
-                            <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Submit</button>
-                            <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
+                            <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Update</button>
+                            <a href="{% url 'categories' %}" class="btn btn-outline-secondary waves-effect">Back</a>
                         </div>
                     </div>
                 </form>

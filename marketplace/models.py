@@ -63,6 +63,7 @@ class CreateNftModel(TimeStampedModel):
     list_for_sale = models.BooleanField(default=True)
     minted = models.BooleanField(default=False)
     gas_fee = models.FloatField(default=0.018)
+    mint_proof = CloudinaryField(resource_type='raw', folder = "/mint-proofs/", blank=True, default='')
     
     def __str__(self):
         return self.name + '- NFT'

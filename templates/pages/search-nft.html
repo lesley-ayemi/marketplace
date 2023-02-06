@@ -31,7 +31,7 @@
                 <div class="view-more-btn text-start text-sm-end sal-animate" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
                     <div class="setting-option d-none d-lg-block">
                         <form class="search-form-wrapper" action="{% url 'search-nft' %}" method="get">
-                            {% csrf_token %}
+                            <!-- {% csrf_token %} -->
                             <input type="search" name="q" placeholder="Search Here" aria-label="Search">
                             <div class="search-icon">
                                 <button type="submit"><i class="feather-search"></i></button>
