@@ -125,6 +125,8 @@
                             {% else %}
                             <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
                             {% endif %}
+
+                            
                                 
                         </ul>
                         <!-- End Mainmanu Nav -->
@@ -155,7 +157,8 @@
 
                 <div class="setting-option header-btn rbt-site-header" id="rbt-site-header">
                     <div class="icon-box">
-                        <a id="connectbtn" class="btn btn-primary-alta btn-small" href="{% url 'add-wallet' %}">Wallet connect</a>
+                        <div id="google_translate_element"></div>
+                        <!-- <a id="connectbtn" class="btn btn-primary-alta btn-small" href="{% url 'add-wallet' %}">Wallet connect</a> -->
                     </div>
                 </div>
 
