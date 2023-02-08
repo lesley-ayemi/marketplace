@@ -146,7 +146,7 @@ class AllWalletUsers(TemplateView):
             messages.error(request, 'You do not have permission to access this page')
             return redirect('login')
         
-class UserWallet(TemplateView):
+class UserWallets(TemplateView):
     template_name = 'lighthouse/users/user-wallet.html'
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
