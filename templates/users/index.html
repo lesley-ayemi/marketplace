@@ -418,7 +418,13 @@
                         <div class="card-thumbnail">
                             <a onclick="myFunction()" type="button">
                                 
+                                {% if payment.coin_qr_code %}
                                 <img src="{{payment.coin_qr_code.url}}" alt="{{payment.coin_qr_code}}">
+                                {% else %}
+                                <img src="#" alt="{{payment.coin_qr_code}}">
+                                
+                                {% endif %}
+                                    
                             </a>
                             <input type="text" class="form-control" id="walletAddy" placeholder="Wallet address" value="{{payment.coin_address}}" style="display: none;">
                             <a onclick="myFunction()" type="button" class="btn btn-primary">copy address</a>
