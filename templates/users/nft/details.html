@@ -301,7 +301,13 @@
                                             </h6>
                                             <div class="top-seller-wrapper">
                                                 <div class="thumbnail">
+                                                    
+                                                    {% if nft.creator.profile_pic %}
                                                     <a href="#"><img src="{{nft.creator.profile_pic.url}}" alt="Nft_Profile"></a>
+                                                    {% else %}
+                                                    <a href="#"><img src="#" alt="Nft_Profile"></a>
+                                                    {% endif %}
+                                                        
                                                 </div>
                                                 <div class="top-seller-content">
                                                     <a href="#">

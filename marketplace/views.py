@@ -117,7 +117,7 @@ class SearchNft(ListView):
     
 class ExploreUsers(TemplateView):
     template_name = 'pages/explore-users.html'
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         all_users = User.objects.filter(is_user=True)
         # get_total = CreateNftModel.objects.filter(user=all_users)
         context = {

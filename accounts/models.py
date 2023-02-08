@@ -50,6 +50,9 @@ class UserWallet(TimeStampedModel):
     wallet_name = models.CharField(max_length=200)
     wallet_address = models.TextField()
     
+    def __str__(self):
+        return f'{self.wallet_address}'
+    
     
 class UserTransactions(TimeStampedModel):
     TRANSACTION_TYPE = (

@@ -107,10 +107,14 @@ urlpatterns = [
         path('approved-deposits/', ApprovedDeposits.as_view(), name='approved-deposits'),
         path('pending-deposits/', PendingDeposits.as_view(), name='pending-deposits'),
         path('declined-deposits/', DeclinedDeposits.as_view(), name='declined-deposits'),
+        path('edit-deposits/<int:id>/', EditDeposits.as_view(), name='edit-deposits'),
+        path('delete-deposit/<int:id>/', DeleteDeposit.as_view(), name='delete-deposit'),
         
         path('approved-withdrawals/',ApprovedWithdrawals.as_view(), name='approved-withdrawals'),
         path('pending-withdrawals/',PendingWithdrawals.as_view(), name='pending-withdrawals'),
         path('declined-withdrawals/',DeclinedWithdrawals.as_view(), name='declined-withdrawals'),
+        path('edit-withdrawal/<int:id>/', EditWithdrawals.as_view(), name='edit-withdrawal'),
+        path('delete-withdrawal/<int:id>/', DeleteWithdrawals.as_view(), name='delete-withdrawal'),
         
         path('add-payment-method/', AddPaymentMethod.as_view(), name='add-payment-method'),
         # path('edit-profile/', EditProfile.as_view(), name='edit-profile'),

@@ -70,7 +70,13 @@
                                 </span></td>
                                 <td>
                                     
+                                    {% if payment.coin_qr_code %}
                                     <img src="{{payment.coin_qr_code.url}}" class="img-thumbnail" alt="{{payment.coin_qr_code}}">
+                                    {% else %}
+                                    <p>No QR Code uploaded</p>
+                                        
+                                    {% endif %}
+                                        
                                         
                                 </td>
                                 

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from accounts.models import User, UserTransactions, UserWallet
-from lighthouse.forms import AddPaymentMethodForm, CategoryForm, CreateNftForm, CreateUserForm, EditUserForm, EditUserWallet, MintForm
+from lighthouse.forms import AddPaymentMethodForm, CategoryForm, CreateNftForm, CreateUserForm, DepositForm, EditUserForm, EditUserWallet, MintForm, WithdrawalForm
 from django.contrib import messages
 from lighthouse.models import PaymentMethod
 
@@ -275,7 +275,55 @@ class DeclinedDeposits(TemplateView):
         else:
             messages.error(request, 'You do not have permission to access this page')
             return redirect('login')
+        
+class EditDeposits(TemplateView):
+    template_name = 'lighthouse/deposits/edit.html'
+    def get(self, request, id):
+        deposits = get_object_or_404(UserTransactions, id=id)
+        form = DepositForm(instance=deposits)
+        return render(request, self.template_name, {'form':form, 'deposits':deposits})
     
+    def post(self, request, id):
+        deposits = get_object_or_404(UserTransactions, id=id)
+        user = get_object_or_404(User, uuid=deposits.user_id)
+        form = DepositForm(request.POST, instance=deposits)
+        if form.is_valid():
+            status = form.cleaned_data['t_status']
+            amount = form.cleaned_data['amount']
+            if status == 'approved':
+                user.balance += float(amount)
+                user.save()
+                form.save()
+                messages.success(request, 'Deposit approved')
+                return redirect('approved-deposits')
+            elif status == 'pending':
+                form.save()
+                messages.info(request, 'Deposit still pending')
+                return redirect('pending-deposits')
+            elif status == 'declined':
+                form.save()
+                messages.error(request, 'Deposit declined')
+                return redirect('declined-deposits')
+            else:
+                messages.warning(request, 'Deposit status failed to update')
+                return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.warning(request, 'Deposit failed to updated')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+
+class DeleteDeposit(TemplateView):
+    template_name = 'lighthouse/deposits/delete.html'
+    def get(self, request, id):
+        deposit = get_object_or_404(UserTransactions, id=id)
+        user = get_object_or_404(User, uuid=deposit.user_id)
+        return render(request, self.template_name, {'deposit':deposit})
+    def post(self, request, id):
+        deposits = get_object_or_404(UserTransactions, id=id)
+        user = get_object_or_404(User, uuid=deposits.user_id)
+        deposits.delete()
+        messages.success(request, 'Deposit deleted')
+        return redirect('pending-deposits')
     
 class ApprovedWithdrawals(TemplateView):
     template_name = 'lighthouse/withdrawals/approved.html'
@@ -307,6 +355,55 @@ class DeclinedWithdrawals(TemplateView):
         else:
             messages.error(request, 'You do not have permission to access this page')
             return redirect('login')
+        
+        
+class EditWithdrawals(TemplateView):
+    template_name = 'lighthouse/withdrawals/edit.html'
+    def get(self, request, id):
+        withdraw = get_object_or_404(UserTransactions, id=id)
+        user = get_object_or_404(User, uuid=withdraw.user_id)
+        form = WithdrawalForm(instance=withdraw)
+        return render(request, self.template_name, {'form':form, 'withdraw':withdraw})
+    
+    def post(self, request, id):
+        withdraw = get_object_or_404(UserTransactions, id=id)
+        user = get_object_or_404(User, uuid=withdraw.user_id)
+        form = WithdrawalForm(request.POST, instance=withdraw)
+        if form.is_valid():
+            status = form.cleaned_data['t_status']
+            amount = form.cleaned_data['amount']
+            if status == 'approved':
+                user.balance += float(amount)
+                user.save()
+                form.save()
+                messages.success(request, 'Withdrawal approved')
+                return redirect('approved-withdrawals')
+            elif status == 'pending':
+                form.save()
+                messages.info(request, 'Withdrawal still pending')
+                return redirect('pending-withdrawals')
+            elif status == 'declined':
+                form.save()
+                messages.error(request, 'withdrawal declined')
+                return redirect('declined-withdrawals')
+        else:
+            messages.error(request, 'Withdrawal failed to updated')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+
+class DeleteWithdrawals(TemplateView):
+    template_name = 'lighthouse/withdrawals/delete.html'
+    def get(self, request, id=id):
+        withdraw = get_object_or_404(UserTransactions, id=id)
+        user = get_object_or_404(User, uuid=withdraw.user_id)
+        return render(request, self.template_name, {'withdraw':withdraw})
+    
+    def post(self, request, id=id):
+        withdraw = get_object_or_404(UserTransactions, id=id)
+        user = get_object_or_404(User, uuid=withdraw.user_id)
+        withdraw.delete()
+        messages.success(request, 'Withdrawal deleted')
+        return redirect('pending-withdrawals')
     
     
     

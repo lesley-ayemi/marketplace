@@ -96,3 +96,38 @@ class CategoryForm(forms.ModelForm):
         fields = [
             'name',
         ]
+        
+
+class DepositForm(forms.ModelForm):
+    class Meta:
+        model = UserTransactions
+        fields = [
+            'amount',
+            'wallet_type',
+            't_status',
+        ]
+    def __init__(self, *args, **kwargs): 
+        super(DepositForm, self).__init__(*args, **kwargs)                       
+        self.fields['amount'].disabled = True
+        
+class WithdrawalForm(forms.ModelForm):
+    class Meta:
+        model = UserTransactions
+        fields = [
+            'user',
+            'amount',
+            'w_wallet',
+            't_status',
+        ]
+    def __init__(self, *args, **kwargs): 
+        super(WithdrawalForm, self).__init__(*args, **kwargs)                       
+        self.fields['user'].disabled = True
+        self.fields['w_wallet'].disabled = True
+        self.fields['amount'].disabled = True
+        
+    # def __init__(self, *args, **kwargs):
+    #     # https://stackoverflow.com/a/6866387/15188026
+    #     hide_condition = kwargs.pop('hide_condition',None)
+    #     super(EditUserForm, self).__init__(*args, **kwargs)
+    #     if hide_condition:
+    #         self.fields['w_wallet'].widget = HiddenInput()
