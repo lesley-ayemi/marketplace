@@ -21,6 +21,8 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from lighthouse.views import *
 from django.views.static import serve
+from django.contrib.auth import views as auth_views
+
 
 from users.views import *
 from accounts.views import *
@@ -51,6 +53,28 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name='activate'),
     path('logout/', LogoutView.as_view(), name='logout'),
+        # Forget Password
+    path('password-reset/',
+         auth_views.PasswordResetView.as_view(
+             template_name='auth/password_reset.html',
+             # success_url='/login/'
+         ),
+         name='password_reset'),
+    path('password-reset/done/',
+         auth_views.PasswordResetDoneView.as_view(
+             template_name='auth/password_reset_done.html'
+         ),
+         name='password_reset_done'),
+    path('password-reset-confirm/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(
+             template_name='auth/password_reset_confirm.html'
+         ),
+         name='password_reset_confirm'),
+    path('password-reset-complete/',
+         auth_views.PasswordResetCompleteView.as_view(
+             template_name='auth/password_reset_complete.html'
+         ),
+         name='password_reset_complete'),
     
     
     # Users Routes
@@ -117,6 +141,8 @@ urlpatterns = [
         path('delete-withdrawal/<int:id>/', DeleteWithdrawals.as_view(), name='delete-withdrawal'),
         
         path('add-payment-method/', AddPaymentMethod.as_view(), name='add-payment-method'),
+        path('edit-payment-method/<int:id>/', EditPaymentMethod.as_view(), name='edit-payment-method'),
+        path('delete-payment-method/<int:id>/', DeletePaymentMethod.as_view(), name='delete-payment-method'),
         # path('edit-profile/', EditProfile.as_view(), name='edit-profile'),
         # path('update-profile/', UpdateDetails.as_view(), name='update-profile'),
         # path('change-password/', ChangePassword.as_view(), name='change-password'),

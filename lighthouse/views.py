@@ -373,11 +373,15 @@ class EditWithdrawals(TemplateView):
             status = form.cleaned_data['t_status']
             amount = form.cleaned_data['amount']
             if status == 'approved':
-                user.balance += float(amount)
-                user.save()
-                form.save()
-                messages.success(request, 'Withdrawal approved')
-                return redirect('approved-withdrawals')
+                if float(amount) <= user.balance:
+                    user.balance -= float(amount)
+                    user.save()
+                    form.save()
+                    messages.success(request, 'Withdrawal approved')
+                    return redirect('approved-withdrawals')
+                else:
+                    messages.warning(request, 'Insufficient funds')
+                    return redirect(request.META.get('HTTP_REFERER'))
             elif status == 'pending':
                 form.save()
                 messages.info(request, 'Withdrawal still pending')
@@ -429,4 +433,34 @@ class AddPaymentMethod(TemplateView):
             messages.error(request, 'Payment method not added successfully')
             return redirect(request.META.get('HTTP_REFERER'))
         
+
+class EditPaymentMethod(TemplateView):
+    template_name = 'lighthouse/payment-methods/edit.html'
+    def get(self, request, id):
+        payment_method = get_object_or_404(PaymentMethod, id=id)
+        form = AddPaymentMethodForm(instance=payment_method)
+        return render(request, self.template_name, {'form':form, 'payment_method':payment_method})
     
+    def post(self, request, id):
+        payment_method = get_object_or_404(PaymentMethod, id=id)
+        form = AddPaymentMethodForm(request.POST or None, request.FILES or None, instance=payment_method)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Payment method updated successfully')
+            return redirect('add-payment-method')
+        else:
+            messages.error(request, 'Payment method not updated successfully')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        
+class DeletePaymentMethod(TemplateView):
+    template_name = 'lighthouse/payment-methods/delete.html'
+    def get(self, request, id=id):
+        payment_method = get_object_or_404(PaymentMethod, id=id)
+        return render(request, self.template_name, {'payment_method':payment_method})
+    
+    def post(self, request, id=id):
+        payment_method = get_object_or_404(PaymentMethod, id=id)
+        payment_method.delete()
+        messages.success(request, 'Payment method deleted successfully')
+        return redirect('add-payment-method')

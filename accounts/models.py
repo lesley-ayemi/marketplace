@@ -66,7 +66,7 @@ class UserTransactions(TimeStampedModel):
     )
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='user_transaction')
     amount = models.FloatField()
-    wallet_type = models.ForeignKey(PaymentMethod, on_delete=models.DO_NOTHING, related_name='payment_type', null=True, blank=True)
+    wallet_type = models.ForeignKey(PaymentMethod, on_delete=models.SET_NULL, related_name='payment_type', null=True, blank=True)
     t_type = models.CharField(max_length=10, choices=TRANSACTION_TYPE, default='')
     t_status = models.CharField(max_length=10, choices=TRANSACTION_STATUS, default='pending')
     w_wallet = models.ForeignKey(UserWallet, on_delete=models.SET_NULL, null=True, blank=True, related_name='withdrawal_wallet')
