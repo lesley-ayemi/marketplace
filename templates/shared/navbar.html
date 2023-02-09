@@ -17,13 +17,13 @@
                             </li>
                             <li><a href="{% url 'about-us' %}">About</a>
                             </li>
-                            <li class="has-droupdown has-menu-child-item">
-                                <a href="#">Explore</a>
-                                <ul class="submenu">
+                            <li class="">
+                                <a href="{% url 'explore' %}">Explore</a>
+                                {% comment %} <ul class="submenu">
                                     <li><a href="{% url 'explore' %}">Explore<i class="feather-fast-forward"></i></a></li>
                                     <li><a href="{% url 'explore-users' %}">Explore Creators<i class="feather-fast-forward"></i></a></li>
-                                    {% comment %} <li><a href="{% url 'explore-users' %}">Our Collection<i class="feather-fast-forward"></i></a></li> {% endcomment %}
-                                    {% comment %} <li><a href="explore-three.html">Explore Carousel<i class="feather-fast-forward"></i></a></li>
+                                    <li><a href="{% url 'explore-users' %}">Our Collection<i class="feather-fast-forward"></i></a></li>
+                                    <li><a href="explore-three.html">Explore Carousel<i class="feather-fast-forward"></i></a></li>
                                     <li><a href="explore-four.html">Explore Simple<i class="feather-fast-forward"></i></a></li>
                                     <li><a href="explore-five.html">Explore Place Bid<i class="feather-fast-forward"></i></a></li>
                                     <li><a href="explore-six.html">Place Bid With Filter<i class="feather-fast-forward"></i></a></li>
@@ -34,8 +34,8 @@
                                     <li><a href="explore-left-filter.html">Explore Left Filter<i class="feather-fast-forward"></i></a></li>
                                     <li><a class="live-expo" href="explore-live.html">Live Explore</a></li>
                                     <li><a class="live-expo" href="explore-live-two.html">Live Explore Carousel</a></li>
-                                    <li><a class="live-expo" href="explore-live-three.html">Live With Place Bid</a></li> {% endcomment %}
-                                </ul>
+                                    <li><a class="live-expo" href="explore-live-three.html">Live With Place Bid</a></li>
+                                </ul> {% endcomment %}
                             </li>
                             {% comment %} <li class="with-megamenu">
                                 <a href="#">Pages</a>
@@ -147,10 +147,10 @@
                     <div class="icon-box search-mobile-icon">
                         <button><i class="feather-search"></i></button>
                     </div>
-                    <form id="header-search-1" action="#" method="GET" class="large-mobile-blog-search">
+                    <form id="header-search-1" action="{% url 'search-nft' %}" method="get" class="large-mobile-blog-search">
                         <div class="rn-search-mobile form-group">
                             <button type="submit" class="search-button"><i class="feather-search"></i></button>
-                            <input type="text" placeholder="Search ...">
+                            <input type="text" placeholder="Search ..." name="q">
                         </div>
                     </form>
                 </div>
@@ -261,13 +261,13 @@
                 </li>
                 <li><a href="{% url 'about-us' %}">About</a>
                 </li>
-                <li class="has-droupdown">
-                    <a class="nav-link its_new" href="javascript:void(0)">Explore</a>
-                    <ul class="submenu">
+                <li class="">
+                    <a class="nav-link its_new" href="{% url 'explore' %}">Explore</a>
+                    {% comment %} <ul class="submenu">
                         <li><a href="{% url 'explore' %}">Explore<i class="feather-fast-forward"></i></a></li>
                         <li><a href="{% url 'explore-users' %}">Explore Creators<i class="feather-fast-forward"></i></a></li>
-                        {% comment %} <li><a href="{% url 'explore-users' %}">Our Collection<i class="feather-fast-forward"></i></a></li> {% endcomment %}
-                    </ul>
+                        <li><a href="{% url 'explore-users' %}">Our Collection<i class="feather-fast-forward"></i></a></li>
+                    </ul> {% endcomment %}
                 </li>
                 
                 {% comment %} <li class="has-droupdown has-menu-child-item">

@@ -12,7 +12,7 @@ from accounts.models import MoreDetails, User
 class ExploreNft(TemplateView):
     template_name = 'pages/explore.html'
     def get(self, request):
-        all_nfts = CreateNftModel.objects.filter(Q(list_for_sale=True) and Q(minted=True)).order_by('created').values('name', 'creator', 'item_price', 'upload_nft', 'status', 'nft_type', 'slug').distinct()
+        all_nfts = CreateNftModel.objects.filter(Q(list_for_sale=True) and Q(minted=True)).order_by('created')
         context = {
             'all_nfts':all_nfts,
         }
@@ -92,6 +92,23 @@ class PlaceBid(TemplateView):
         
 """Search NFT"""
 class SearchNft(ListView):
+    def get(self, request, *args, **kwargs):
+        q = request.GET.get('q')
+        if q:
+            all_nfts = CreateNftModel.objects.filter(
+                Q(name__icontains=q) |
+                Q(creator__username__icontains=q) |
+                Q(purchased_by__username__icontains=q),
+                minted=True  
+            )
+            all_users = User.objects.filter(Q(username__icontains=q),
+                                            is_user=True)
+            context = {
+                'all_nfts':all_nfts,
+                'all_users':all_users,
+                'q':q,
+            }
+            return render(request, 'pages/search-nft.html', context)
     # template_name = 'pages/search.html'
     # def get(self, request):
     #     all_nfts = CreateNftModel.objects.filter(Q(list_for_sale=True) and Q(minted=True)).order_by('created').values('name', 'creator', 'item_price', 'upload_nft','status', 'nft_type','slug').distinct()
@@ -102,18 +119,18 @@ class SearchNft(ListView):
     
     # def post(self, request):
     #     search_term = request.POST['search_term']
-    model = CreateNftModel
-    template_name = 'pages/search-nft.html'
+    # model = CreateNftModel
+    # template_name = 'pages/search-nft.html'
     
-    def get_queryset(self):  # new
-        query = self.request.GET.get("q")
-        object_list = CreateNftModel.objects.filter(
-            Q(name__icontains=query) | 
-            Q(creator__username__icontains=query) | 
-            Q(purchased_by__username__icontains=query), 
-            minted=True)
-        # return users_list
-        return object_list
+    # def get_queryset(self):  # new
+    #     query = self.request.GET.get("q")
+    #     object_list = CreateNftModel.objects.filter(
+    #         Q(name__icontains=query) | 
+    #         Q(creator__username__icontains=query) | 
+    #         Q(purchased_by__username__icontains=query), 
+    #         minted=True)
+    #     # return users_list
+    #     return object_list
 
     
 class ExploreUsers(TemplateView):

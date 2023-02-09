@@ -66,7 +66,10 @@
             <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-4 col-md-6 col-sm-6 col-12 sal-animate">
                 <div class="product-style-one no-overlay">
                     <div class="card-thumbnail">
-                        <a href="{% url 'explore-detail' nft.slug %}"><img src="{{nft.upload_nft.url}}" alt="{{nft.upload_nft}}"></a>
+                        <a href="{% url 'explore-detail' nft.slug %}">
+
+                            <img src="{{nft.upload_nft.url}}" alt="{{nft.upload_nft}}">
+                        </a>
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
@@ -93,7 +96,7 @@
 
                         </div> -->
                     </div>
-                    <a href="javascript:void(0)"><span class="product-name">{{nft.name|upper}}</span></a>
+                    <a href="{% url 'explore-detail' nft.slug %}"><span class="product-name">{{nft.name|upper}}</span></a>
                     <span class="more-author-text" href="javascript:void(0)">Currently: 
                     {% if nft.status == 'BUY' %}
                         <span class="badge rounded-pill bg-info">For Sale</span>
