@@ -137,7 +137,15 @@
             <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-4 col-md-6 col-sm-6 col-12 sal-animate">
                 <div class="product-style-one no-overlay">
                     <div class="card-thumbnail">
-                        <a href="{% url 'explore-users-detail' user.username %}"><img src="{{user.profile_pic.url}}" alt="{{user.profile_pic}}"></a>
+                        <a href="{% url 'explore-users-detail' user.username %}">
+                            
+                            {% if user.profile_pic %}
+                            <img src="{{user.profile_pic.url}}" alt="{{user.profile_pic}}">
+                            {% else %}
+                            <img src="/static/assets/images/portfolio/portfolio-06.jpg" alt="{{user.profile_pic}}">
+                            {% endif %}
+                                
+                        </a>
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
