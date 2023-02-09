@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.shortcuts import redirect
 from .models import *
-from accounts.models import User
+from accounts.models import MoreDetails, User
 
 # Create your views here.
 
@@ -112,8 +112,9 @@ class SearchNft(ListView):
             Q(creator__username__icontains=query) | 
             Q(purchased_by__username__icontains=query), 
             minted=True)
+        # return users_list
         return object_list
-    
+
     
 class ExploreUsers(TemplateView):
     template_name = 'pages/explore-users.html'
@@ -130,9 +131,13 @@ class ExploreUsersDetailView(TemplateView):
     template_name = 'pages/explore-users-detail.html'
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
-        all_nfts = CreateNftModel.objects.filter(creator=user)
+        details = get_object_or_404(MoreDetails, user_details=user)
+        sales = CreateNftModel.objects.filter(creator=user, list_for_sale=True, status='BUY', minted=True)
+        created = CreateNftModel.objects.filter(creator=user)
         context = {
             'user':user,
-            'all_nfts':all_nfts,
+            'sales':sales,
+            'created':created,
+            'details':details,
         }
         return render(request, self.template_name, context)

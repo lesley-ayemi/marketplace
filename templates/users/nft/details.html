@@ -22,6 +22,7 @@
 {% block content %}
 <div class="product-details-area rn-section-gapTop">
     <div class="container">
+        {% include 'partials/messages.html' %}
         <div class="row g-5">
             <!-- product image area -->
 
@@ -115,7 +116,7 @@
                 <div class="rn-pd-content-area">
                     <div class="pd-title-area">
                         <h4 class="title">{{nft.name|capfirst}}</h4>
-                        <div class="pd-react-area">
+                        <!-- <div class="pd-react-area">
                             <div class="heart-count">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                 <span>33</span>
@@ -139,7 +140,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <span class="bid">Price <span class="price">{{nft.item_price}} ETH</span></span>
                     <!-- <span class="bid">Height bid <span class="price">{{nft.item_price}} ETH</span></span> -->
@@ -192,13 +193,13 @@
                         <div class="tab-wrapper-one">
                             <nav class="tab-button-one">
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Bids</button>
+                                    <!-- <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Bids</button> -->
                                     <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Details</button>
-                                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">History</button>
+                                    <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">History</button> -->
                                 </div>
                             </nav>
                             <div class="tab-content rn-bid-content" id="nav-tabContent">
-                                <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                {% comment %} <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                     <!-- single creator -->
                                     <div class="top-seller-inner-one">
                                         <div class="top-seller-wrapper">
@@ -289,7 +290,7 @@
                                         </div>
                                     </div>
                                     <!-- single creator -->
-                                </div>
+                                </div> {% endcomment %}
                                 <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                     <!-- single -->
                                     <div class="rn-pd-bd-wrapper">
@@ -367,7 +368,7 @@
                                     </div>
                                     <!-- single -->
                                 </div>
-                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                {% comment %} <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                     <!-- single creator -->
                                     <div class="top-seller-inner-one">
                                         <div class="top-seller-wrapper">
@@ -443,7 +444,7 @@
                                         </div>
                                     </div>
                                     <!-- single creator -->
-                                </div>
+                                </div> {% endcomment %}
                             </div>
                         </div>
                         <div class="place-bet-area">
@@ -473,7 +474,26 @@
                             <!-- <a class="btn btn-primary-alta mt--30" href="#">Place a Bid</a> -->
                             
                             {% if nft.minted == False %}
-                            <button type="button" class="btn btn-primary-alta mt--30">Artwork has yet to be minted</button>
+                            
+                            {% for payment in payments %}
+                            <p class="text-danger mt-2">Proceed To Pay Gas Fee To Have NFT Minted: <strong class="text-warning">{{nft.gas_fee}}</strong> ETH <br><span onclick="myFunction()" type="button" class="text-white">click to copy address</s></p>
+
+                            <input type="text" class="form-control" id="walletAddy" placeholder="Wallet address" value="{{payment.coin_address}}" style="display: none;">
+                            
+
+                            {% empty %}
+                                <p>is</p>
+                            {% endfor %}
+                                
+                            {% comment %} <button type="button" class="btn btn-primary-alta mt--30">Gas Fee:{{nft.gas_fee}} ETH</button> {% endcomment %}
+                            <form action="{% url 'nft_details' nft.slug %}" method="post" class="search-form-wrapper" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="">
+                                    <label for="formFile" class="form-label">Screenshot of payment</label>
+                                    <input class="form-control" name="mint_proof" type="file" id="formFile" required>
+                                  </div>
+                                <button type="submit" class="btn btn-primary-alta mt--30">Upload Payment</button>
+                            </form>
                             {% else %}
                             <button type="button" disabled class="btn btn-primary-alta mt--30">Artwork minted</button>
                                 
@@ -487,5 +507,21 @@
         </div>
     </div>
 </div>
+<script>
+    function myFunction() {
+      // Get the text field
+      var copyText = document.getElementById("walletAddy");
+    
+      // Select the text field
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+    
+       // Copy the text inside the text field
+      navigator.clipboard.writeText(copyText.value);
+    
+      // Alert the copied text
+      alert("Wallet address copied: " + copyText.value);
+    } 
+  </script>
 {% endblock content %}
     

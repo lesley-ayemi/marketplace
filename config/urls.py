@@ -43,6 +43,7 @@ urlpatterns = [
     path('explore/<slug:slug>/', ExploreNftPageDetail.as_view(), name='explore-detail'),
     path('explore/bid/<int:id>/', PlaceBid.as_view(), name='place-bid'),
     path('explore-users/', ExploreUsers.as_view(), name='explore-users'),
+    path('explore-users-arts/<str:username>/', ExploreUsersDetailView.as_view(), name='explore-users-detail'),
     
     #Search Routes
     path('search/', SearchNft.as_view(), name='search-nft'),

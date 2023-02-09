@@ -194,6 +194,7 @@ class EditNft(LoginRequiredMixin, TemplateView):
         collections = NftCollection.objects.filter(user_collection=self.request.user)
         types = nft.NFT_TYPE.choices
         form = EditNftForm(instance=nft)
+       
         context = {'nft':nft, 'collections':collections, 'types':types, 'form':form}
         return render(request, self.template_name, context)
     
@@ -278,7 +279,19 @@ class UploadNftDetail(LoginRequiredMixin, TemplateView):
     def get(self, request, slug):
         # get_collection = get_object_or_404(NftCollection, name=collection)
         nft = get_object_or_404(CreateNftModel, slug=slug)
-        return render(request, self.template_name, {'nft':nft})
+        payments = PaymentMethod.objects.filter(wallet_type='minting', enable=True).order_by('-created')
+        return render(request, self.template_name, {'nft':nft, 'payments':payments})
+    
+    def post(self, request, *args, **kwargs):
+        nft = get_object_or_404(CreateNftModel, slug=kwargs.get('slug'))
+        if nft:
+            nft.mint_proof = request.FILES.get('mint_proof')
+            nft.save()
+            messages.success(request, 'NFT details updated successfully')
+            return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.error(request, 'NFT does not exists')
+            return redirect(request.META.get('HTTP_REFERER'))
     
     
 

@@ -9,9 +9,9 @@
             </div>
             <div class="col-lg-6 col-md-6 col-12">
                 <ul class="breadcrumb-list">
-                    <li class="item"><a href="index.html">Home</a></li>
+                    <li class="item"><a href="/">Home</a></li>
                     <li class="separator"><i class="feather-chevron-right"></i></li>
-                    <li class="item current">Simple</li>
+                    <li class="item current">Our Creators</li>
                 </ul>
             </div>
         </div>
@@ -31,9 +31,9 @@
                     <div class="card-thumbnail">
                         
                         {% if user.profile_pic %}
-                        <a href="javascript:void(0)"><img src="{{user.profile_pic.url}}" alt="NFT_user"></a>
+                        <a href="{% url 'explore-users-detail' user.username %}"><img src="{{user.profile_pic.url}}" alt="NFT_user"></a>
                         {% else %}
-                        <a href="javascript:void(0)"><img src="/static/assets/images/client/client-1.png" alt="NFT_user"></a>
+                        <a href="{% url 'explore-users-detail' user.username %}"><img src="/static/assets/images/client/client-1.png" alt="NFT_user"></a>
                         {% endif %}
                             
                     </div>
@@ -62,17 +62,17 @@
 
                         </div> -->
                     </div>
-                    <a href="javascript:void(0)"><span class="product-name">{{user.username}}</span></a>
+                    <a href="{% url 'explore-users-detail' user.username %}"><span class="product-name">{{user.username}}</span></a>
                     <!-- <span class="latest-bid">Highest bid 1/20</span> -->
-                    <div class="bid-react-area">
+                    <!-- <div class="bid-react-area">
                         <div class="last-bid">Total NFT:</div>
                         <div class="react-area">
-                            <!-- <svg viewBox="0 0 17 16" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN kBvkOu">
+                            <svg viewBox="0 0 17 16" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN kBvkOu">
                                 <path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path>
-                            </svg> -->
+                            </svg>
                             <span class="number">{{user.creator_nft.count}}</span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <!-- end single product -->

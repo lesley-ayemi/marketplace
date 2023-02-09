@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block slider %}
+<div class="rn-author-bg-area bg_image--9 bg_image ptb--150" style="background-image: {% if user.cover_photo %} url({{user.cover_photo.url}}); {% else%} url(/static/assets/images/bg/bg-image-9.jpg); {% endif %}">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</div>
+
+<div class="rn-author-area mb--30 mt_dec--120">
+    <div class="container">
+        <div class="row padding-tb-50 align-items-center d-flex">
+            <div class="col-lg-12">
+                <div class="author-wrapper">
+                    <div class="author-inner">
+                        <div class="user-thumbnail">
+                            
+                            {% if user.profile_pic %}
+                            <img src="{{user.profile_pic.url}}" alt="{{user.profile_pic}}">
+                            {% else %}
+                            <img src="/static/assets/images/slider/banner-06.png" alt="">
+                            {% endif %}
+                                
+                        </div>
+                        <div class="rn-author-info-content">
+                            <h4 class="title">@{{user.username}}</h4>
+                            <a href="javascript:void(0)" class="social-follw">
+                                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg> -->
+                                <!-- <span class="user-name">@{{user.username}}</span> -->
+                                <span class="user-name px-2">Role:{{details.work_role}}</span>
+                            </a>
+                            <div class="follow-area">
+                                <p>{{details.bio}}</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock slider %}
+
+
+{% block content %}
+<div class="rn-authore-profile-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="tab-wrapper-one">
+                    <nav class="tab-button-one">
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">On Sale</button>
+                            <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Owned</button>
+                            <!-- <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Created</button> -->
+                            
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content rn-bid-content" id="nav-tabContent">
+            <div class="tab-pane row g-5 d-flex fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <!-- start single product -->
+                
+                {% for sale in sales %}
+                <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="product-style-one no-overlay with-placeBid">
+                        <div class="card-thumbnail">
+                            <a href="{{sale.get_absolute_url}}">
+                                {% if sale.nft_type == 'art' %}
+                                    <img src="{{sale.upload_nft.url}}" alt="">
+                                    {% elif sale.nft_type == 'video' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
+                                    {% elif sale.nft_type == 'music' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-02.jpg' %}" alt="">
+                                    {% elif nft.nft_type == 'trading-cards/collectible' %}
+                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif sale.nft_type == 'text' %}
+                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif sale.nft_type == 'memes' %}
+                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif sale.nft_type == 'domain-name' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    <!-- <img src="{{sale.upload_nft.url}}" alt="Nft_Profile"> -->
+                                    {% elif sale.nft_type == 'virtual-style' %}
+                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif sale.nft_type == 'pdf' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    {% else %}
+                                     <p>file format is not supported</p>   
+                                    {% endif %}
+                                <!-- <img src="{{sale.upload_nft.url}}" alt="NFT_portfolio"> -->
+                            </a>
+                            <a href="{% url 'explore-detail' sale.slug %}" class="btn btn-primary">View</a>
+                        </div>
+                        <div class="product-share-wrapper">
+                            <div class="profile-share">
+                                <span class="text-danger">{{sale.nft_type|upper}}</span>
+                                <!-- <a href="javascript:void(0)" class="avatar" data-tooltip="Sadikur Ali"><img src="/static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
+                                <a href="javascript:void(0)" class="avatar" data-tooltip="Ali"><img src="/static/assets/images/client/client-3.png" alt="Nft_Profile"></a>
+                                <a href="javascript:void(0)" class="avatar" data-tooltip="Sadikur"><img src="/static/assets/images/client/client-4.png" alt="Nft_Profile"></a>
+                                <a class="more-author-text" href="#">9+ Place Bit.</a> -->
+                            </div>
+                            
+                        </div>
+                        <a href="{% url 'explore-detail' sale.slug %}"><span class="product-name">{{sale.name|upper}}</span></a>
+                        
+                        {% if sale.bid == 'YES' %}
+                        <span class="latest-bid">Avaliale for bid</span>
+                        {% else %}
+                            
+                        {% endif %}
+                            
+                        <div class="bid-react-area">
+                            <div class="last-bid">{{sale.item_price}} ETH</div>
+                            <div class="react-area">
+                                <svg viewBox="0 0 17 16" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN kBvkOu">
+                                    <path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path>
+                                </svg>
+                                <!-- <span class="number">322</span> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% empty %}
+                <div class="text-center">
+                    <h4>No NFTs avaliable for sale yet</h4>
+                </div>
+                    
+                {% endfor %}
+                    
+                <!-- end single product -->
+
+
+            </div>
+            <div class="tab-pane row g-5 d-flex fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <!-- start single product -->
+                
+                {% for owned in created %}
+                    
+                <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="product-style-one no-overlay with-placeBid">
+                        <div class="card-thumbnail">
+                            <a href="{% url 'explore-detail' owned.slug %}">
+                                
+                                    {% if owned.nft_type == 'art' %}
+                                    <img src="{{owned.upload_nft.url}}" alt="">
+                                    {% elif owned.nft_type == 'video' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
+                                    {% elif owned.nft_type == 'music' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-02.jpg' %}" alt="">
+                                    {% elif nft.nft_type == 'trading-cards/collectible' %}
+                                    <img src="{{owned.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif owned.nft_type == 'text' %}
+                                    <img src="{{owned.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif owned.nft_type == 'memes' %}
+                                    <img src="{{owned.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif owned.nft_type == 'domain-name' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    {% elif owned.nft_type == 'virtual-style' %}
+                                    <img src="{{owned.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif owned.nft_type == 'pdf' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    {% else %}
+                                     <p>file format is not supported</p>   
+                                    {% endif %}
+                                    
+                                <!-- <img style="object-fit:scale-down; width: 350px; height: 200px;" src="{{owned.upload_nft.url}}" alt="NFT_portfolio"> -->
+                            </a>
+                            <a href="{% url 'explore-detail' owned.slug %}" class="btn btn-primary">View</a>
+                        </div>
+                        <div class="product-share-wrapper">
+                            <div class="profile-share">
+                                <span class="text-danger">{{owned.nft_type|upper}}</span>
+                                <!-- <a href="javascript:void(0)" class="avatar" data-tooltip="Tawhid Sabir"><img src="/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                                <a href="javascript:void(0)" class="avatar" data-tooltip="Tawhid"><img src="/static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
+                                <a href="javascript:void(0)" class="avatar" data-tooltip="Sabir"><img src="/static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
+                                <a class="more-author-text" href="#">5+ Place Bit.</a> -->
+                            </div>
+                            
+                        </div>
+                        <a href="{% url 'explore-detail' owned.slug %}"><span class="product-name">{{owned.name|upper}}</span></a>
+                        <!-- <span class="latest-bid text-secondary">{{owned.nft_type|upper}}</span> -->
+                        <div class="bid-react-area">
+                            <div class="last-bid">{{owned.item_price}} ETH</div>
+                            <div class="react-area">
+                                <svg viewBox="0 0 17 16" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN kBvkOu">
+                                    <path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path>
+                                </svg>
+                                <!-- <span class="number">532</span> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                    
+                <!-- end single product -->
+                
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+    
+<script>
+    function myFunction() {
+      // Get the text field
+      var copyText = document.getElementById("walletAddy");
+    
+      // Select the text field
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+    
+       // Copy the text inside the text field
+      navigator.clipboard.writeText(copyText.value);
+    
+      // Alert the copied text
+      alert("Wallet address copied: " + copyText.value);
+    } 
+  </script>
+{% endblock content %}
+    

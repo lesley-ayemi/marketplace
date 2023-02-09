@@ -25,7 +25,7 @@
                 <h4 class="card-title">Edit Form</h4>
             </div>
             <div class="card-body">
-                <form class="form form-vertical" method="post" action="{% url 'admin-edit-nft' nft.slug %}">
+                <form class="form form-vertical" method="post" action="{% url 'admin-edit-nft' nft.slug %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
                         
