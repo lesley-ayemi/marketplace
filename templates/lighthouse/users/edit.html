@@ -25,7 +25,7 @@
                 <h4 class="card-title">Edit {{user.username}}</h4>
             </div>
             <div class="card-body">
-                <form class="form form-vertical" method="post" action="{% url 'edit-user' user.username %}">
+                <form class="form form-vertical" method="post" action="{% url 'edit-user' user.username %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
                         {{form|crispy}}
