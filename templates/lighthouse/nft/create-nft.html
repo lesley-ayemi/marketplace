@@ -25,7 +25,7 @@
                 <h4 class="card-title">NFT Form</h4>
             </div>
             <div class="card-body">
-                <form class="form form-vertical" method="post" action="{% url 'create-nfts' %}">
+                <form class="form form-vertical" method="post" action="{% url 'create-nfts' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
                         {{form|crispy}}
