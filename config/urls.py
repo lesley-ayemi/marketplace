@@ -145,7 +145,8 @@ urlpatterns = [
         path('send-email/', ComposeEmail.as_view(), name='send-email'),
         path('email-history/', EmailHistory.as_view(), name='email-history'),
         
-        
+        path('change-password/', AdminChangePassword.as_view(), name='admin-change-password'),
+
         path('add-payment-method/', AddPaymentMethod.as_view(), name='add-payment-method'),
         path('edit-payment-method/<int:id>/', EditPaymentMethod.as_view(), name='edit-payment-method'),
         path('delete-payment-method/<int:id>/', DeletePaymentMethod.as_view(), name='delete-payment-method'),

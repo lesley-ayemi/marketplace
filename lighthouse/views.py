@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from accounts.models import User, UserTransactions, UserWallet
 from lighthouse.forms import AddPaymentMethodForm, CategoryForm, CreateNftForm, CreateUserForm, DepositForm, EditUserForm, EditUserWallet, MintForm, SendEmailForm, WithdrawalForm
 from django.contrib import messages
-from lighthouse.models import PaymentMethod
+from lighthouse.models import PaymentMethod, SendEmailUser
 from django.core.mail import EmailMessage
 
 from django.conf import settings
@@ -15,7 +15,19 @@ class LighthouseDashboard(TemplateView):
     template_name = 'lighthouse/dashboard.html'
     def get(self, request, *args):
         if request.user.is_authenticated and request.user.is_admin == True:
-            return render(request, self.template_name, *args)
+            total_users = User.objects.filter(is_user=True).count()
+            total_nfts = CreateNftModel.objects.all().count()
+            total_collections = NftCollection.objects.all().count()
+            users = User.objects.all().order_by('-date_joined')[:5]
+            all_nfts = CreateNftModel.objects.all().order_by('-created')[:5]
+            context = {
+                'total_users':total_users,
+                'total_nfts':total_nfts,
+                'total_collections':total_collections,
+                'users':users,
+                'all_nfts':all_nfts,
+            }
+            return render(request, self.template_name, context)
         else:
             messages.error(request, 'You do not have permission to access this page')
             return redirect('login')
@@ -492,11 +504,11 @@ class ComposeEmail(TemplateView):
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
             email = form.cleaned_data['email']
-            files = request.FILES.getlist('attach')
+            files = request.FILES.getlist('files')
             
             try:
                 if files:
-                    mail = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [email])
+                    mail = EmailMessage(subject, message, settings.SEND_EMAIL_NAME, [email])
                     
                     
                     for file in files:
@@ -506,7 +518,7 @@ class ComposeEmail(TemplateView):
                         messages.success(request, 'Email sent successfully')
                         return redirect(request.META.get('HTTP_REFERER'))
                 else:
-                    mail = EmailMessage(subject, message, settings.EMAIL_HOST_USER, ['email'])
+                    mail = EmailMessage(subject, message, settings.SEND_EMAIL_NAME, [email])
                     mail.send()
                     form.save()
                     messages.success(request, 'Email sent successfully')
@@ -520,15 +532,34 @@ class ComposeEmail(TemplateView):
     
 
 class EmailHistory(TemplateView):
-    template_name = 'lighthouse/email/histroy.html'
+    template_name = 'lighthouse/email/history.html'
     def get(self, request):
-        pass
+        all_emails = SendEmailUser.objects.all().order_by('-created')
+        return render(request, self.template_name, {'all_emails':all_emails})
 
 
-class ChangePassword(TemplateView):
+class AdminChangePassword(TemplateView):
+    template_name = 'lighthouse/change-password.html'
     def get(self, request):
-        pass
-    
+        return render(request, self.template_name)
     
     def post(self, request):
-        pass
+        old_password = request.POST.get('password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        user = User.objects.get(username=request.user)
+        if user.check_password(old_password):
+            if new_password == confirm_password:
+                user.get_user_p = new_password
+                user.set_password(new_password)
+                user.save()
+                messages.success(request, 'Password Changed, Login again')
+                return redirect('login')
+                # return redirect('user-settings')
+            else:
+                messages.warning(request, 'password mismatch')
+                return redirect(request.META.get('HTTP_REFERER'))
+                # return HttpResponse('password mismatch')
+        else:
+            messages.warning(request, 'Incorrect Old Password')
+            return redirect(request.META.get('HTTP_REFERER'))
