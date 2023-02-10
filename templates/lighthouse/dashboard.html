@@ -413,6 +413,9 @@
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1" style="width: 98px;"
                                             aria-label="Balance: activate to sort column ascending">Balance</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            colspan="1" style="width: 98px;"
+                                            aria-label="Balance: activate to sort column ascending">Status</th>
                                             <th class="text-truncate sorting" tabindex="0"
                                             aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                                             style="width: 130px;"
@@ -428,6 +431,15 @@
                                         <td>{{user.username}}</td>
                                         <td>{{user.email}}</td>
                                         <td>{{user.balance}}</td>
+                                        <td><span class="badge rounded-pill badge-light{% if user.is_active %}-primary {% else %}-danger {% endif %}  me-1">
+                                    
+                                            {% if user.is_active %}
+                                                Active
+                                            {% else %}
+                                                Inactive
+                                            {% endif %}
+                                                
+                                        </span></td>
                                         <td>{{user.date_joined}}</td>
                                         <td>
                                             <div class="dropdown">
