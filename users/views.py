@@ -23,7 +23,8 @@ class UsersDashboard(LoginRequiredMixin, TemplateView):
     template_name = 'users/index.html'
     def get(self, request):
         created = CreateNftModel.objects.filter(creator=self.request.user.uuid).order_by('-created')
-        owned = CreateNftModel.objects.filter(Q(creator=self.request.user.uuid), Q(purchased_by=self.request.user.uuid)).order_by('-created')
+        owned = CreateNftModel.objects.filter(creator=self.request.user.uuid, purchased_by=self.request.user.uuid).order_by('-created')
+        total_purchases = CreateNftModel.objects.filter(purchased_by=self.request.user.uuid).count()
         sales = CreateNftModel.objects.filter(creator=self.request.user.uuid, list_for_sale=True).order_by('-created')
         my_collections = NftCollection.objects.filter(user_collection=self.request.user.uuid)
         # TODO: fix count for collection items 
@@ -38,6 +39,7 @@ class UsersDashboard(LoginRequiredMixin, TemplateView):
             'my_collections':my_collections,
             'unminted':unminted,
             'payments':payments,
+            'total_purchases':total_purchases,
         }
         return render(request, self.template_name, context)
     
