@@ -1,7 +1,7 @@
 from django import forms
 from accounts.models import *
 from marketplace.models import Category, CreateNftModel
-from .models import PaymentMethod
+from .models import PaymentMethod, SendEmailUser
 
 class CreateUserForm(forms.ModelForm):
     class Meta:
@@ -118,6 +118,7 @@ class WithdrawalForm(forms.ModelForm):
             'amount',
             'w_wallet',
             't_status',
+            'w_gas_fee',
         ]
     def __init__(self, *args, **kwargs): 
         super(WithdrawalForm, self).__init__(*args, **kwargs)                       
@@ -131,3 +132,14 @@ class WithdrawalForm(forms.ModelForm):
     #     super(EditUserForm, self).__init__(*args, **kwargs)
     #     if hide_condition:
     #         self.fields['w_wallet'].widget = HiddenInput()
+
+
+class SendEmailForm(forms.ModelForm):
+    class Meta:
+        model = SendEmailUser
+        fields = [
+            'email',
+            'subject',
+            'message',
+            'files',
+        ]

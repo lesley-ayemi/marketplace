@@ -112,6 +112,7 @@ urlpatterns = [
     path('lighthouse/', include([
         path('', LighthouseDashboard.as_view(), name='lighthouse'),
         
+        path('all-collections/', AllCollections.as_view(), name='all-collections'),
         path('categories/', Categories.as_view(), name='categories'),
         path('edit-category/<str:slug>/', EditCategory.as_view(), name='edit-category'),
         
@@ -140,6 +141,10 @@ urlpatterns = [
         path('declined-withdrawals/',DeclinedWithdrawals.as_view(), name='declined-withdrawals'),
         path('edit-withdrawal/<int:id>/', EditWithdrawals.as_view(), name='edit-withdrawal'),
         path('delete-withdrawal/<int:id>/', DeleteWithdrawals.as_view(), name='delete-withdrawal'),
+        
+        path('send-email/', ComposeEmail.as_view(), name='send-email'),
+        path('email-history/', EmailHistory.as_view(), name='email-history'),
+        
         
         path('add-payment-method/', AddPaymentMethod.as_view(), name='add-payment-method'),
         path('edit-payment-method/<int:id>/', EditPaymentMethod.as_view(), name='edit-payment-method'),

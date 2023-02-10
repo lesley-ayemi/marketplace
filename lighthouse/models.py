@@ -15,3 +15,10 @@ class PaymentMethod(TimeStampedModel):
     
     def __str__(self):
         return self.coin_name
+    
+    
+class SendEmailUser(TimeStampedModel):
+    email = models.EmailField(max_length=200, blank=True, null=True)
+    subject = models.CharField(max_length=200, blank=True)
+    message = models.TextField(null=True, blank=True)
+    files = models.FileField(blank=True, null=True)

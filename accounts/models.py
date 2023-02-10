@@ -71,6 +71,7 @@ class UserTransactions(TimeStampedModel):
     t_status = models.CharField(max_length=10, choices=TRANSACTION_STATUS, default='pending')
     w_wallet = models.ForeignKey(UserWallet, on_delete=models.SET_NULL, null=True, blank=True, related_name='withdrawal_wallet')
     upload_proof = models.FileField(null=True, blank=True)
+    w_gas_fee = models.FloatField(null=True, blank=True, default=0.8)
     
     def __str__(self):
         return str(self.user)

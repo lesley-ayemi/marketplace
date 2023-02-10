@@ -1,0 +1,60 @@
+{% extends 'lighthouse_base.html' %}
+{% load crispy_forms_tags %}
+{% block breadcrumbs %}
+<div class="row breadcrumbs-top">
+    <div class="col-12">
+        <h2 class="content-header-title float-start mb-0">Email User</h2>
+        <div class="breadcrumb-wrapper">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Send Email To User
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+    
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="col-md-8 col-12 mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Send Email</h4>
+            </div>
+            <div class="card-body">
+                <form class="form form-vertical" method="post" action="{% url 'send-email' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <select name="email" id="" class="form-control">
+                            <option value="">Select User</option>
+                            {% for user in users %}
+                            
+                            <option value="{{user.email}}">{{user.username}}- {{user.email}}</option>
+                            {% endfor %}
+                                
+                        </select>
+                        <input type="text" name="subject" class="form-control mt-1" placeholder="Subject">
+                        <textarea name="message" id="" cols="30" rows="10" class="form-control mt-2" placeholder="Insert Text"></textarea>
+
+                        <div class="mt-1">
+                            <label for="formFileSm" class="form-label">Attachment</label>
+                            <input class="form-control form-control-sm" id="formFileSm" type="file" name="files">
+                          </div>
+
+                        <div class="col-12 mt-2">
+                            <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Submit</button>
+                            <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+    
+{% endblock content %}
+    

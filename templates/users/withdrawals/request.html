@@ -54,7 +54,7 @@
                                 <div class="condition">
                                     <h5 class="title">Request Withdrawal</h5>
                                     <p class="condition">
-                                        Service fee : 2.5% or more depending on your withdrawal amount
+                                        Service fee : 20% on your withdrawal amount
                                     </p>
                                     <p class="text-danger">NOTE: Withdrawal will not be submitted until a wallet is selected</p>
                                     <p class="text-white">Not yet added a wallet?<a href="{% url 'add-wallet' %}" class="text-primary"> click to add one now</a></p>
@@ -110,6 +110,7 @@
                                         <tr class="text-white">
                                             <th>Amount</th>
                                             <th>Wallet Name</th>
+                                            <th>Gas Fee</th>
                                             <th>Date</th>
                                             <th>Status</th>
                                         </tr>
@@ -121,6 +122,7 @@
                                             <tr class="text-white">
                                                 <td scope="row">{{transaction.amount}}</td>
                                                 <td>{{transaction.w_wallet.wallet_name}}</td>
+                                                <td>{{transaction.w_gas_fee}} ETH</td>
                                                 <td>{{transaction.created}}</td>
                                                 <td>{{transaction.t_status}}</td>
                                                

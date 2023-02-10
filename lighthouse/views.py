@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from accounts.models import User, UserTransactions, UserWallet
-from lighthouse.forms import AddPaymentMethodForm, CategoryForm, CreateNftForm, CreateUserForm, DepositForm, EditUserForm, EditUserWallet, MintForm, WithdrawalForm
+from lighthouse.forms import AddPaymentMethodForm, CategoryForm, CreateNftForm, CreateUserForm, DepositForm, EditUserForm, EditUserWallet, MintForm, SendEmailForm, WithdrawalForm
 from django.contrib import messages
 from lighthouse.models import PaymentMethod
+from django.core.mail import EmailMessage
 
-from marketplace.models import Category, CreateNftModel
+from django.conf import settings
+
+from marketplace.models import Category, CreateNftModel, NftCollection
 
 # Create your views here.
 class LighthouseDashboard(TemplateView):
@@ -66,6 +69,16 @@ class EditCategory(TemplateView):
         else:
             messages.error(request, 'You do not have permission to access this page')
             return redirect('login')
+        
+        
+class AllCollections(TemplateView):
+    template_name = 'lighthouse/collections/all.html'
+    def get(self, request):
+        collections = NftCollection.objects.all()
+        context ={
+            'collections':collections,
+        }
+        return render(request, self.template_name, context)
     
 class CreateUser(TemplateView):
     template_name = 'lighthouse/users/create.html'
@@ -464,3 +477,58 @@ class DeletePaymentMethod(TemplateView):
         payment_method.delete()
         messages.success(request, 'Payment method deleted successfully')
         return redirect('add-payment-method')
+    
+
+class ComposeEmail(TemplateView):
+    template_name = 'lighthouse/email/send.html'
+    def get(self, request):
+        form = SendEmailForm
+        users = User.objects.filter(is_user=True).order_by('username')
+        return render(request, self.template_name, {'users': users, 'form':form})
+    
+    def post(self, request):
+        form = SendEmailForm(request.POST, request.FILES)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            email = form.cleaned_data['email']
+            files = request.FILES.getlist('attach')
+            
+            try:
+                if files:
+                    mail = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [email])
+                    
+                    
+                    for file in files:
+                        mail.attach(file.name, file.read(), file.content_type)
+                        mail.send()
+                        form.save()
+                        messages.success(request, 'Email sent successfully')
+                        return redirect(request.META.get('HTTP_REFERER'))
+                else:
+                    mail = EmailMessage(subject, message, settings.EMAIL_HOST_USER, ['email'])
+                    mail.send()
+                    form.save()
+                    messages.success(request, 'Email sent successfully')
+                    return redirect(request.META.get('HTTP_REFERER'))
+            except:
+                messages.warning(request, 'Either the attachment is too big or corrupt')
+                return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.warning(request, 'Unable to send email')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+
+class EmailHistory(TemplateView):
+    template_name = 'lighthouse/email/histroy.html'
+    def get(self, request):
+        pass
+
+
+class ChangePassword(TemplateView):
+    def get(self, request):
+        pass
+    
+    
+    def post(self, request):
+        pass
