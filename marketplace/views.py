@@ -1,3 +1,6 @@
+from django.core.mail import EmailMessage
+from django.core.mail import BadHeaderError
+from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
@@ -158,3 +161,35 @@ class ExploreUsersDetailView(TemplateView):
             'details':details,
         }
         return render(request, self.template_name, context)
+    
+to_mail = settings.SEND_EMAIL_NAME
+class ContactUsMail(TemplateView):
+    def get(self, request):
+        return redirect('contact-us')
+    
+    def post(self, request):
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+        subject = request.POST.get('subject', '')
+        message = request.POST.get('message', '')
+        
+        if name and email and subject and message:
+            try:
+                email = EmailMessage(
+                    subject,
+                    message,
+                    settings.EMAIL_HOST_USER,
+                    to=[f"{to_mail}"],
+                    reply_to=[email],
+                )
+                
+                email.send(fail_silently=True)
+                messages.success(request, 'Message Sent')
+                return redirect(request.META.get('HTTP_REFERER'))
+            
+            except BadHeaderError:
+                messages.warning(request, 'Message failed to send')
+                return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.warning(request, 'Message failed to send')
+            return redirect(request.META.get('HTTP_REFERER'))

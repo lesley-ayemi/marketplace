@@ -95,16 +95,18 @@
                 </div>
             </div>
             <div class="col-lg-6 sal-animate" data-sal="slide-up" data-sal-delay="200" data-sal-duration="800">
+                {% include 'partials/messages.html' %}
                 <div class="form-wrapper-one registration-area">
                     <h3 class="mb--30">Contact Us</h3>
-                    <form class="rwt-dynamic-form" id="contact-form" method="POST" action="#">
+                    <form class="search-form-wrapper" method="post" action="{% url 'contact-us-mail' %}">
+                        {% csrf_token %}
                         <div class="mb-5">
                             <label for="contact-name" class="form-label">Your Name</label>
-                            <input name="contact-name" id="contact-name" type="text">
+                            <input name="name" id="contact-name" type="text">
                         </div>
                         <div class="mb-5">
                             <label for="contact-email" class="form-label">Email</label>
-                            <input id="contact-email" name="contact-email" type="email">
+                            <input id="contact-email" name="email" type="email">
                         </div>
                         <div class="mb-5">
                             <label for="subject" class="form-label">Subject</label>
@@ -112,13 +114,13 @@
                         </div>
                         <div class="mb-5">
                             <label for="contact-message" class="form-label">Write Message</label>
-                            <textarea name="contact-message" id="contact-message" rows="3"></textarea>
+                            <textarea name="message" id="contact-message" rows="3"></textarea>
                         </div>
                         <!-- <div class="mb-5 rn-check-box">
                             <input id="condition" type="checkbox" class="rn-check-box-input">
                             <label for="condition" class="rn-check-box-label">Allow to all tearms &amp; condition</label>
                         </div> -->
-                        <button name="submit" type="submit" class="btn btn-primary">Send Message</button>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
                 </div>
             </div>

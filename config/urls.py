@@ -39,6 +39,8 @@ urlpatterns = [
     path('terms-and-condition/', TemplateView.as_view(template_name='pages/terms-and-condition.html'), name='terms-and-condition'),
     path('privacy-policy/', TemplateView.as_view(template_name='pages/privacy-policy.html'), name='privacy-policy'),
     path('contact-us/', TemplateView.as_view(template_name='pages/contact-us.html'), name='contact-us'),
+    
+    path('contact-us-mail/', ContactUsMail.as_view(template_name='pages/contact-us.html'), name='contact-us-mail'),
     path('explore/', ExploreNft.as_view(), name='explore'),
     path('explore/<slug:slug>/', ExploreNftPageDetail.as_view(), name='explore-detail'),
     path('explore/bid/<int:id>/', PlaceBid.as_view(), name='place-bid'),

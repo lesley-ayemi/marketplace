@@ -209,6 +209,7 @@ EMAIL_PORT = os.environ['EMAIL_PORT']
 SEND_EMAIL_NAME = os.environ['SEND_EMAIL_NAME']
 EMAIL_USE_SSL = os.environ['EMAIL_USE_SSL']
 
+
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = '127.0.0.1'
 # EMAIL_PORT = 1025
