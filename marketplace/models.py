@@ -41,7 +41,7 @@ class CreateNftModel(TimeStampedModel):
     # )
     order_id = models.CharField(max_length=200, blank=True, null=True)
     name = models.CharField(max_length=100)
-    creator = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='creator_nft', blank=True, null=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='creator_nft', blank=True, null=True)
     # autoslugify value using custom `slugify` function
     def custom_slugify(value):
         return default_slugify(value).replace('-', '_')
