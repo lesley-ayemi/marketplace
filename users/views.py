@@ -449,14 +449,14 @@ class FundAccount(LoginRequiredMixin, TemplateView):
     
 class FundAccountDetail(LoginRequiredMixin, TemplateView):
     template_name = 'users/deposits/add-details.html'
-    def get(self, request, name):
-        wallet = get_object_or_404(PaymentMethod, coin_name=name)
+    def get(self, request, id):
+        wallet = get_object_or_404(PaymentMethod, id=id)
         return render(request, self.template_name, {'wallet':wallet})
     
-    def post(self, request, name):
+    def post(self, request, id):
         amount = request.POST['amount']
         upload_proof = request.FILES.get('upload_proof')
-        wallet = get_object_or_404(PaymentMethod, coin_name=name)
+        wallet = get_object_or_404(PaymentMethod, id=id)
         user = get_object_or_404(User, uuid=self.request.user.uuid)
         
         if amount:

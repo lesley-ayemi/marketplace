@@ -24,7 +24,7 @@
 <div class="create-area rn-section-gapTop">
     <div style="" class="container d-flex justify-content-center">
         <div style="" class="row g-5">
-            <form style="" action="{% url 'fund-account-details' wallet.coin_name %}" method="post" class="row" enctype="multipart/form-data">
+            <form style="" action="{% url 'fund-account-details' wallet.id %}" method="post" class="row" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-wrapper-one col-lg-12" id="reportModal" tabindex="-1" aria-hidden="true">
                     {% include 'partials/messages.html' %}

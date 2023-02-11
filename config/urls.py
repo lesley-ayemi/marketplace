@@ -104,7 +104,7 @@ urlpatterns = [
         
         #Deposit
         path('deposit-funds/', FundAccount.as_view(), name='fund-account'),
-        path('deposit-funds/<str:name>/', FundAccountDetail.as_view(), name='fund-account-details'),
+        path('deposit-funds/<int:id>/', FundAccountDetail.as_view(), name='fund-account-details'),
         
         #Withdraw
         path('withdraw-funds/', WithdrawAccount.as_view(), name='withdraw-funds'),
