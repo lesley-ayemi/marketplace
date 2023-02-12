@@ -138,6 +138,7 @@
                                  <p>file format is not supported</p>   
                                 {% endif %}
 
+
                                 {% else %}
                                 <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
                                 {% endif %}
@@ -218,7 +219,11 @@
                     <div class="product-style-one no-overlay with-placeBid">
                         <div class="card-thumbnail">
                             <a href="{{create.get_absolute_url}}">
-                                
+                                    
+                                    {% if create.upload_nft %}
+                                        
+                                    
+                                        
                                     {% if create.nft_type == 'art' %}
                                     <img src="{{create.upload_nft.url}}" alt="">
                                     {% elif create.nft_type == 'video' %}
@@ -240,8 +245,11 @@
                                     {% else %}
                                      <p>file format is not supported</p>   
                                     {% endif %}
+                                    {% else %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    {% endif %}
                                     
-                                <!-- <img style="object-fit:scale-down; width: 350px; height: 200px;" src="{{create.upload_nft.url}}" alt="NFT_portfolio"> -->
+                                
                             </a>
                             <a href="{{create.get_absolute_url}}" class="btn btn-primary">View</a>
                         </div>
@@ -305,6 +313,11 @@
                     <div class="product-style-one no-overlay with-placeBid">
                         <div class="card-thumbnail">
                             <a href="{{mine.get_absolute_url}}">
+                                
+                                {% if mine.upload_nft %}
+                                    
+                               
+                                    
                                 {% if mine.nft_type == 'art' %}
                                     <img src="{{mine.upload_nft.url}}" alt="">
                                     {% elif mine.nft_type == 'video' %}
@@ -326,7 +339,10 @@
                                     {% else %}
                                      <p>file format is not supported</p>   
                                     {% endif %}
-                                <!-- <img src="{{mine.upload_nft.url}}" alt="{{mine.nft_upload}}"> -->
+                                    {% else %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    {% endif %}
+                                
                             </a>
                             <a href="{{mine.get_absolute_url}}" class="btn btn-primary">Place Bid</a>
                         </div>
