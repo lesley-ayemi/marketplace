@@ -113,27 +113,34 @@
                     <div class="product-style-one no-overlay with-placeBid">
                         <div class="card-thumbnail">
                             <a href="{{sale.get_absolute_url}}">
+                                
+                                {% if sale.upload_nft %}
                                 {% if sale.nft_type == 'art' %}
-                                    <img src="{{sale.upload_nft.url}}" alt="">
-                                    {% elif sale.nft_type == 'video' %}
-                                    <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
-                                    {% elif sale.nft_type == 'music' %}
-                                    <img src="{% static 'assets/images/portfolio/portfolio-02.jpg' %}" alt="">
-                                    {% elif nft.nft_type == 'trading-cards/collectible' %}
-                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
-                                    {% elif sale.nft_type == 'text' %}
-                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
-                                    {% elif sale.nft_type == 'memes' %}
-                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
-                                    {% elif sale.nft_type == 'domain-name' %}
-                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
-                                    {% elif sale.nft_type == 'virtual-style' %}
-                                    <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
-                                    {% elif sale.nft_type == 'pdf' %}
-                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
-                                    {% else %}
-                                     <p>file format is not supported</p>   
-                                    {% endif %}
+                                <img src="{{sale.upload_nft.url}}" alt="">
+                                {% elif sale.nft_type == 'video' %}
+                                <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
+                                {% elif sale.nft_type == 'music' %}
+                                <img src="{% static 'assets/images/portfolio/portfolio-02.jpg' %}" alt="">
+                                {% elif nft.nft_type == 'trading-cards/collectible' %}
+                                <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                {% elif sale.nft_type == 'text' %}
+                                <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                {% elif sale.nft_type == 'memes' %}
+                                <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                {% elif sale.nft_type == 'domain-name' %}
+                                <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                {% elif sale.nft_type == 'virtual-style' %}
+                                <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
+                                {% elif sale.nft_type == 'pdf' %}
+                                <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                {% else %}
+                                 <p>file format is not supported</p>   
+                                {% endif %}
+
+                                {% else %}
+                                <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                {% endif %}
+                                    
                                 <!-- <img src="{{sale.upload_nft.url}}" alt="NFT_portfolio"> -->
                             </a>
                             <a href="{{sale.get_absolute_url}}" class="btn btn-primary">Place Bid</a>
