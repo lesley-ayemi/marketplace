@@ -115,6 +115,7 @@
                             <a href="{{sale.get_absolute_url}}">
                                 
                                 {% if sale.upload_nft %}
+                                
                                 {% if sale.nft_type == 'art' %}
                                 <img src="{{sale.upload_nft.url}}" alt="">
                                 {% elif sale.nft_type == 'video' %}
@@ -141,7 +142,7 @@
                                 <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
                                 {% endif %}
                                     
-                                <!-- <img src="{{sale.upload_nft.url}}" alt="NFT_portfolio"> -->
+                                
                             </a>
                             <a href="{{sale.get_absolute_url}}" class="btn btn-primary">Place Bid</a>
                         </div>
