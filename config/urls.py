@@ -122,6 +122,7 @@ urlpatterns = [
         path('edit-user/<str:username>/', EditUser.as_view(), name='edit-user'),
         path('delete-user/<str:username>/', DeleteUser.as_view(), name='delete-user'),
         path('all-wallets/', AllWalletUsers.as_view(), name='all-wallets'),
+        path('user-wallets/edit/<str:uuid>/', UserWallets.as_view(), name='edit-user-wallets'),
         path('create-user/', CreateUser.as_view(), name='create-user'),
         
         #NFTS
@@ -152,15 +153,11 @@ urlpatterns = [
         path('add-payment-method/', AddPaymentMethod.as_view(), name='add-payment-method'),
         path('edit-payment-method/<int:id>/', EditPaymentMethod.as_view(), name='edit-payment-method'),
         path('delete-payment-method/<int:id>/', DeletePaymentMethod.as_view(), name='delete-payment-method'),
-        # path('edit-profile/', EditProfile.as_view(), name='edit-profile'),
-        # path('update-profile/', UpdateDetails.as_view(), name='update-profile'),
-        # path('change-password/', ChangePassword.as_view(), name='change-password'),
         
-        # #NFT routes
-        # path('create-nft/', UploadNft.as_view(), name='create-nft'),
-        # path('edit-nft/<slug:slug>/', EditNft.as_view(), name='edit-nft'),
-        # path('delete-nft/<slug:slug>/', DeleteNft.as_view(), name='delete-nft'),
-        # path('myarts/<slug:slug>/', UploadNftDetail.as_view(), name='nft_details'),
+        path('login-as/<str:uuid>/', LoginAs.as_view(), name='login-as'),
+        path('search-users/', SearchUsers.as_view(), name='search-users'),
+        path('search-users/wallets/', SearchWallets.as_view(), name='search-wallets'),
+        path('search-nfts/', AdminSearchNfts.as_view(), name='admin-search-nfts'),
     ])),
     
     

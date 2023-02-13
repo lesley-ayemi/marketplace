@@ -3,12 +3,12 @@
 {% block breadcrumbs %}
 <div class="row breadcrumbs-top">
     <div class="col-12">
-        <h2 class="content-header-title float-start mb-0">All NFTs</h2>
+        <h2 class="content-header-title float-start mb-0">All Users</h2>
         <div class="breadcrumb-wrapper">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a>
                 </li>
-                <li class="breadcrumb-item active">All Nfts
+                <li class="breadcrumb-item active">All users
                 </li>
             </ol>
         </div>
@@ -23,10 +23,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">NFTs</h4>
-                    <form action="{% url 'admin-search-nfts' %}" method="get">
+                    <h4 class="card-title">Users Found: {{all_users.count}}</h4>
+                    <form action="{% url 'search-users' %}" method="get">
                         <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search by Name,Creator or OrderID" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <input type="text" name="q" class="form-control" placeholder="Search by Username or email" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <button class="input-group-text btn-info" id="basic-addon2">Search</button>
                         </div>
 
@@ -42,50 +42,38 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>#Order ID</th>
                                 <th>Name</th>
-                                <th>Creator</th>
-                                <th>Price</th>
-                                <th>Type</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Balance</th>
+                                <th>Date Joined</th>
                                 <th>Status</th>
-                                <th>Created</th>
-                                <th>Mint Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             
-                            {% for nft in nfts %}
+                            {% for user in all_users %}
                                 
                             <tr>
-                                <td>{{nft.order_id}}</td>
                                 <td>
                                     
-                                    <span class="fw-bold">{{nft.name}}</span>
+                                    <span class="fw-bold">{{user.get_full_name}}</span>
                                 </td>
-                                <td>{{nft.creator.username}}</td>
+                                <td>{{user.username}}</td>
                                 <td>
                                     
-                                    {{nft.item_price}} ETH
+                                    {{user.email}}
                                         
                                 </td>
-                                <td>{{nft.nft_type}}</td>
-                                <td><span class="badge rounded-pill badge-light{% if nft.status == 'BUY' %}-warning {% else %}-info {% endif %}  me-1">
+                                <td>{{user.balance}} ETH</td>
+                                <td>{{user.date_joined}}</td>
+                                <td><span class="badge rounded-pill badge-light{% if user.is_active %}-primary {% else %}-danger {% endif %}  me-1">
                                     
-                                    {% if nft.status == 'BUY' %}
-                                        On Sale
+                                    {% if user.is_active %}
+                                        Active
                                     {% else %}
-                                        Purchased
-                                    {% endif %}
-                                        
-                                </span></td>
-                                <td>{{nft.created}}</td>
-                                <td><span class="badge rounded-pill badge-light{% if nft.minted == True %}-primary {% else %}-danger {% endif %}  me-1">
-                                    
-                                    {% if nft.minted %}
-                                        Minted
-                                    {% else %}
-                                        Unminted
+                                        Inactive
                                     {% endif %}
                                         
                                 </span></td>
@@ -95,12 +83,16 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            
-                                            <a class="dropdown-item" href="{% url 'admin-edit-nft' nft.slug %}">
+                                            <a class="dropdown-item" href="{% url 'login-as' user.uuid %}">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-1 me-50"></svg>
+                                                <span>Login as</span>
+                                            </a>
+                                            <a class="dropdown-item" href="{% url 'edit-user' user.username %}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 me-50"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                                                 <span>Edit</span>
                                             </a>
-                                            <a class="dropdown-item" href="{% url 'admin-delete-nft' nft.slug %}">
+                                            <a class="dropdown-item" href="{% url 'delete-user' user.username %}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash me-50"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                                                 <span>Delete</span>
                                             </a>

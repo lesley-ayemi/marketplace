@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from accounts.models import User, UserTransactions, UserWallet
-from lighthouse.forms import AddPaymentMethodForm, CategoryForm, CreateNftForm, CreateUserForm, DepositForm, EditUserForm, EditUserWallet, MintForm, SendEmailForm, WithdrawalForm
+from lighthouse.forms import AddPaymentMethodForm, CategoryForm, CreateNftForm, CreateUserForm, DepositForm, EditUserForm, EditUserWallet, MintForm, SendEmailForm, UserWalletForm, WithdrawalForm
 from django.contrib import messages
 from lighthouse.models import PaymentMethod, SendEmailUser
 from django.core.mail import EmailMessage
 
 from django.conf import settings
+from django.contrib.auth import authenticate, login
 
 from marketplace.models import Category, CreateNftModel, NftCollection
+from django.db.models import Q
 
 # Create your views here.
 class LighthouseDashboard(TemplateView):
@@ -165,7 +167,7 @@ class AllWalletUsers(TemplateView):
     template_name = 'lighthouse/users/wallets.html'
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user.is_admin == True:
-            wallets = UserWallet.objects.all()
+            wallets = UserWallet.objects.all().order_by('user_wallet__username')
             return render(request, self.template_name, {'wallets':wallets})
         else:
             messages.error(request, 'You do not have permission to access this page')
@@ -173,14 +175,26 @@ class AllWalletUsers(TemplateView):
         
 class UserWallets(TemplateView):
     template_name = 'lighthouse/users/user-wallet.html'
-    def get(self, request, username):
-        user = get_object_or_404(User, username=username)
-        wallets = UserWallet.objects.filter(user=user)
-        return render(request, self.template_name, {'wallets':wallets})
+    def get(self, request, uuid):
+        user = get_object_or_404(User, uuid=uuid)
+        wallets = UserWallet.objects.get(user_wallet_id=user)
+        form = UserWalletForm(instance=wallets)
+        return render(request, self.template_name, {'wallets':wallets, 'user':user, 'form':form})
     
-    def post(self, request, username):
-        pass
+    def post(self, request, uuid):
+        user = get_object_or_404(User, uuid=uuid)
+        wallets = UserWallet.objects.get(user_wallet_id=user)
+        form = UserWalletForm(request.POST, instance=wallets)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'wallets updated')
+            return redirect('all-wallets')
+        else:
+            messages.error(request, 'wallet failed to update')
+            return redirect(request.META.get('HTTP_REFERER'))
 
+"""NFTs"""
 class AllNft(TemplateView):
     template_name = 'lighthouse/nft/all.html'
     def get(self, request, *args, **kwargs):
@@ -272,6 +286,7 @@ class EditUnmintedNft(TemplateView):
             return redirect('unminted-nfts')
     
 
+"""Deposits"""
 class ApprovedDeposits(TemplateView):
     template_name = 'lighthouse/deposits/approved.html'
     def get(self, request, *args, **kwargs):
@@ -349,7 +364,8 @@ class DeleteDeposit(TemplateView):
         deposits.delete()
         messages.success(request, 'Deposit deleted')
         return redirect('pending-deposits')
-    
+
+"""Withdrawals"""
 class ApprovedWithdrawals(TemplateView):
     template_name = 'lighthouse/withdrawals/approved.html'
     def get(self, request, *args, **kwargs):
@@ -435,8 +451,8 @@ class DeleteWithdrawals(TemplateView):
         return redirect('pending-withdrawals')
     
     
-    
-    
+ 
+"""Payment Method"""    
 class AddPaymentMethod(TemplateView):
     template_name = 'lighthouse/payment-methods/add.html'
     def get(self, request):
@@ -490,7 +506,7 @@ class DeletePaymentMethod(TemplateView):
         messages.success(request, 'Payment method deleted successfully')
         return redirect('add-payment-method')
     
-
+"""Emails"""
 class ComposeEmail(TemplateView):
     template_name = 'lighthouse/email/send.html'
     def get(self, request):
@@ -537,7 +553,7 @@ class EmailHistory(TemplateView):
         all_emails = SendEmailUser.objects.all().order_by('-created')
         return render(request, self.template_name, {'all_emails':all_emails})
 
-
+"""Change Password"""
 class AdminChangePassword(TemplateView):
     template_name = 'lighthouse/change-password.html'
     def get(self, request):
@@ -563,3 +579,37 @@ class AdminChangePassword(TemplateView):
         else:
             messages.warning(request, 'Incorrect Old Password')
             return redirect(request.META.get('HTTP_REFERER'))
+
+"""Login As User"""
+class LoginAs(TemplateView):
+    def get(self, request, uuid):
+        user = get_object_or_404(User, uuid=uuid)
+        if user is not None:
+            login(request, user)
+            return redirect('users')
+        else:
+            messages.warning(request, 'User not found')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+"""Search Views"""
+class SearchUsers(TemplateView):
+    template_name = 'lighthouse/users/search.html'
+    def get(self, request):
+        q = request.GET.get('q')
+        all_users = User.objects.filter(Q(username__icontains=q)| Q(email__icontains=q))
+        return render(request, self.template_name, {'all_users':all_users, 'q':q})
+    
+    
+class SearchWallets(TemplateView):
+    template_name = 'lighthouse/users/search-wallet.html'
+    def get(self, request, *args, **kwargs):
+        q = request.GET.get('q')
+        wallets = UserWallet.objects.filter(Q(user_wallet__username__icontains=q)| Q(wallet_name__icontains=q)| Q(wallet_address__icontains=q))
+        return render(request, self.template_name, {'wallets':wallets, 'q':q})
+    
+class AdminSearchNfts(TemplateView):
+    template_name = 'lighthouse/nft/search.html'
+    def get(self, request):
+        q = request.GET.get('q')
+        nfts = CreateNftModel.objects.filter(Q(name__icontains=q)| Q(creator__username__icontains=q)| Q(order_id__icontains=q))
+        return render(request, self.template_name, {'nfts':nfts, 'q':q})

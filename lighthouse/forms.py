@@ -143,3 +143,16 @@ class SendEmailForm(forms.ModelForm):
             'message',
             'files',
         ]
+        
+        
+class UserWalletForm(forms.ModelForm):
+    class Meta:
+        model = UserWallet
+        fields = [
+            'user_wallet',
+            'wallet_name',
+            'wallet_address',
+        ]
+    def __init__(self, *args, **kwargs): 
+        super(UserWalletForm, self).__init__(*args, **kwargs)                       
+        self.fields['user_wallet'].disabled = True

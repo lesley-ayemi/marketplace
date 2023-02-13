@@ -16,12 +16,14 @@ from django.db.models import Avg, Max, Min, Sum, Value as V
 from django.db.models.functions import Coalesce
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.sites.shortcuts import get_current_site
 # Create your views here.
 
 """Dashboard"""
 class UsersDashboard(LoginRequiredMixin, TemplateView):
     template_name = 'users/index.html'
     def get(self, request):
+        current_site = get_current_site(request)
         created = CreateNftModel.objects.filter(creator=self.request.user.uuid).order_by('-created')
         owned = CreateNftModel.objects.filter(creator=self.request.user.uuid, purchased_by=self.request.user.uuid).order_by('-created')
         total_purchases = CreateNftModel.objects.filter(purchased_by=self.request.user.uuid).count()
@@ -40,6 +42,7 @@ class UsersDashboard(LoginRequiredMixin, TemplateView):
             'unminted':unminted,
             'payments':payments,
             'total_purchases':total_purchases,
+            'current_site':current_site,
         }
         return render(request, self.template_name, context)
     

@@ -24,6 +24,13 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">All Users</h4>
+                    <form action="{% url 'search-users' %}" method="get">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search by Username or email" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <button class="input-group-text btn-info" id="basic-addon2">Search</button>
+                        </div>
+
+                    </form>
                 </div>
                 <!-- <div class="card-body">
                     <p class="card-text">
@@ -76,10 +83,10 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#">
-                                                <!-- <i class="fab fa-eye    "></i> -->
+                                            <a class="dropdown-item" href="{% url 'login-as' user.uuid %}">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-1 me-50"></svg>
-                                                <span>View User Wallet</span>
+                                                <span>Login as</span>
                                             </a>
                                             <a class="dropdown-item" href="{% url 'edit-user' user.username %}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 me-50"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
