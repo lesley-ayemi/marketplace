@@ -284,8 +284,10 @@ class UploadNftDetail(LoginRequiredMixin, TemplateView):
     def get(self, request, slug):
         # get_collection = get_object_or_404(NftCollection, name=collection)
         nft = get_object_or_404(CreateNftModel, slug=slug)
+        bids = BidNft.objects.filter(bid_item_id=nft.id)
+
         payments = PaymentMethod.objects.filter(wallet_type='minting', enable=True).order_by('-created')
-        return render(request, self.template_name, {'nft':nft, 'payments':payments})
+        return render(request, self.template_name, {'nft':nft, 'payments':payments, 'bids':bids})
     
     def post(self, request, *args, **kwargs):
         nft = get_object_or_404(CreateNftModel, slug=kwargs.get('slug'))

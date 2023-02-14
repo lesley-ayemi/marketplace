@@ -472,7 +472,29 @@
                                 </div> -->
                             </div>
                             <!-- <a class="btn btn-primary-alta mt--30" href="#">Place a Bid</a> -->
-                            
+                            {% if nft.bid == 'YES' %}
+                                <div class="rn-pd-md-property-wrapper mt-3">
+                                    <h6 class="pd-property-title text-danger">
+                                        Ongoing Bid
+                                    </h6>
+                                    <div class="property-wrapper">
+                                        <!-- single property -->
+                                        <div class="pd-property-inner col-lg-12">
+                                            <!-- <span class="color-body type">Property TYPE</span> -->
+                                            
+                                            {% for bid in bids %}
+                                                
+                                            <span class="color-white value">Current Bidding Price: <span class="text-warning">{{bid.bid_amount}} ETH</span></span>
+                                            {% empty %}
+                                            <span class="color-white value">No Bids yet</span></span>
+                                            {% endfor %}
+                                                
+                                        </div>
+                                        <!-- single property End -->
+                                        
+                                    </div>
+                                </div>
+                            {% endif %}
                             {% if nft.minted == False %}
                             
                             {% for payment in payments %}

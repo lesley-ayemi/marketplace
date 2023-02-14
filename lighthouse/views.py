@@ -9,7 +9,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 
-from marketplace.models import Category, CreateNftModel, NftCollection
+from marketplace.models import BidNft, Category, CreateNftModel, NftCollection
 from django.db.models import Q
 
 # Create your views here.
@@ -613,3 +613,10 @@ class AdminSearchNfts(TemplateView):
         q = request.GET.get('q')
         nfts = CreateNftModel.objects.filter(Q(name__icontains=q)| Q(creator__username__icontains=q)| Q(order_id__icontains=q))
         return render(request, self.template_name, {'nfts':nfts, 'q':q})
+    
+    
+class AllBids(TemplateView):
+    template_name = 'lighthouse/bids/all.html'
+    def get(self, request):
+        bids = BidNft.objects.all()
+        return render(request, self.template_name, {'bids':bids})

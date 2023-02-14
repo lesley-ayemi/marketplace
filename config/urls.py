@@ -158,6 +158,8 @@ urlpatterns = [
         path('search-users/', SearchUsers.as_view(), name='search-users'),
         path('search-users/wallets/', SearchWallets.as_view(), name='search-wallets'),
         path('search-nfts/', AdminSearchNfts.as_view(), name='admin-search-nfts'),
+        
+        path('all-bids/', AllBids.as_view(), name='all-bids'),
     ])),
     
     
