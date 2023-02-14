@@ -122,7 +122,18 @@
                                             <tr class="text-white">
                                                 <td scope="row">{{transaction.amount}}</td>
                                                 <td>{{transaction.w_wallet.wallet_name}}</td>
-                                                <td>{{transaction.w_gas_fee}} ETH</td>
+                                                <td>
+                                                    
+                                                    {% if transaction.w_gas_fee == 0 %}
+                                                    <p>Calculating Gas Fee</p>
+                                                    {% else %}
+
+                                                    {{transaction.w_gas_fee}} ETH
+                                                        
+                                                    {% endif %}
+                                                        
+
+                                                </td>
                                                 <td>{{transaction.created}}</td>
                                                 <td>{{transaction.t_status}}</td>
                                                
