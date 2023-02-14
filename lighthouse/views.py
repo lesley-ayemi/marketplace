@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from accounts.models import User, UserTransactions, UserWallet
-from lighthouse.forms import AddPaymentMethodForm, CategoryForm, CreateNftForm, CreateUserForm, DepositForm, EditUserForm, EditUserWallet, MintForm, SendEmailForm, UserWalletForm, WithdrawalForm
+from lighthouse.forms import AddPaymentMethodForm, CategoryForm, CreateNftForm, CreateUserForm, DepositForm, EditUserForm, EditUserWallet, MintForm, PlaceBidForm, SendEmailForm, UserWalletForm, WithdrawalForm
 from django.contrib import messages
 from lighthouse.models import PaymentMethod, SendEmailUser
 from django.core.mail import EmailMessage
@@ -618,5 +618,24 @@ class AdminSearchNfts(TemplateView):
 class AllBids(TemplateView):
     template_name = 'lighthouse/bids/all.html'
     def get(self, request):
-        bids = BidNft.objects.all()
+        bids = BidNft.objects.all().order_by('-id')
         return render(request, self.template_name, {'bids':bids})
+    
+class EditBids(TemplateView):
+    template_name = 'lighthouse/bids/edit.html'
+    def get(self, request, id):
+        bid = get_object_or_404(BidNft, id=id)
+        form = PlaceBidForm(instance=bid)
+        return render(request, 'lighthouse/bids/edit.html', {'form': form, 'bid': bid})
+    
+    def post(self, request, id):
+        bid = get_object_or_404(BidNft, id=id)
+        form = PlaceBidForm(request.POST or None, instance=bid)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Bid has been updated successfully')
+            return redirect('all-bids')
+        else:
+            messages.error(request, 'Failed to update bid')
+            return redirect(request.META.get('HTTP_REFERER'))

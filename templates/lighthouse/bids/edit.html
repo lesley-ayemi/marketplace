@@ -1,0 +1,47 @@
+{% extends 'lighthouse_base.html' %}
+{% load crispy_forms_tags %}
+{% block breadcrumbs %}
+<div class="row breadcrumbs-top">
+    <div class="col-12">
+        <h2 class="content-header-title float-start mb-0">Edit Bid</h2>
+        <div class="breadcrumb-wrapper">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Edit Bid
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+    
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="col-md-8 col-12 mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Edit Bid Form</h4>
+            </div>
+            <div class="card-body">
+                <form class="form form-vertical" method="post" action="{% url 'edit-bids' bid.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        
+                        
+                        {{form|crispy}}
+                        <div class="col-12 mt-2">
+                            <button type="submit" class="btn btn-success me-1 waves-effect waves-float waves-light">Submit</button>
+                            <a href="{% url 'all-bids' %}" class="btn btn-outline-secondary waves-effect">Back</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+    
+{% endblock content %}
+    

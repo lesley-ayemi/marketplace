@@ -79,6 +79,17 @@
                     </li>
                 </ul>
             </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="user-check"></i><span class="menu-title text-truncate" data-i18n="Authentication">Bids</span></a>
+                <ul class="menu-content">
+                    
+                    <li><a class="d-flex align-items-center" href="{% url 'all-bids' %}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Profile">All Bids</span></a>
+                    </li>
+                    <!-- <li><a class="d-flex align-items-center" href="{% url 'email-history' %}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Profile">All Bids</span></a>
+                    </li> -->
+                    
+                </ul>
+                
+            </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="eCommerce">Deposits</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center" href="{% url 'approved-deposits' %}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">Aprroved</span></a>
@@ -112,60 +123,6 @@
                     
                 </ul>
             </li>
-            <!-- <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="user-check"></i><span class="menu-title text-truncate" data-i18n="Authentication">Authentication</span></a>
-                <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Login">Login</span></a>
-                        <ul class="menu-content">
-                            <li><a class="d-flex align-items-center" href="auth-login-basic.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Basic">Basic</span></a>
-                            </li>
-                            <li><a class="d-flex align-items-center" href="auth-login-cover.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Cover">Cover</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Register">Register</span></a>
-                        <ul class="menu-content">
-                            <li><a class="d-flex align-items-center" href="auth-register-basic.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Basic">Basic</span></a>
-                            </li>
-                            <li><a class="d-flex align-items-center" href="auth-register-cover.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Cover">Cover</span></a>
-                            </li>
-                            <li><a class="d-flex align-items-center" href="auth-register-multisteps.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Multi-Steps">Multi-Steps</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Forgot Password">Forgot Password</span></a>
-                        <ul class="menu-content">
-                            <li><a class="d-flex align-items-center" href="auth-forgot-password-basic.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Basic">Basic</span></a>
-                            </li>
-                            <li><a class="d-flex align-items-center" href="auth-forgot-password-cover.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Cover">Cover</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Reset Password">Reset Password</span></a>
-                        <ul class="menu-content">
-                            <li><a class="d-flex align-items-center" href="auth-reset-password-basic.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Basic">Basic</span></a>
-                            </li>
-                            <li><a class="d-flex align-items-center" href="auth-reset-password-cover.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Cover">Cover</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Verify Email">Verify Email</span></a>
-                        <ul class="menu-content">
-                            <li><a class="d-flex align-items-center" href="auth-verify-email-basic.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Basic">Basic</span></a>
-                            </li>
-                            <li><a class="d-flex align-items-center" href="auth-verify-email-cover.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Cover">Cover</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Two Steps">Two Steps</span></a>
-                        <ul class="menu-content">
-                            <li><a class="d-flex align-items-center" href="auth-two-steps-basic.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Basic">Basic</span></a>
-                            </li>
-                            <li><a class="d-flex align-items-center" href="auth-two-steps-cover.html" target="_blank"><span class="menu-item text-truncate" data-i18n="Cover">Cover</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li> -->
             <li class=" nav-item"><a class="d-flex align-items-center" href="{% url 'admin-change-password' %}"><i data-feather="square"></i><span class="menu-title text-truncate" data-i18n="Modal Examples">Change Password</span></a>
             </li>
             <li class=" navigation-header"><span data-i18n="User Interface">Payments</span><i data-feather="more-horizontal"></i>

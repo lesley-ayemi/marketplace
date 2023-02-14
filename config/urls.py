@@ -160,6 +160,7 @@ urlpatterns = [
         path('search-nfts/', AdminSearchNfts.as_view(), name='admin-search-nfts'),
         
         path('all-bids/', AllBids.as_view(), name='all-bids'),
+        path('edit-bids/<int:id>/', EditBids.as_view(), name='edit-bids'),
     ])),
     
     

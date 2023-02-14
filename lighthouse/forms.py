@@ -1,6 +1,6 @@
 from django import forms
 from accounts.models import *
-from marketplace.models import Category, CreateNftModel
+from marketplace.models import BidNft, Category, CreateNftModel
 from .models import PaymentMethod, SendEmailUser
 
 class CreateUserForm(forms.ModelForm):
@@ -156,3 +156,9 @@ class UserWalletForm(forms.ModelForm):
     def __init__(self, *args, **kwargs): 
         super(UserWalletForm, self).__init__(*args, **kwargs)                       
         self.fields['user_wallet'].disabled = True
+        
+        
+class PlaceBidForm(forms.ModelForm):
+    class Meta:
+        model = BidNft
+        fields = ['bid_item', 'bid_user', 'bid_amount', 'end_bid']
