@@ -162,3 +162,7 @@ class PlaceBidForm(forms.ModelForm):
     class Meta:
         model = BidNft
         fields = ['bid_item', 'bid_user', 'bid_amount', 'end_bid']
+    
+    def __init__(self, *args, **kwargs): 
+        super(PlaceBidForm, self).__init__(*args, **kwargs)                       
+        self.fields['bid_item'].disabled = True
