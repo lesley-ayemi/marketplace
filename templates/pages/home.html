@@ -1,61 +1,94 @@
 {% extends 'base.html' %}
 
 {% block slider %}
-<div class="banner-style-4 rn-section-gapTop">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-xl-6 col-lg-6 col-md-12 order-2 order-lg-1 mt_md--40 mt_sm--40">
-                <div class="sldier-content">
-                    <span class="title-badge" data-sal="slide-up" data-sal-delay="150" data-sal-duration="800">{{settings.DOMAIN_NAME}} Marketplace</span>
-                    <h2 class="title" data-sal="slide-up" data-sal-delay="200" data-sal-duration="800">Search your rare NFT's by world <br> class artists</h2>
-                    <p class="banner-disc-one" data-sal="slide-up" data-sal-delay="250" data-sal-duration="800">Where Bitcoin was hailed as the digital answer to currency, NFTs
-                        <br> are now being touted as the digital answer to collectibles.
-                    </p>
-                    <div class="button-group">
-                        <a class="btn btn-large btn-primary" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" href="{% url 'register' %}">Get Started</a>
-                        <a class="btn btn-large btn-primary-alta" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" href="{% url 'create-nft' %}">Create</a>
+<div class="slider-area">
+    <div class="container-fluid padding-contorler-am-slide-11">
+        <div class="row d-flex align-items-center">
+            <div class="col-lg-12 col-xl-6 order-2 order-xl-1 home-11-slide-padding">
+                <h2 class="title sal-animate" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800">Discover Digital Art, Collect <br> and Sell Your Specific <br> <span class="gradient-title">NFTs.</span> </h2>
+                <p class="slide-disc sal-animate" data-sal-delay="300" data-sal="slide-up" data-sal-duration="800">a non-interchangeable unit of data stored on a blockchain, a form of digital ledger, that can be sold and traded.</p>
+                <div class="button-group">
+                    <a class="btn btn-large btn-primary sal-animate" href="{% url 'register' %}" data-sal-delay="400" data-sal="slide-up" data-sal-duration="800">Get Started</a>
+                    <a class="btn btn-large btn-primary-alta sal-animate" href="{% url 'create-nft' %}" data-sal-delay="500" data-sal="slide-up" data-sal-duration="800">Create</a>
+                </div>
+                <div class="odometer-area-slide ">
+                    <div class="single-odometer sal-animate" data-sal-delay="400" data-sal="slide-left" data-sal-duration="800">
+                        <h3 class="counter">
+                            <span class="odometer odometer-auto-theme" data-count="3091"><div class="odometer-inside"><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">3</span></span></span></span></span><span class="odometer-formatting-mark">,</span><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">0</span></span></span></span></span><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">9</span></span></span></span></span><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">1</span></span></span></span></span></div></span>
+                            <span class="counter-label">Collectibles</span>
+                        </h3>
+                    </div>
+                    <div class="single-odometer sal-animate" data-sal-delay="600" data-sal="slide-left" data-sal-duration="800">
+                        <h3 class="counter">
+                            <span class="odometer odometer-auto-theme" data-count="1020"><div class="odometer-inside"><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">1</span></span></span></span></span><span class="odometer-formatting-mark">,</span><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">0</span></span></span></span></span><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">2</span></span></span></span></span><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">0</span></span></span></span></span></div></span>
+                            <span class="counter-label">Auctions</span>
+                        </h3>
+                    </div>
+                    <div class="single-odometer sal-animate" data-sal-delay="800" data-sal="slide-left" data-sal-duration="800">
+                        <h3 class="counter">
+                            <span class="odometer odometer-auto-theme" data-count="5329"><div class="odometer-inside"><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">5</span></span></span></span></span><span class="odometer-formatting-mark">,</span><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">3</span></span></span></span></span><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">2</span></span></span></span></span><span class="odometer-digit"><span class="odometer-digit-spacer">8</span><span class="odometer-digit-inner"><span class="odometer-ribbon"><span class="odometer-ribbon-inner"><span class="odometer-value">9</span></span></span></span></span></div></span>
+                            <span class="counter-label">NFT Artist</span>
+                        </h3>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 order-1 order-lg-2">
-                <div class="slider slick-activation-04">
-                    <div class="slider-thumbnail thumbnail-overlay">
-                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-04.jpg" alt="NFT_portfolio"></a>
-                        <div class="read-wrapper">
-                            <h5>Sukanli</h5>
-                            <span>Bordcast</span>
-                        </div>
-                    </div>
+            <div class="col-lg-12 col-xl-6 order-1 order-xl-2">
+                <div class="banner-right-feature-product sal-animate" data-sal-delay="300" data-sal="slide-left" data-sal-duration="800">
+                    <!-- start single product -->
+                    <div class="single-slide-product sal-animate" data-sal-delay="700" data-sal="slide-left" data-sal-duration="800">
+                        <div class="product-style-one tilt" style="will-change: transform; transform: perspective(500px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);">
+                            <div class="card-thumbnail">
+                                <a href="{% url 'login' %}"><img src="/static/assets/images/portfolio/portfolio-07.jpg" alt="NFT_portfolio"></a>
+                                <div class="countdown" data-date="2023-11-09"><div class="countdown-container days"><span class="countdown-value days-bottom">264</span><span class="countdown-heading days-top">Day</span></div><div class="countdown-container hours"><span class="countdown-value hours-bottom">03</span><span class="countdown-heading hours-top">Hr's</span></div><div class="countdown-container minutes"><span class="countdown-value minutes-bottom">48</span><span class="countdown-heading minutes-top">Min's</span></div><div class="countdown-container seconds"><span class="countdown-value seconds-bottom">28</span><span class="countdown-heading seconds-top">Sec</span></div></div>
+                            </div>
+                            <div class="product-share-wrapper">
+                                <div class="profile-share">
+                                    <a href="{% url 'login' %}" class="avatar" data-tooltip="Jone-lee"><img class="large" src="/static/assets/images/client/client-6.png" alt="Nft_Profile"></a>
+                                    <a href="{% url 'login' %}" class="avatar" data-tooltip="Mr.Jone-lee"><img class="large" src="/static/assets/images/client/client-4.png" alt="Nft_Profile"></a>
+                                    <a href="{% url 'login' %}" class="avatar" data-tooltip="Mr.Alamin-Bali"><img class="large" src="/static/assets/images/client/client-9.png" alt="Nft_Profile"></a>
+                                    <a class="more-author-text" href="#">11+ Place Bit.</a>
+                                </div>
+                                <!-- <div class="share-btn share-btn-activation dropdown">
+                                    <button class="icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <svg viewBox="0 0 14 4" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN hOiKLt">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2C3.5 2.82843 2.82843 3.5 2 3.5C1.17157 3.5 0.5 2.82843 0.5 2C0.5 1.17157 1.17157 0.5 2 0.5C2.82843 0.5 3.5 1.17157 3.5 2ZM8.5 2C8.5 2.82843 7.82843 3.5 7 3.5C6.17157 3.5 5.5 2.82843 5.5 2C5.5 1.17157 6.17157 0.5 7 0.5C7.82843 0.5 8.5 1.17157 8.5 2ZM11.999 3.5C12.8274 3.5 13.499 2.82843 13.499 2C13.499 1.17157 12.8274 0.5 11.999 0.5C11.1706 0.5 10.499 1.17157 10.499 2C10.499 2.82843 11.1706 3.5 11.999 3.5Z" fill="currentColor"></path>
+                                        </svg>
+                                    </button>
 
-                    <div class="slider-thumbnail thumbnail-overlay">
-                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-01.jpg" alt="NFT_portfolio"></a>
-                        <div class="read-wrapper">
-                            <h5><a href="javascript:void(0)">HasLivbe</a></h5>
-                            <span>Md. Master</span>
-                        </div>
-                    </div>
+                                    <div class="share-btn-setting dropdown-menu dropdown-menu-end">
+                                        <button type="button" class="btn-setting-text share-text" data-bs-toggle="modal" data-bs-target="#shareModal">
+                                            Share
+                                        </button>
+                                        <button type="button" class="btn-setting-text report-text" data-bs-toggle="modal" data-bs-target="#reportModal">
+                                            Report
+                                        </button>
+                                    </div>
 
-                    <div class="slider-thumbnail thumbnail-overlay">
-                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-02.jpg" alt="NFT_portfolio"></a>
-                        <div class="read-wrapper">
-                            <h5><a href="javascript:void(0)">Ladicon Mos</a></h5>
-                            <span>John Lee</span>
-                        </div>
-                    </div>
+                                </div> -->
 
-                    <div class="slider-thumbnail thumbnail-overlay">
-                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-03.jpg" alt="NFT_portfolio"></a>
-                        <div class="read-wrapper">
-                            <h5>Masters</h5>
-                            <span>Keenlee</span>
+                            </div>
+                            <a href="product-details.html"><span class="product-name large-product-title">Collect,Sell Your Specific NFT's</span></a>
+                            <!-- <span class="latest-bid">Highest bid 1/20</span> -->
+                            <div class="bid-react-area">
+                                <div class="last-bid">1.3ETH</div>
+                                <div class="react-area">
+                                    <svg viewBox="0 0 17 16" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN kBvkOu">
+                                        <path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path>
+                                    </svg>
+                                    <span class="number">322</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- end single product -->
+                    <!-- <div class="badge-inner sal-animate" data-sal-delay="900" data-sal="slide-left" data-sal-duration="1000">
+                        <img class="image-1" src="/static/assets/images/banner/badge.png" alt="banner_badge">
+                    </div> -->
                 </div>
             </div>
         </div>
     </div>
 </div>
-    
 {% endblock slider %}
 
 {% block auction %}
