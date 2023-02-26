@@ -30,6 +30,7 @@ from marketplace.views import *
 urlpatterns = [
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    # url(r'^progressbarupload/', include('progressbarupload.urls')),
     path('admin/', admin.site.urls),
     
     # Page Routes
@@ -121,6 +122,7 @@ urlpatterns = [
         path('all-users/', AllUsers.as_view(), name='all-users'),
         path('edit-user/<str:username>/', EditUser.as_view(), name='edit-user'),
         path('delete-user/<str:username>/', DeleteUser.as_view(), name='delete-user'),
+        path('reset-user-password/<str:uuid>/', UserResetPassword.as_view(), name='reset-user-password'),
         path('all-wallets/', AllWalletUsers.as_view(), name='all-wallets'),
         path('user-wallets/edit/<str:uuid>/', UserWallets.as_view(), name='edit-user-wallets'),
         path('create-user/', CreateUser.as_view(), name='create-user'),
@@ -147,6 +149,7 @@ urlpatterns = [
         
         path('send-email/', ComposeEmail.as_view(), name='send-email'),
         path('email-history/', EmailHistory.as_view(), name='email-history'),
+        path('view-email-history/<int:id>/', ViewEmailHistory.as_view(), name='view-email-history'),
         
         path('change-password/', AdminChangePassword.as_view(), name='admin-change-password'),
 

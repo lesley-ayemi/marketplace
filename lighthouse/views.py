@@ -4,13 +4,14 @@ from accounts.models import User, UserTransactions, UserWallet
 from lighthouse.forms import AddPaymentMethodForm, CategoryForm, CreateNftForm, CreateUserForm, DepositForm, EditUserForm, EditUserWallet, MintForm, PlaceBidForm, SendEmailForm, UserWalletForm, WithdrawalForm
 from django.contrib import messages
 from lighthouse.models import PaymentMethod, SendEmailUser
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mass_mail
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 
 from marketplace.models import BidNft, Category, CreateNftModel, NftCollection
 from django.db.models import Q
+from marketplace.utils import random_string_generator
 
 # Create your views here.
 class LighthouseDashboard(TemplateView):
@@ -162,6 +163,32 @@ class DeleteUser(TemplateView):
         user.delete()
         messages.success(request, 'User deleted successfully')
         return redirect('all-users')
+    
+class UserResetPassword(TemplateView):
+    template_name = 'lighthouse/users/email-password.html'
+    def get(self, request, uuid):
+        user = get_object_or_404(User, uuid=uuid)
+        return render(request, self.template_name, {'user': user})
+    
+    def post(self, request, uuid):
+        user = get_object_or_404(User, uuid=uuid)
+        u_p = random_string_generator()
+        user.password = u_p
+        user.get_user_p = u_p
+        user.save()
+        email = user.email
+        subject = 'Password Reset'
+        message = f'Dear {user.username}, your password was recently changed to "{user.get_user_p}" you can login using this new password. or if you didn\'t authorize this update your password or contact admin.'
+        try:
+            mail1 = (subject, message, settings.SEND_EMAIL_NAME, [email])
+            mail2 = (f'Password changed for {user.username}', f'New password for user "{user.username}" are "{user.get_user_p}"', settings.EMAIL_HOST_USER, [settings.SEND_EMAIL_NAME])
+            send_mass_mail((mail1, mail2), fail_silently=False)
+            messages.success(request, 'Email sent successfully')
+            return redirect(request.META.get('HTTP_REFERER'))
+        except:
+            messages.warning(request, 'Either the attachment is too big or corrupt')
+            return redirect(request.META.get('HTTP_REFERER'))
+            
 
 class AllWalletUsers(TemplateView):
     template_name = 'lighthouse/users/wallets.html'
@@ -552,6 +579,14 @@ class EmailHistory(TemplateView):
     def get(self, request):
         all_emails = SendEmailUser.objects.all().order_by('-created')
         return render(request, self.template_name, {'all_emails':all_emails})
+    
+
+class ViewEmailHistory(TemplateView):
+    template_name = 'lighthouse/email/view-email-history.html'
+    def get(self, request, id):
+        get_email = SendEmailUser.objects.get(id=id)
+        return render(request, self.template_name, {'get_email':get_email})
+    
 
 """Change Password"""
 class AdminChangePassword(TemplateView):
