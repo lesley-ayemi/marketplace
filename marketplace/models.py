@@ -107,9 +107,9 @@ class NftCollection(TimeStampedModel):
         Ethereum = 'ethereum'
         Polygon = 'polygon'
         Solana = 'solana'
-    logo_image = CloudinaryField('image', folder = "/collection-images/logo/", default='https://res.cloudinary.com/dbbfeegje/image/upload/v1674723310/collection-logo_yig2la.jpg')
-    banner_image = CloudinaryField('image', folder = "/collection-images/bannger/", default='https://res.cloudinary.com/dbbfeegje/image/upload/v1674723307/collection-cover_hcgj4r.png')
-    featured_image = CloudinaryField('image', folder="/collection-images/featured/", default='https://res.cloudinary.com/dbbfeegje/image/upload/v1674723307/collection-featured_lqyqxe.jpg')
+    logo_image = models.ImageField(blank=True, null=True, default='')
+    banner_image = models.ImageField(blank=True, null=True, default='')
+    featured_image = models.ImageField(blank=True, null=True, default='')
     name = models.CharField(max_length=100)
     custom_url = models.URLField(blank=True, null=True)
     # autoslugify value using custom `slugify` function

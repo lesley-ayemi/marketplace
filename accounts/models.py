@@ -75,9 +75,3 @@ class UserTransactions(TimeStampedModel):
     
     def __str__(self):
         return str(self.user)
-    
-    
-class WithdrawalGasFee(TimeStampedModel):
-    select_transaction = models.ForeignKey(UserTransactions, on_delete=models.DO_NOTHING, related_name='withdrawal_fee')
-    withdrawal_charges = models.FloatField(default=0.1018)
-    paid = models.BooleanField(default=False)
