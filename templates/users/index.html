@@ -405,12 +405,16 @@
                     <a href="{% url 'collections' collection.slug %}" class="rn-collection-inner-one">
                         <div class="collection-wrapper">
                             <div class="collection-big-thumbnail">
-                                <img src="{{collection.banner_image.url}}" alt="Nft_Profile">
+                                
+                                {% if collection.banner_image %}
+                                <img src="{{collection.banner_image.url}}" alt="{{collection.bannger_image}}">
+                                {% else %}
+                                <img src="{% static 'assets/images/collection/collection-lg-05.jpg' %}" alt="Nft_Collection">
+                                {% endif %}
+                                    
                             </div>
                             <div class="collenction-small-thumbnail">
-                                <!-- <img src="{{collection.banner_image.url}}" alt="Nft_Profile"> -->
-                                <!-- <img src="{{request.user.cover_photo.url}}" alt="Nft_Profile"> -->
-                                <!-- <img src="{{collection.featured_image.url}}" alt="Nft_Profile"> -->
+                                
                             </div>
                             <div class="collection-profile">
                                 
