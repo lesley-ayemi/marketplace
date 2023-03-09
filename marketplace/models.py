@@ -118,12 +118,12 @@ class NftCollection(TimeStampedModel):
     slug = AutoSlugField(populate_from='name',
                          slugify=custom_slugify)
     description = models.TextField(blank=True, null=True)
-    category = models.ForeignKey('Category', on_delete=models.DO_NOTHING, related_name='user_category')
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='user_category')
     creator_earning = models.CharField(blank=True, null=True, max_length=20)
     payout_address = models.CharField(max_length=100, blank=True, null=True)
     blockchain = models.CharField(max_length=40, choices=BlockChainType.choices, default='ethereum')
     sensitive_content = models.BooleanField(default=False)
-    user_collection = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='user_collections')
+    user_collection = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_collections')
     
     def __str__(self):
         return self.name
