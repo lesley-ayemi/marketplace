@@ -324,7 +324,7 @@ class CreateCollection(LoginRequiredMixin, TemplateView):
         creator_earning = request.POST.get('creator_earning')
         payout_address = request.POST.get('payout_address')
         blockchain = request.POST.get('blockchain')
-        sensitive_content = request.POST['sensitive_content'] == 'true'
+        # sensitive_content = request.POST['sensitive_content'] == 'true'
         if name:
             if category:
                 if description:
@@ -339,7 +339,7 @@ class CreateCollection(LoginRequiredMixin, TemplateView):
                                                      creator_earning=creator_earning,
                                                      payout_address=payout_address,
                                                      blockchain=blockchain,
-                                                     sensitive_content=sensitive_content,
+                                                     sensitive_content=False,
                                                      user_collection_id=self.request.user.uuid
                                                      ).save()
                         messages.success(request, 'Collection Created')
