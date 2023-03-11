@@ -85,7 +85,7 @@
                                     <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
                                     {% elif sale.nft_type == 'domain-name' %}
                                     <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
-                                    <!-- <img src="{{sale.upload_nft.url}}" alt="Nft_Profile"> -->
+                                    
                                     {% elif sale.nft_type == 'virtual-style' %}
                                     <img src="{{sale.upload_nft.url}}" alt="Nft_Profile">
                                     {% elif sale.nft_type == 'pdf' %}
@@ -93,7 +93,7 @@
                                     {% else %}
                                      <p>file format is not supported</p>   
                                     {% endif %}
-                                <!-- <img src="{{sale.upload_nft.url}}" alt="NFT_portfolio"> -->
+                                
                             </a>
                             <a href="{% url 'explore-detail' sale.slug %}" class="btn btn-primary">View</a>
                         </div>
@@ -176,7 +176,7 @@
                                     {% endif %}
                                         
                                     
-                                <!-- <img style="object-fit:scale-down; width: 350px; height: 200px;" src="{{owned.upload_nft.url}}" alt="NFT_portfolio"> -->
+                                
                             </a>
                             <a href="{% url 'explore-detail' owned.slug %}" class="btn btn-primary">View</a>
                         </div>
