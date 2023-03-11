@@ -27,15 +27,45 @@
     <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-4 col-md-6 col-sm-6 col-12 sal-animate">
         <div class="product-style-one no-overlay">
             <div class="card-thumbnail">
-                <a href="product-details.html"><img src="{{item.upload_nft.url}}" alt="NFT_portfolio"></a>
+                <a href="{{item.get_absolute_url}}">
+
+                    {% if item.upload_nft %}
+                          
+                    {% if item.nft_type == 'art' %}
+                    <img src="{{item.upload_nft.url}}" alt="">
+                    {% elif item.nft_type == 'video' %}
+                    <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
+                    {% elif item.nft_type == 'music' %}
+                    <img src="{% static 'assets/images/portfolio/portfolio-02.jpg' %}" alt="">
+                    {% elif nft.nft_type == 'trading-cards/collectible' %}
+                    <img src="{{item.upload_nft.url}}" alt="Nft_Profile">
+                    {% elif item.nft_type == 'text' %}
+                    <img src="{{item.upload_nft.url}}" alt="Nft_Profile">
+                    {% elif item.nft_type == 'memes' %}
+                    <img src="{{item.upload_nft.url}}" alt="Nft_Profile">
+                    {% elif item.nft_type == 'domain-name' %}
+                    <img src="{{item.upload_nft.url}}" alt="Nft_Profile">
+                    {% elif item.nft_type == 'virtual-style' %}
+                    <img src="{{item.upload_nft.url}}" alt="Nft_Profile">
+                    {% elif item.nft_type == 'pdf' %}
+                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                    {% else %}
+                        <p>file format is not supported</p>   
+                    {% endif %}
+                    {% else %}
+                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                    {% endif %}
+                </a>
             </div>
             <div class="product-share-wrapper">
-                <div class="profile-share">
+                <!-- <div class="profile-share">
                     <a href="author.html" class="avatar" data-tooltip="Jone lee"><img src="{% static 'assets/images/client/client-1.png' %}" alt="Nft_Profile"></a>
                     <a href="author.html" class="avatar" data-tooltip="Jone lee"><img src="{% static 'assets/images/client/client-2.png' %}" alt="Nft_Profile"></a>
                     <a href="author.html" class="avatar" data-tooltip="Jone lee"><img src="{% static 'assets/images/client/client-3.png' %}" alt="Nft_Profile"></a>
                     <a class="more-author-text" href="#">9+ Place Bit.</a>
-                </div>
+                </div> -->
+                
+                {% if item.status == 'BUY' %}
                 <div class="share-btn share-btn-activation dropdown">
                     <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
                         <svg viewBox="0 0 14 4" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN hOiKLt">
@@ -54,6 +84,10 @@
                     </div>
 
                 </div>
+                {% else %}
+                    
+                {% endif %}
+                    
             </div>
             <a href="{% url 'nft_details' item.slug %}"><span class="product-name">{{item.name|capfirst}}</span></a>
             <span class="latest-bid text-danger">{{item.nft_type|upper}}</span>

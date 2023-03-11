@@ -172,7 +172,13 @@
                             <div class="top-seller-inner-one">
                                 <div class="top-seller-wrapper">
                                     <div class="thumbnail">
+                                        
+                                        {% if nft.collection.logo_image %}
                                         <a href="#"><img src="{{nft.collection.logo_image.url}}" alt="Nft_Profile"></a>
+                                        {% else %}
+                                        <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">    
+                                        {% endif %}
+                                            
                                     </div>
                                     <div class="top-seller-content">
                                         <a href="javascript:void(0)">
