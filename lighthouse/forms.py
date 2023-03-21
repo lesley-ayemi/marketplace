@@ -32,6 +32,11 @@ class EditUserForm(forms.ModelForm):
                   'is_admin', 
                   'profile_pic', 
                   'cover_photo']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].queryset = User.objects.order_by('username')  
+    
         
 class EditUserWallet(forms.ModelForm):
     class Meta:
@@ -39,7 +44,7 @@ class EditUserWallet(forms.ModelForm):
         fields = ['wallet_name',
                   'wallet_address',
                 ]
-        
+     
 
 class CreateNftForm(forms.ModelForm):
     class Meta:
@@ -62,6 +67,10 @@ class CreateNftForm(forms.ModelForm):
                   'gas_fee',
                   
                 ]
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['creator'].queryset = User.objects.order_by('username')
+        self.fields['purchased_by'].queryset = User.objects.order_by('username')
 
 
 class MintForm(forms.ModelForm):
