@@ -33,10 +33,6 @@ class EditUserForm(forms.ModelForm):
                   'profile_pic', 
                   'cover_photo']
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].queryset = User.objects.order_by('username')  
-    
         
 class EditUserWallet(forms.ModelForm):
     class Meta:
