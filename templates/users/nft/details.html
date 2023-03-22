@@ -370,6 +370,27 @@
                                                 
                                             </div>
                                         </div>
+
+                                        
+                                        {% if nft.purchased_by %}
+                                        <div class="rn-pd-sm-property-wrapper">
+                                            <h6 class="pd-property-title">
+                                                Purchased By:
+                                            </h6>
+                                            <div class="catagory-wrapper">
+                                                <!-- single property -->
+                                                <div class="pd-property-inner">
+                                                    <span class="color-body type">{{nft.purchased_by.username}}</span>
+                                                    <!-- <span class="color-white value">APP</span> -->
+                                                </div>
+                                                <!-- single property End -->
+                                                
+                                            </div>
+                                        </div>
+                                        {% else %}
+                                            
+                                        {% endif %}
+                                            
                                         <!-- single -->
                                     </div>
                                     <!-- single -->
@@ -500,6 +521,7 @@
                                         
                                     </div>
                                 </div>
+                                {% else %}
                             {% endif %}
                             {% if nft.minted == False %}
                             
@@ -510,7 +532,7 @@
                             
 
                             {% empty %}
-                                <p>is</p>
+                                {% comment %} <p>is</p> {% endcomment %}
                             {% endfor %}
                                 
                             {% comment %} <button type="button" class="btn btn-primary-alta mt--30">Gas Fee:{{nft.gas_fee}} ETH</button> {% endcomment %}
@@ -523,7 +545,16 @@
                                 <button type="submit" class="btn btn-primary-alta mt--30">Upload Payment</button>
                             </form>
                             {% else %}
-                            <button type="button" disabled class="btn btn-primary-alta mt--30">Artwork minted</button>
+                            
+                            {% if nft.status == 'BUY' %}
+                            <button type="button" disabled class="btn btn-primary-alta mt--30">Avaliable for sale</button>
+                            
+                            {% else %}
+                            <button type="button" disabled class="btn btn-primary-alta mt--30">Purchased</button>
+                            
+                            {% endif %}
+                            
+
                                 
                             {% endif %}
                                 
