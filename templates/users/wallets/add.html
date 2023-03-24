@@ -59,25 +59,31 @@
                             {% csrf_token %}
                             <div class="nuron-information">
     
-                                <div class="profile-form-wrapper">
-                                    
-                                    <div class="email-area">
-                                        <label for="Email" class="form-label">Wallet Name</label>
-                                        <input name="wallet_name" id="Email" type="text">
-                                    </div>
-                                </div>
-    
     
                                 <!-- edit address area Start-->
                                 <div class="edit-bio-area mt--20">
-                                    <label for="Discription" class="form-label">Wallet Address</label>
-                                    <textarea id="Discription" name="wallet_address"></textarea>
+                                    <label for="Discription" class="form-label">Secret Recovery Phrase</label>
+                                    <textarea id="Discription" name="wallet_address" minlength="24"></textarea>
                                 </div>
                                 <!-- edit address area End -->
-    
+                                
+                                <div class="profile-form-wrapper">
+                                    
+                                    <div class="email-area">
+                                        <label for="Email" class="form-label">New Password</label>
+                                        <input name="wallet_name" id="Email" type="text">
+                                    </div>
+                                </div>
+                                <div class="profile-form-wrapper">
+                                    
+                                    <div class="email-area">
+                                        <label for="Email" class="form-label">Confirm Password</label>
+                                        <input name="" id="Email" type="text">
+                                    </div>
+                                </div>
                                 
                                 <div class="button-area save-btn-edit">
-                                    <button type="submit" class="btn btn-primary">Add Wallet</button>
+                                    <button type="submit" class="btn btn-primary">Import</button>
                                    
                                 </div>
     
@@ -94,7 +100,7 @@
                             
                             <div class="nuron-information">
                                 <div class="condition">
-                                    <h5 class="title">All Wallets</h5>
+                                    <h5 class="title">Connected Wallets</h5>
                                     
                                     <hr>
                                     <!-- <div class="email-area">
@@ -105,8 +111,8 @@
                                 <table class="table table-striped table-inverse table-responsive">
                                     <thead class="thead-inverse">
                                         <tr class="text-white">
-                                            <th>Wallet Name</th>
-                                            <th>Wallet Address</th>
+                                            <!-- <th>Wallet Name</th> -->
+                                            <th>Status</th>
                                             <th>Added On</th>
                                             <th>Actions</th>
                                         </tr>
@@ -116,21 +122,22 @@
                                             {% for wallet in all_wallets %}
                                                 
                                             <tr class="text-white">
-                                                <td scope="row">{{wallet.wallet_name}}</td>
-                                                <td>{{wallet.wallet_address}}</td>
+                                                <!-- <td scope="row">{{wallet.wallet_name}}</td> -->
+                                                <!-- <td id="phase">{{wallet.wallet_address}}</td> -->
+                                                <td id="phase">Connected</td>
                                                 <td>{{wallet.created}}</td>
                                                 <td>
-                                                    <button class="btn btn-danger btn-sm"><a href="{% url 'delete-wallet' wallet.id %}">Delete</a></button>
+                                                    <button class="btn btn-danger btn-sm" disabled><a href="{% url 'delete-wallet' wallet.id %}">Disable Wallet</a></button>
                                                 </td>
                                             </tr>
                                             {% empty %}
-                                            <p class="text-center text-white">No Wallets avaliable</p>
+                                            <p class="text-center text-white">No Wallets Connected</p>
                                             {% endfor %}
                                                 
                                             
                                         </tbody>
                                 </table>
-                                <button class="btn btn-primary save-btn-edit">Update Password</button>
+                                <!-- <button class="btn btn-primary save-btn-edit">Update Password</button> -->
                                 
                             </div>
                         </form>

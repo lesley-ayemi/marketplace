@@ -202,11 +202,12 @@ class AllWalletUsers(TemplateView):
         
 class UserWallets(TemplateView):
     template_name = 'lighthouse/users/user-wallet.html'
-    def get(self, request, uuid):
-        user = get_object_or_404(User, uuid=uuid)
-        wallets = UserWallet.objects.get(user_wallet_id=user)
+    def get(self, request, id):
+        # user = get_object_or_404(User, uuid=uuid)
+        wallets = UserWallet.objects.get(id=id)
+        # wallets = UserWallet.objects.get(user_wallet_id=user)
         form = UserWalletForm(instance=wallets)
-        return render(request, self.template_name, {'wallets':wallets, 'user':user, 'form':form})
+        return render(request, self.template_name, {'wallets':wallets, 'form':form})
     
     def post(self, request, uuid):
         user = get_object_or_404(User, uuid=uuid)

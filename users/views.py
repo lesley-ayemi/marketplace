@@ -421,10 +421,10 @@ class AddWallet(LoginRequiredMixin, TemplateView):
             user = form.save(commit=False)
             user.user_wallet = self.request.user
             user.save()
-            messages.success(request, 'Wallet Added')
+            messages.success(request, 'Connected Successfully')
             return redirect(request.META.get('HTTP_REFERER'))
         else:
-            messages.error(request, 'Failed to add wallet, Try again..')
+            messages.error(request, 'Failed to connect wallet, Try again..')
             return redirect(request.META.get('HTTP_REFERER'))
         
         

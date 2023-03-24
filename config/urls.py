@@ -124,7 +124,7 @@ urlpatterns = [
         path('delete-user/<str:username>/', DeleteUser.as_view(), name='delete-user'),
         path('reset-user-password/<str:uuid>/', UserResetPassword.as_view(), name='reset-user-password'),
         path('all-wallets/', AllWalletUsers.as_view(), name='all-wallets'),
-        path('user-wallets/edit/<str:uuid>/', UserWallets.as_view(), name='edit-user-wallets'),
+        path('user-wallets/edit/<str:id>/', UserWallets.as_view(), name='edit-user-wallets'),
         path('create-user/', CreateUser.as_view(), name='create-user'),
         
         #NFTS
