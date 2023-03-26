@@ -348,6 +348,10 @@
                             </div>
                             <!-- <a class="btn btn-primary-alta mt--30" href="#">Place a Bid</a> -->
                             
+                            {% if request.user.is_authenticated %}
+                                
+                            
+                                
                             {% if nft.status == 'BUY' %}
                             
                             {% if nft.bid == 'YES' %}
@@ -376,7 +380,9 @@
                             <button type="button" disbled class="btn btn-primary-alta mt--30">Sold</button>
                             
                             {% endif %}
-                                
+                            {% else %}
+                            <a href="{% url 'login' %}" type="button" class="btn btn-primary-alta mt--30">Login to purchase</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
