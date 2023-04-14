@@ -28,6 +28,7 @@ class MoreDetails(TimeStampedModel):
         Transgender = 'transgender'
         Non_binary = 'non-binary/non-conforming'
         prefer_not_to_respond = 'Prefer not to respond'
+    id = models.AutoField(primary_key=True)
     user_details = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_details', null=True, blank=True)
     bio = models.TextField(blank=True, default='')
     work_role = models.CharField(max_length=100, default='')
