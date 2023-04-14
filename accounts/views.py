@@ -113,7 +113,7 @@ class ActivateAccount(View):
         if user is not None and account_activation_token.check_token(user, token):
             user.is_active = True
             # user = True
-            MoreDetails.objects.create(user_details=user)
+            # MoreDetails.objects.create(user_details=user)
             user.save()
             login(request, user)
             messages.success(request, ('Your account have been confirmed.'))
