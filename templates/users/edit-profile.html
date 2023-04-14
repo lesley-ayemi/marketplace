@@ -36,7 +36,7 @@
                 <nav class="left-nav rbt-sticky-top-adjust-five" style="top: 100px;">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="feather-edit"></i>Edit Profile Image</button>
-                        <button class="nav-link" id="nav-home-tabs" data-bs-toggle="tab" data-bs-target="#nav-homes" type="button" role="tab" aria-controls="nav-homes" aria-selected="false"><i class="feather-user"></i>Personal Information</button>
+                        {% comment %} <button class="nav-link" id="nav-home-tabs" data-bs-toggle="tab" data-bs-target="#nav-homes" type="button" role="tab" aria-controls="nav-homes" aria-selected="false"><i class="feather-user"></i>Personal Information</button> {% endcomment %}
                         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> <i class="feather-unlock"></i>Change Password</button>
                         <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="feather-bell"></i>Notification Setting</button> -->
                     </div>
@@ -111,7 +111,7 @@
                     </div>
                     <!-- End single tabv content -->
                     <!-- sigle tab content -->
-                    <div class="tab-pane fade" id="nav-homes" role="tabpanel" aria-labelledby="nav-home-tab">
+                    {% comment %} <div class="tab-pane fade" id="nav-homes" role="tabpanel" aria-labelledby="nav-home-tab">
                         <!-- start personal information -->
                         <form action="{% url 'update-profile' %}" method="post">
                             {% csrf_token %}
@@ -189,7 +189,7 @@
 
                         </form>
                         <!-- End personal information -->
-                    </div>
+                    </div> {% endcomment %}
                     <!-- End single tabv content -->
 
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">

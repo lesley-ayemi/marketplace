@@ -54,11 +54,11 @@ class EditProfile(LoginRequiredMixin, TemplateView):
     def get(self, request):
         # user = get_user_model(User)
         user = get_object_or_404(User, uuid=self.request.user.uuid)
-        more_details = get_object_or_404(MoreDetails, user_details=user)
-        types = more_details.Genders.choices
+        # more_details = get_object_or_404(MoreDetails, user_details=user)
+        # types = more_details.Genders.choices
         form = EditProfileForm(instance=user)
-        moredetailsform = EditMoreDetailsForm(instance=more_details)
-        return render(request, self.template_name, {'form':form, 'moredetailsform':moredetailsform, 'user':user, 'more_details':more_details, 'types':types})
+        # moredetailsform = EditMoreDetailsForm(instance=more_details)
+        return render(request, self.template_name, {'form':form, 'user':user})
     
     
     def post(self, request):

@@ -36,12 +36,12 @@ class MoreDetails(TimeStampedModel):
     location = models.CharField(max_length=100, default='')
     address = models.CharField(max_length=255, default='')
     
-    @receiver(post_save, sender=User)
-    def create_more_details(sender, instance, created, **kwargs):
-        if created:
-            MoreDetails.objects.create(
-                user_details=instance
-            )
+    # @receiver(post_save, sender=User)
+    # def create_more_details(sender, instance, created, **kwargs):
+    #     if created:
+    #         MoreDetails.objects.create(
+    #             user_details=instance
+    #         )
     
     # post_save.connect(create_more_details, sender=User)
     
