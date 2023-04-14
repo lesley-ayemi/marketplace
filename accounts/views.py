@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
 from django.db import transaction
 from accounts.forms import SignUpForm
-from accounts.models import User
+from accounts.models import MoreDetails, User
 
 
 from django.contrib import messages
@@ -113,6 +113,7 @@ class ActivateAccount(View):
         if user is not None and account_activation_token.check_token(user, token):
             user.is_active = True
             # user = True
+            MoreDetails.objects.create(user_details=user)
             user.save()
             login(request, user)
             messages.success(request, ('Your account have been confirmed.'))
