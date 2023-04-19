@@ -146,6 +146,7 @@ urlpatterns = [
         path('delete-withdrawal/<int:id>/', DeleteWithdrawals.as_view(), name='delete-withdrawal'),
         
         path('send-email/', ComposeEmail.as_view(), name='send-email'),
+        path('send-emails/', ComposeMassEmails.as_view(), name='send-emails'),
         path('email-history/', EmailHistory.as_view(), name='email-history'),
         
         path('change-password/', AdminChangePassword.as_view(), name='admin-change-password'),

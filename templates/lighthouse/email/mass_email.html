@@ -1,0 +1,90 @@
+{% extends 'lighthouse_base.html' %}
+{% load crispy_forms_tags %}
+{% block breadcrumbs %}
+<div class="row breadcrumbs-top">
+    <div class="col-12">
+        <h2 class="content-header-title float-start mb-0">Email Users</h2>
+        <div class="breadcrumb-wrapper">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Mass Email
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+    
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="col-md-10 col-12 mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Send Email</h4>
+            </div>
+            <div class="card-body">
+                <form class="form form-vertical" id="email-form">
+                    {% csrf_token %}
+                    <div class="row">
+                        <label for="users">
+                            Users
+                        </label>
+                        <select name="users" id="users" class="form-control" multiple>
+                            
+                            {% for user in users %}
+                            
+                            <option value="{{user.email}}">{{user.username}}- {{user.email}}</option>
+                            {% endfor %}
+                                
+                        </select>
+                        <input type="text" name="subject" id="subject" class="form-control mt-1" placeholder="Subject" value="Important: Platform Domain Transfer Notification">
+                        <textarea name="message" id="message" cols="30" rows="10" class="form-control mt-2" placeholder="Insert Text">
+                        
+                        </textarea>
+
+                        <div class="col-12 mt-2">
+                            <button type="button" onclick="sendEmails()" class="btn btn-primary me-1 waves-effect waves-float waves-light">Submit</button>
+                            <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function sendEmails() {
+        var usersSelect = document.getElementById('users');
+        var selectedOptions = usersSelect.selectedOptions;
+        var recipients = Array.from(selectedOptions).map(function(option) {
+          return option.value;
+        });
+        
+        var subject = document.getElementById('subject').value;
+        var message = document.getElementById('message').value;
+        
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '{% url "send-emails" %}');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            console.log(xhr.responseText);
+            alert('Emails sent successfully!');
+          } else {
+            alert('Error sending emails');
+          }
+        };
+        xhr.send('recipients=' + encodeURIComponent(JSON.stringify(recipients)) + '&subject=' + encodeURIComponent(subject) + '&message=' + encodeURIComponent(message));
+      }
+      
+</script>
+    
+{% endblock content %}
+

@@ -1,10 +1,12 @@
+import json
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from accounts.models import User, UserTransactions, UserWallet
 from lighthouse.forms import AddPaymentMethodForm, CategoryForm, CreateNftForm, CreateUserForm, DepositForm, EditUserForm, EditUserWallet, MintForm, PlaceBidForm, SendEmailForm, UserWalletForm, WithdrawalForm
 from django.contrib import messages
 from lighthouse.models import PaymentMethod, SendEmailUser
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login
@@ -545,6 +547,29 @@ class ComposeEmail(TemplateView):
         else:
             messages.warning(request, 'Unable to send email')
             return redirect(request.META.get('HTTP_REFERER'))
+        
+        
+class ComposeMassEmails(TemplateView):
+    template_name = 'lighthouse/email/mass_email.html'
+    def get(self, request):
+        form = SendEmailForm
+        users = User.objects.filter(is_user=True).order_by('username')
+        return render(request, self.template_name, {'users': users, 'form':form})
+    
+    def post(self, request):
+        recipients = json.loads(request.POST.get('recipients'))
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        
+        send_mail(
+            subject,
+            message,
+            settings.SEND_EMAIL_NAME,
+            recipients,
+            fail_silently=False,
+        )
+        
+        return JsonResponse({'success': True})
     
 
 class EmailHistory(TemplateView):
