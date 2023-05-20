@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     #third party apps
     'cloudinary',
     'crispy_forms',
+    'maintenance_mode',
 
 ]
 
@@ -69,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'maintenance_mode.middleware.MaintenanceModeMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -178,6 +180,7 @@ SITE_EMAIL = os.environ['SITE_EMAIL']
 SITE_NUMBER = os.environ['SITE_NUMBER']
 SITE_ADDRESS = os.environ['SITE_ADDRESS']
 SITE_LIVE_CHAT = os.environ['SITE_LIVE_CHAT']
+MAINTENANCE_TEXT = os.environ['MAINTENANCE_TEXT']
 
 SETTINGS_EXPORT = [
     'SITE_LOGO',
@@ -187,6 +190,7 @@ SETTINGS_EXPORT = [
     'SITE_NUMBER',
     'SITE_ADDRESS',
     'SITE_LIVE_CHAT',
+    'MAINTENANCE_TEXT',
 ]
 
 MESSAGE_TAGS = {
@@ -213,3 +217,6 @@ EMAIL_USE_SSL = os.environ['EMAIL_USE_SSL']
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = '127.0.0.1'
 # EMAIL_PORT = 1025
+
+# if True the maintenance-mode will be activated
+MAINTENANCE_MODE = None
