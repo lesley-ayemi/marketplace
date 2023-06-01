@@ -151,14 +151,14 @@ class ExploreUsersDetailView(TemplateView):
     template_name = 'pages/explore-users-detail.html'
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
-        details = get_object_or_404(MoreDetails, user_details=user)
+        # details = get_object_or_404(MoreDetails, user_details=user)
         sales = CreateNftModel.objects.filter(creator=user, list_for_sale=True, status='BUY', minted=True)
         created = CreateNftModel.objects.filter(creator=user)
         context = {
             'user':user,
             'sales':sales,
             'created':created,
-            'details':details,
+            # 'details':details,
         }
         return render(request, self.template_name, context)
     
