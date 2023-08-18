@@ -552,6 +552,13 @@ class EmailHistory(TemplateView):
     def get(self, request):
         all_emails = SendEmailUser.objects.all().order_by('-created')
         return render(request, self.template_name, {'all_emails':all_emails})
+    
+    
+class ViewEmailHistory(TemplateView):
+    template_name = 'lighthouse/email/view-email-history.html'
+    def get(self, request, id):
+        get_email = SendEmailUser.objects.get(id=id)
+        return render(request, self.template_name, {'get_email':get_email})
 
 """Change Password"""
 class AdminChangePassword(TemplateView):

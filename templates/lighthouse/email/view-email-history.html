@@ -1,0 +1,87 @@
+{% extends 'lighthouse_base.html' %}
+{% load crispy_forms_tags %}
+{% block breadcrumbs %}
+<div class="row breadcrumbs-top">
+    <div class="col-12">
+        <h2 class="content-header-title float-start mb-0">Email History</h2>
+        <div class="breadcrumb-wrapper">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a>
+                </li>
+                <li class="breadcrumb-item active">View Email History
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+    
+
+{% block content %}
+<div class="d-flex justify-content-center mt-4">
+    <section class="basic-textarea">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Default</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- <p class="card-text">To add a Textarea we have the component <code>textarea</code>.</p> -->
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="form-label" for="exampleFormControlTextarea1">Email Address:</label>
+                                <input type="text" class="form-control" value="{{get_email.email}}" disabled>
+                            </div>
+                            <div class="col-12 mt-1">
+                                <label class="form-label" for="exampleFormControlTextarea1">Subject:</label>
+                                <input type="text" class="form-control" value="{{get_email.subject}}" disabled>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-1">
+                                    <label class="form-label" for="exampleFormControlTextarea1">Message</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" placeholder="Textarea" disabled>{{get_email.message}}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-1">
+                                    <label class="form-label" for="exampleFormControlTextarea1">Attachment</label>
+                                    <br>
+                                    
+                                    {% if get_email.files %}
+                                        <a href="{{get_email.files.url}}" target="_blank">View attachment: {{get_email.files.url}}</a>
+                                    {% else %}
+                                    <p class="card-text text-danger">No Attachments</p>
+                                    {% endif %}
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <div class="col-md-8 col-12 mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">NFT Form</h4>
+            </div>
+            <div class="card-body">
+                <form class="form form-vertical" method="post" action="#" enctype="multipart/form-data">
+                    
+                    <div class="row">
+                        
+                        <div class="col-12 mt-2">
+                            <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Submit</button>
+                            <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
+
+</div>
+    
+{% endblock content %}

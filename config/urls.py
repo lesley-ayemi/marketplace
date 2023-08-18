@@ -147,6 +147,7 @@ urlpatterns = [
         
         path('send-email/', ComposeEmail.as_view(), name='send-email'),
         path('email-history/', EmailHistory.as_view(), name='email-history'),
+        path('view-email-history/<int:id>/', ViewEmailHistory.as_view(), name='view-email-history'),
         
         path('change-password/', AdminChangePassword.as_view(), name='admin-change-password'),
 
