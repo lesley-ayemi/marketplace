@@ -33,7 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     # Page Routes
-    path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    path('', HomePage.as_view(), name='home'),
     path('about/', TemplateView.as_view(template_name='pages/about.html'), name='about-us'),
     path('faq/', TemplateView.as_view(template_name='pages/faq.html'), name='faq'),
     path('terms-and-condition/', TemplateView.as_view(template_name='pages/terms-and-condition.html'), name='terms-and-condition'),

@@ -12,6 +12,17 @@ from accounts.models import MoreDetails, User
 # Create your views here.
 
 """Explore NFTs"""
+class HomePage(TemplateView):
+    template_name = 'pages/home.html'
+    def get(self, request):
+        randoms = CreateNftModel.objects.filter(Q(list_for_sale=True) and Q(minted=True)).order_by('?')[:10]
+        offers = CreateNftModel.objects.filter(Q(status='BUY') and Q(minted=True)).order_by('?')[:2]
+        context = {
+            'randoms':randoms,
+            'offers':offers,
+        }
+        return render(request, self.template_name, context)
+    
 class ExploreNft(TemplateView):
     template_name = 'pages/explore.html'
     def get(self, request):

@@ -1,94 +1,55 @@
 {% extends 'base.html' %}
 
 {% block slider %}
-<div class="slider-style-5 rn-section-gapTop">
+<div class="banner-style-4 rn-section-gapTop">
     <div class="container">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-6 order-2 order-lg-1 mt_md--30 mt_sm--30">
-                <div class="banner-left-content">
-                    <span class="title-badge" data-sal="slide-up" data-sal-delay="150" data-sal-duration="800">Nuron Marketplace</span>
-                    <h2 class="title" data-sal="slide-up" data-sal-delay="200" data-sal-duration="800">Search
-                        your rare NFT's by world <br> class artists</h2>
-                    <p class="banner-disc-one" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">
-                        Where Bitcoin was hailed as the digital answer to currency, NFTs
-                        <br> are now being touted as the digital answer to collectables.
+        <div class="row align-items-center">
+            <div class="col-xl-6 col-lg-6 col-md-12 order-2 order-lg-1 mt_md--40 mt_sm--40">
+                <div class="sldier-content">
+                    <span class="title-badge" data-sal="slide-up" data-sal-delay="150" data-sal-duration="800">{{settings.DOMAIN_NAME}} Marketplace</span>
+                    <h2 class="title" data-sal="slide-up" data-sal-delay="200" data-sal-duration="800">Search your rare NFT's by world <br> class artists</h2>
+                    <p class="banner-disc-one" data-sal="slide-up" data-sal-delay="250" data-sal-duration="800">Where Bitcoin was hailed as the digital answer to currency, NFTs
+                        <br> are now being touted as the digital answer to collectibles.
                     </p>
                     <div class="button-group">
-                        <a class="btn btn-large btn-primary" data-sal="slide-up" data-sal-delay="350" data-sal-duration="800" href="{% url 'register' %}">Get Started</a>
-                        <a class="btn btn-large btn-primary-alta" data-sal="slide-up" data-sal-delay="350" data-sal-duration="800" href="{% url 'create-nft' %}">Create</a>
+                        <a class="btn btn-large btn-primary" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" href="{% url 'register' %}">Get Started</a>
+                        <a class="btn btn-large btn-primary-alta" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" href="{% url 'create-nft' %}">Create</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 order-1 order-lg-2">
-                <div class="row g-5">
-                    
-                    {% for offer in offers %}
-                        
-                    <div class="col-lg-6 col-md-6">
-                        <!-- start single product -->
-                        <div class="single-slide-product">
-                            <div class="product-style-one">
-                                <div class="card-thumbnail">
-                                    <a href="{% url 'explore-detail' offer.slug %}">
-                                        {% if offer.nft_type == 'art' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="">
-                                        {% elif offer.nft_type == 'video' %}
-                                        <video controls src="{{nft.upload_nft.url}}" width="620" poster="{{nft.upload_nft.url}}"></video>
-                                        {% elif offer.nft_type == 'music' %}
-                                        <audio src="{{nft.upload_nft.url}}" controls></audio>
-                                        {% elif offer.nft_type == 'trading-cards/collectible' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
-                                        {% elif offer.nft_type == 'text' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
-                                        {% elif offer.nft_type == 'memes' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
-                                        {% elif offer.nft_type == 'domain-name' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
-                                        {% elif offer.nft_type == 'virtual-style' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
-                                        {% elif offer.nft_type == 'pdf' %}
-                                        <p>Link to open pdf <a href="{{nft.upload_nft.url}}">Here</a></p>
-                                        {% else %}
-                                            <p>file format is not supported</p>   
-                                        {% endif %}
-                                        <!-- <img src="static/assets/images/portfolio/portfolio-01.jpg" alt="NFT_portfolio"> -->
-                                    </a>
-                                    <!-- <div class="countdown" data-date="2022-11-09">
-                                        <div class="countdown-container days">
-                                            <span class="countdown-value">87</span>
-                                            <span class="countdown-heading">D's</span>
-                                        </div>
-                                        <div class="countdown-container hours">
-                                            <span class="countdown-value">23</span>
-                                            <span class="countdown-heading">H's</span>
-                                        </div>
-                                        <div class="countdown-container minutes">
-                                            <span class="countdown-value">38</span>
-                                            <span class="countdown-heading">Min's</span>
-                                        </div>
-                                        <div class="countdown-container seconds">
-                                            <span class="countdown-value">27</span>
-                                            <span class="countdown-heading">Sec</span>
-                                        </div>
-                                    </div> -->
-                                </div>
-                                <div class="product-share-wrapper">
-                                    
-
-                                </div>
-                                <a href="{% url 'explore-detail' offer.slug %}"><span class="product-name">{{offer.name}}</span></a>
-                                <!-- <span class="latest-bid">Highest bid 1/20</span> -->
-                                <div class="bid-react-area">
-                                    <div class="last-bid">{{offer.item_price}}ETH</div>
-                                    
-                                </div>
-                            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 order-1 order-lg-2">
+                <div class="slider slick-activation-04">
+                    <div class="slider-thumbnail thumbnail-overlay">
+                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-04.jpg" alt="NFT_portfolio"></a>
+                        <div class="read-wrapper">
+                            <h5>Sukanli</h5>
+                            <span>Bordcast</span>
                         </div>
-                        <!-- end single product -->
                     </div>
-                    {% endfor %}
-                        
-                    
+
+                    <div class="slider-thumbnail thumbnail-overlay">
+                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-01.jpg" alt="NFT_portfolio"></a>
+                        <div class="read-wrapper">
+                            <h5><a href="javascript:void(0)">HasLivbe</a></h5>
+                            <span>Md. Master</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-thumbnail thumbnail-overlay">
+                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-02.jpg" alt="NFT_portfolio"></a>
+                        <div class="read-wrapper">
+                            <h5><a href="javascript:void(0)">Ladicon Mos</a></h5>
+                            <span>John Lee</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-thumbnail thumbnail-overlay">
+                        <a href="javascript:void(0)"><img src="static/assets/images/banner/banner-03.jpg" alt="NFT_portfolio"></a>
+                        <div class="read-wrapper">
+                            <h5>Masters</h5>
+                            <span>Keenlee</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -114,7 +75,7 @@
                     <div class="single-slide-product">
                         <div class="product-style-one">
                             <div class="card-thumbnail">
-                                <a href="javascript:void(0)"><img src="static/static/assets/images/portfolio/portfolio-07.jpg" alt="NFT_portfolio"></a>
+                                <a href="javascript:void(0)"><img src="static/assets/images/portfolio/portfolio-07.jpg" alt="NFT_portfolio"></a>
                                 <div class="countdown" data-date="2022-11-09">
                                     <div class="countdown-container days">
                                         <span class="countdown-value">87</span>
@@ -136,9 +97,9 @@
                             </div>
                             <div class="product-share-wrapper">
                                 <div class="profile-share">
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Mark JOrdan"><img src="static/static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Mark"><img src="static/static/assets/images/client/client-3.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Jordan"><img src="static/static/assets/images/client/client-5.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Mark JOrdan"><img src="static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Mark"><img src="static/assets/images/client/client-3.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Jordan"><img src="static/assets/images/client/client-5.png" alt="Nft_Profile"></a>
                                     <a class="more-author-text" href="#">20+ Place Bit.</a>
                                 </div>
                                 <div class="share-btn share-btn-activation dropdown">
@@ -179,7 +140,7 @@
                     <div class="single-slide-product">
                         <div class="product-style-one">
                             <div class="card-thumbnail">
-                                <a href="javascript:void(0)"><img src="static/static/assets/images/portfolio/portfolio-10.jpg" alt="NFT_portfolio"></a>
+                                <a href="javascript:void(0)"><img src="static/assets/images/portfolio/portfolio-10.jpg" alt="NFT_portfolio"></a>
                                 <div class="countdown" data-date="2022-10-09">
                                     <div class="countdown-container days">
                                         <span class="countdown-value">87</span>
@@ -201,9 +162,9 @@
                             </div>
                             <div class="product-share-wrapper">
                                 <div class="profile-share">
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Farik Shaikh"><img src="static/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Shaikh"><img src="static/static/assets/images/client/client-6.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Farik"><img src="static/static/assets/images/client/client-8.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Farik Shaikh"><img src="static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Shaikh"><img src="static/assets/images/client/client-6.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Farik"><img src="static/assets/images/client/client-8.png" alt="Nft_Profile"></a>
                                     <a class="more-author-text" href="#">15+ Place Bit.</a>
                                 </div>
 
@@ -245,7 +206,7 @@
                     <div class="single-slide-product">
                         <div class="product-style-one">
                             <div class="card-thumbnail">
-                                <a href="javascript:void(0)"><img src="static/static/assets/images/portfolio/portfolio-03.jpg" alt="NFT_portfolio"></a>
+                                <a href="javascript:void(0)"><img src="static/assets/images/portfolio/portfolio-03.jpg" alt="NFT_portfolio"></a>
                                 <div class="countdown" data-date="2023-12-09">
                                     <div class="countdown-container days">
                                         <span class="countdown-value">87</span>
@@ -267,9 +228,9 @@
                             </div>
                             <div class="product-share-wrapper">
                                 <div class="profile-share">
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Mona Lisa"><img src="static/static/assets/images/client/client-8.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Lisa"><img src="static/static/assets/images/client/client-4.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Mona"><img src="static/static/assets/images/client/client-9.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Mona Lisa"><img src="static/assets/images/client/client-8.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Lisa"><img src="static/assets/images/client/client-4.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Mona"><img src="static/assets/images/client/client-9.png" alt="Nft_Profile"></a>
                                     <a class="more-author-text" href="#">12+ Place Bit.</a>
                                 </div>
                                 <div class="share-btn share-btn-activation dropdown">
@@ -309,7 +270,7 @@
                     <div class="single-slide-product">
                         <div class="product-style-one">
                             <div class="card-thumbnail">
-                                <a href="javascript:void(0)"><img src="static/static/assets/images/portfolio/portfolio-04.jpg" alt="NFT_portfolio"></a>
+                                <a href="javascript:void(0)"><img src="static/assets/images/portfolio/portfolio-04.jpg" alt="NFT_portfolio"></a>
                                 <div class="countdown" data-date="2024-10-08">
                                     <div class="countdown-container days">
                                         <span class="countdown-value">87</span>
@@ -331,9 +292,9 @@
                             </div>
                             <div class="product-share-wrapper">
                                 <div class="profile-share">
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Falak Sabbir"><img src="static/static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Sabbir"><img src="static/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Falak"><img src="static/static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Falak Sabbir"><img src="static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Sabbir"><img src="static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Falak"><img src="static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
                                     <a class="more-author-text" href="#">16+ Place Bit.</a>
                                 </div>
                                 <div class="share-btn share-btn-activation dropdown">
@@ -373,7 +334,7 @@
                     <div class="single-slide-product">
                         <div class="product-style-one">
                             <div class="card-thumbnail">
-                                <a href="javascript:void(0)"><img src="static/static/assets/images/portfolio/portfolio-06.jpg" alt="NFT_portfolio"></a>
+                                <a href="javascript:void(0)"><img src="static/assets/images/portfolio/portfolio-06.jpg" alt="NFT_portfolio"></a>
                                 <div class="countdown" data-date="2023-11-08">
                                     <div class="countdown-container days">
                                         <span class="countdown-value">87</span>
@@ -395,9 +356,9 @@
                             </div>
                             <div class="product-share-wrapper">
                                 <div class="profile-share">
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Oram Kasin"><img src="static/static/assets/images/client/client-8.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Kasin"><img src="static/static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Oram"><img src="static/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Oram Kasin"><img src="static/assets/images/client/client-8.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Kasin"><img src="static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Oram"><img src="static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
                                     <a class="more-author-text" href="#">10+ Place Bit.</a>
                                 </div>
                                 <div class="share-btn share-btn-activation dropdown">
@@ -436,7 +397,7 @@
                     <div class="single-slide-product">
                         <div class="product-style-one">
                             <div class="card-thumbnail">
-                                <a href="javascript:void(0)"><img src="static/static/assets/images/portfolio/portfolio-10.jpg" alt="NFT_portfolio"></a>
+                                <a href="javascript:void(0)"><img src="static/assets/images/portfolio/portfolio-10.jpg" alt="NFT_portfolio"></a>
                                 <div class="countdown" data-date="2023-11-08">
                                     <div class="countdown-container days">
                                         <span class="countdown-value">87</span>
@@ -458,9 +419,9 @@
                             </div>
                             <div class="product-share-wrapper">
                                 <div class="profile-share">
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Oram Kasin"><img src="static/static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Kasin"><img src="static/static/assets/images/client/client-6.png" alt="Nft_Profile"></a>
-                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Oram"><img src="static/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Oram Kasin"><img src="static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Kasin"><img src="static/assets/images/client/client-6.png" alt="Nft_Profile"></a>
+                                    <a href="javascript:void(0)" class="avatar" data-tooltip="Oram"><img src="static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
                                     <a class="more-author-text" href="#">11+ Place Bit.</a>
                                 </div>
                                 <div class="share-btn share-btn-activation dropdown">
@@ -503,7 +464,7 @@
 </div> {% endcomment %}
 {% endblock auction %}
     
-{% comment %} {% block explore %}
+{% block explore %}
 <div class="rn-product-area rn-section-gapTop">
     <div class="container">
         <div class="row mb--30 align-items-center">
@@ -582,15 +543,15 @@
                 <div class="product-style-one no-overlay with-placeBid">
                     <div class="card-thumbnail">
                         <a href="javascript:void(0)">
-                            <img src="static/static/assets/images/portfolio/portfolio-01.jpg" alt="NFT_portfolio">
+                            <img src="static/assets/images/portfolio/portfolio-01.jpg" alt="NFT_portfolio">
                         </a>
                         <!-- <a href="javascript:void(0)" class="btn btn-primary">Place Bid</a> -->
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-3.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-4.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-3.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-4.png" alt="Nft_Profile"></a>
                             <a class="more-author-text" href="#">9+ Place Bit.</a>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
@@ -630,15 +591,15 @@
                 <div class="product-style-one no-overlay with-placeBid">
                     <div class="card-thumbnail">
                         <a href="javascript:void(0)">
-                            <img src="static/static/assets/images/portfolio/portfolio-02.jpg" alt="NFT_portfolio">
+                            <img src="static/assets/images/portfolio/portfolio-02.jpg" alt="NFT_portfolio">
                         </a>
                         <!-- <a href="javascript:void(0)" class="btn btn-primary">Place Bid</a> -->
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
                             <a class="more-author-text" href="#">10+ Place Bit.</a>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
@@ -678,15 +639,15 @@
                 <div class="product-style-one no-overlay with-placeBid">
                     <div class="card-thumbnail">
                         <a href="javascript:void(0)">
-                            <img src="static/static/assets/images/portfolio/portfolio-03.jpg" alt="NFT_portfolio">
+                            <img src="static/assets/images/portfolio/portfolio-03.jpg" alt="NFT_portfolio">
                         </a>
                         <!-- <a href="javascript:void(0)" class="btn btn-primary">Place Bid</a> -->
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
                             <a class="more-author-text" href="#">10+ Place Bit.</a>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
@@ -726,15 +687,15 @@
                 <div class="product-style-one no-overlay with-placeBid">
                     <div class="card-thumbnail">
                         <a href="javascript:void(0)">
-                            <img src="static/static/assets/images/portfolio/portfolio-04.jpg" alt="NFT_portfolio">
+                            <img src="static/assets/images/portfolio/portfolio-04.jpg" alt="NFT_portfolio">
                         </a>
                         <!-- <a href="javascript:void(0)" class="btn btn-primary">Place Bid</a> -->
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-9.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-9.png" alt="Nft_Profile"></a>
                             <a class="more-author-text" href="#">21+ Place Bit.</a>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
@@ -774,15 +735,15 @@
                 <div class="product-style-one no-overlay with-placeBid">
                     <div class="card-thumbnail">
                         <a href="javascript:void(0)">
-                            <img src="static/static/assets/images/portfolio/portfolio-05.jpg" alt="NFT_portfolio">
+                            <img src="static/assets/images/portfolio/portfolio-05.jpg" alt="NFT_portfolio">
                         </a>
                         <!-- <a href="javascript:void(0)" class="btn btn-primary">Place Bid</a> -->
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-9.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-9.png" alt="Nft_Profile"></a>
                             <a class="more-author-text" href="#">12+ Place Bit.</a>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
@@ -822,15 +783,15 @@
                 <div class="product-style-one no-overlay with-placeBid">
                     <div class="card-thumbnail">
                         <a href="javascript:void(0)">
-                            <img src="static/static/assets/images/portfolio/portfolio-06.jpg" alt="NFT_portfolio">
+                            <img src="static/assets/images/portfolio/portfolio-06.jpg" alt="NFT_portfolio">
                         </a>
                         <!-- <a href="javascript:void(0)" class="btn btn-primary">Place Bid</a> -->
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
                             <a class="more-author-text" href="#">5+ Place Bit.</a>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
@@ -870,15 +831,15 @@
                 <div class="product-style-one no-overlay with-placeBid">
                     <div class="card-thumbnail">
                         <a href="javascript:void(0)">
-                            <img src="static/static/assets/images/portfolio/portfolio-07.jpg" alt="NFT_portfolio">
+                            <img src="static/assets/images/portfolio/portfolio-07.jpg" alt="NFT_portfolio">
                         </a>
                         <!-- <a href="javascript:void(0)" class="btn btn-primary">Place Bid</a> -->
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-6.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-5.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-6.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-5.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
                             <a class="more-author-text" href="#">9+ Place Bit.</a>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
@@ -918,15 +879,15 @@
                 <div class="product-style-one no-overlay with-placeBid">
                     <div class="card-thumbnail">
                         <a href="javascript:void(0)">
-                            <img src="static/static/assets/images/portfolio/portfolio-05.jpg" alt="NFT_portfolio">
+                            <img src="static/assets/images/portfolio/portfolio-05.jpg" alt="NFT_portfolio">
                         </a>
                         <!-- <a href="javascript:void(0)" class="btn btn-primary">Place Bid</a> -->
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
                             <a class="more-author-text" href="#">16+ Place Bit.</a>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
@@ -966,15 +927,15 @@
                 <div class="product-style-one no-overlay with-placeBid">
                     <div class="card-thumbnail">
                         <a href="javascript:void(0)">
-                            <img src="static/static/assets/images/portfolio/portfolio-09.jpg" alt="NFT_portfolio">
+                            <img src="static/assets/images/portfolio/portfolio-09.jpg" alt="NFT_portfolio">
                         </a>
                         <!-- <a href="javascript:void(0)" class="btn btn-primary">Place Bid</a> -->
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-11.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-1.png" alt="Nft_Profile"></a>
                             <a class="more-author-text" href="#">22+ Place Bit.</a>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
@@ -1014,15 +975,15 @@
                 <div class="product-style-one no-overlay with-placeBid">
                     <div class="card-thumbnail">
                         <a href="javascript:void(0)">
-                            <img src="static/static/assets/images/portfolio/portfolio-10.jpg" alt="NFT_portfolio">
+                            <img src="static/assets/images/portfolio/portfolio-10.jpg" alt="NFT_portfolio">
                         </a>
                         <!-- <a href="javascript:void(0)" class="btn btn-primary">Place Bid</a> -->
                     </div>
                     <div class="product-share-wrapper">
                         <div class="profile-share">
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-4.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-5.png" alt="Nft_Profile"></a>
-                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/static/assets/images/client/client-8.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-4.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-5.png" alt="Nft_Profile"></a>
+                            <a href="javascript:void(0)" class="avatar" data-tooltip="Owener:Mr.Jone-lee"><img src="static/assets/images/client/client-8.png" alt="Nft_Profile"></a>
                             <a class="more-author-text" href="#">13+ Place Bit.</a>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
@@ -1060,154 +1021,229 @@
         </div>
     </div>
 </div>
-{% endblock explore %} {% endcomment %}
+{% endblock explore %}
+    
 
-{% block content %}
-<div class="rn-product-area rn-section-gapTop">
+{% block top_sellers %}
+<div class="rn-top-top-seller-area nice-selector-transparent rn-section-gapTop">
     <div class="container">
-        <div class="row mb--30 align-items-center">
-            <div class="col-12">
-                <h3 class="title mb--0" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">Explore
-                    Product</h3>
+        <div class="row  mb--30">
+            <div class="col-12 justify-sm-center d-flex">
+                <h3 class="title" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">Top Seller in</h3>
+                <select>
+                    <option data-display="1 day"> 1 day</option>
+                    <option value="1">7 Day's</option>
+                    <option value="2">15 Day's</option>
+                    <option value="4">30 Day's</option>
+                </select>
             </div>
         </div>
-
-        <!-- <div class="default-exp-wrapper">
-            <div class="inner">
-                <div class="filter-select-option">
-                    <label class="filter-leble">LIKES</label>
-                    <select>
-                        <option data-display="Most liked">Most liked</option>
-                        <option value="1">Least liked</option>
-                    </select>
-                </div>
-                <div class="filter-select-option">
-                    <label class="filter-leble">Category</label>
-                    <select>
-                        <option data-display="Category">Category</option>
-                        <option value="1">Art</option>
-                        <option value="1">Photograph</option>
-                        <option value="2">Metaverses</option>
-                        <option value="4">Potato</option>
-                        <option value="4">Photos</option>
-                    </select>
-                </div>
-
-                <div class="filter-select-option">
-                    <label class="filter-leble">Collections</label>
-                    <select>
-                        <option data-display="Collections">Collections</option>
-                        <option value="1">BoredApeYachtClub</option>
-                        <option value="2">MutantApeYachtClub</option>
-                        <option value="4">Art Blocks Factory</option>
-                    </select>
-                </div>
-
-                <div class="filter-select-option">
-                    <label class="filter-leble">Sale type</label>
-                    <select>
-                        <option data-display="Sale type">Sale type</option>
-                        <option value="1">Fixed price</option>
-                        <option value="2">Timed auction</option>
-                        <option value="4">Not for sale</option>
-                        <option value="4">Open for offers</option>
-                    </select>
-                </div>
-
-                <div class="filter-select-option">
-                    <label class="filter-leble">Price Range</label>
-                    <div class="price_filter s-filter clear">
-                        <form action="#" method="GET">
-                            <div id="slider-range"></div>
-                            <div class="slider__range--output">
-                                <div class="price__output--wrap">
-                                    <div class="price--output">
-                                        <span>Price :</span><input type="text" id="amount" readonly>
-                                    </div>
-                                    <div class="price--filter">
-                                        <a class="btn btn-primary btn-small" href="#">Filter</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-        <div class="row g-5 mt_dec--30">
-            <!-- start single product -->
-            
-            {% for random in randoms %}
-            <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12" data-sal="slide-up" data-sal-delay="150" data-sal-duration="800">
-                <div class="product-style-one no-overlay with-placeBid">
-                    <div class="card-thumbnail">
-                        <a href="{% url 'explore-detail' random.slug %}">
-                            {% if random.nft_type == 'art' %}
-                            <img src="{{nft.upload_nft.url}}" alt="">
-                            {% elif random.nft_type == 'video' %}
-                            <video controls src="{{nft.upload_nft.url}}" width="620" poster="{{nft.upload_nft.url}}"></video>
-                            {% elif random.nft_type == 'music' %}
-                            <audio src="{{nft.upload_nft.url}}" controls></audio>
-                            {% elif random.nft_type == 'trading-cards/collectible' %}
-                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
-                            {% elif random.nft_type == 'text' %}
-                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
-                            {% elif random.nft_type == 'memes' %}
-                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
-                            {% elif random.nft_type == 'domain-name' %}
-                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
-                            {% elif random.nft_type == 'virtual-style' %}
-                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
-                            {% elif random.nft_type == 'pdf' %}
-                            <p>Link to open pdf <a href="{{nft.upload_nft.url}}">Here</a></p>
-                            {% else %}
-                                <p>file format is not supported</p>   
-                            {% endif %}
-                            <!-- <img src="static/assets/images/portfolio/portfolio-01.jpg" alt="NFT_portfolio"> -->
-                        </a>
-                        <a href="{% url 'explore-detail' random.slug %}" class="btn btn-primary">View</a>
-                    </div>
-                    <div class="product-share-wrapper">
-                        
-                        <div class="share-btn share-btn-activation dropdown">
-                            <!-- <button class="icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <svg viewBox="0 0 14 4" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN hOiKLt">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2C3.5 2.82843 2.82843 3.5 2 3.5C1.17157 3.5 0.5 2.82843 0.5 2C0.5 1.17157 1.17157 0.5 2 0.5C2.82843 0.5 3.5 1.17157 3.5 2ZM8.5 2C8.5 2.82843 7.82843 3.5 7 3.5C6.17157 3.5 5.5 2.82843 5.5 2C5.5 1.17157 6.17157 0.5 7 0.5C7.82843 0.5 8.5 1.17157 8.5 2ZM11.999 3.5C12.8274 3.5 13.499 2.82843 13.499 2C13.499 1.17157 12.8274 0.5 11.999 0.5C11.1706 0.5 10.499 1.17157 10.499 2C10.499 2.82843 11.1706 3.5 11.999 3.5Z" fill="currentColor"></path>
-                                </svg>
-                            </button> -->
-
-                            
-
+        <div class="row justify-sm-center g-5 top-seller-list-wrapper">
+            <!-- start single top-seller -->
+            <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
+                <div class="top-seller-inner-one">
+                    <div class="top-seller-wrapper">
+                        <div class="thumbnail varified">
+                            <a href="javascript:void(0)"><img src="static/assets/images/client/client-12.png" alt="Nft_Profile"></a>
+                        </div>
+                        <div class="top-seller-content">
+                            <a href="javascript:void(0)">
+                                <h6 class="name">Brodband</h6>
+                            </a>
+                            {% comment %} <span class="count-number">
+                            $2500,000
+                        </span> {% endcomment %}
                         </div>
                     </div>
-                    <a href="{% url 'explore-detail' random.slug %}"><span class="product-name">{{random.name}}</span></a>
-                    
-                    <div class="bid-react-area">
-                        <div class="last-bid">{{random.item_price}}ETH</div>
-                        <!-- <div class="react-area">
-                            <svg viewBox="0 0 17 16" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN kBvkOu">
-                                <path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path>
-                            </svg>
-                            <span class="number">322</span>
-                        </div> -->
+                </div>
+            </div>
+            <!-- End single top-seller -->
+
+            <!-- start single top-seller -->
+            <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
+                <div class="top-seller-inner-one">
+                    <div class="top-seller-wrapper">
+                        <div class="thumbnail">
+                            <a href="javascript:void(0)"><img src="static/assets/images/client/client-2.png" alt="Nft_Profile"></a>
+                        </div>
+                        <div class="top-seller-content">
+                            <a href="javascript:void(0)">
+                                <h6 class="name">Ms. Parkline</h6>
+                            </a>
+                            {% comment %} <span class="count-number">
+                            $2300,000
+                        </span> {% endcomment %}
+                        </div>
                     </div>
                 </div>
             </div>
-                
-            {% endfor %}
-                
-            <!-- end single product -->
-            
-            
+            <!-- End single top-seller -->
+
+            <!-- start single top-seller -->
+            <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
+                <div class="top-seller-inner-one">
+                    <div class="top-seller-wrapper">
+                        <div class="thumbnail">
+                            <a href="javascript:void(0)"><img src="static/assets/images/client/client-3.png" alt="Nft_Profile"></a>
+                        </div>
+                        <div class="top-seller-content">
+                            <a href="javascript:void(0)">
+                                <h6 class="name">Methods</h6>
+                            </a>
+                            {% comment %} <span class="count-number">
+                            $2100,000
+                        </span> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End single top-seller -->
+
+            <!-- start single top-seller -->
+            <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
+                <div class="top-seller-inner-one">
+                    <div class="top-seller-wrapper">
+                        <div class="thumbnail varified">
+                            <a href="javascript:void(0)"><img src="static/assets/images/client/client-4.png" alt="Nft_Profile"></a>
+                        </div>
+                        <div class="top-seller-content">
+                            <a href="javascript:void(0)">
+                                <h6 class="name">Jone sone</h6>
+                            </a>
+                            {% comment %} <span class="count-number">
+                            $2000,000
+                        </span> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End single top-seller -->
+
+            <!-- start single top-seller -->
+            <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
+                <div class="top-seller-inner-one">
+                    <div class="top-seller-wrapper">
+                        <div class="thumbnail">
+                            <a href="javascript:void(0)"><img src="static/assets/images/client/client-5.png" alt="Nft_Profile"></a>
+                        </div>
+                        <div class="top-seller-content">
+                            <a href="javascript:void(0)">
+                                <h6 class="name">Siddhart</h6>
+                            </a>
+                            {% comment %} <span class="count-number">
+                            $200,000
+                        </span> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End single top-seller -->
+
+            <!-- start single top-seller -->
+            <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
+                <div class="top-seller-inner-one">
+                    <div class="top-seller-wrapper">
+                        <div class="thumbnail varified">
+                            <a href="javascript:void(0)"><img src="static/assets/images/client/client-6.png" alt="Nft_Profile"></a>
+                        </div>
+                        <div class="top-seller-content">
+                            <a href="javascript:void(0)">
+                                <h6 class="name">Sobuj Mk</h6>
+                            </a>
+                            {% comment %} <span class="count-number">
+                            $2000,000
+                        </span> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End single top-seller -->
+
+            <!-- start single top-seller -->
+            <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
+                <div class="top-seller-inner-one">
+                    <div class="top-seller-wrapper">
+                        <div class="thumbnail varified">
+                            <a href="javascript:void(0)"><img src="static/assets/images/client/client-7.png" alt="Nft_Profile"></a>
+                        </div>
+                        <div class="top-seller-content">
+                            <a href="javascript:void(0)">
+                                <h6 class="name">Trodband</h6>
+                            </a>
+                            {% comment %} <span class="count-number">
+                            $2500,000
+                        </span> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End single top-seller -->
+
+            <!-- start single top-seller -->
+            <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
+                <div class="top-seller-inner-one">
+                    <div class="top-seller-wrapper">
+                        <div class="thumbnail">
+                            <a href="javascript:void(0)"><img src="static/assets/images/client/client-8.png" alt="Nft_Profile"></a>
+                        </div>
+                        <div class="top-seller-content">
+                            <a href="javascript:void(0)">
+                                <h6 class="name">Yash</h6>
+                            </a>
+                            {% comment %} <span class="count-number">
+                            $2500,000
+                        </span> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End single top-seller -->
+
+            <!-- start single top-seller -->
+            <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
+                <div class="top-seller-inner-one">
+                    <div class="top-seller-wrapper">
+                        <div class="thumbnail">
+                            <a href="javascript:void(0)"><img src="static/assets/images/client/client-9.png" alt="Nft_Profile"></a>
+                        </div>
+                        <div class="top-seller-content">
+                            <a href="javascript:void(0)">
+                                <h6 class="name">YASHKIB</h6>
+                            </a>
+                            {% comment %} <span class="count-number">
+                            $2500,000
+                        </span> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End single top-seller -->
+
+            <!-- start single top-seller -->
+            <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
+                <div class="top-seller-inner-one">
+                    <div class="top-seller-wrapper">
+                        <div class="thumbnail varified">
+                            <a href="javascript:void(0)"><img src="static/assets/images/client/client-10.png" alt="Nft_Profile"></a>
+                        </div>
+                        <div class="top-seller-content">
+                            <a href="javascript:void(0)">
+                                <h6 class="name">Brodband</h6>
+                            </a>
+                            {% comment %} <span class="count-number">
+                            $2500,000
+                        </span> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End single top-seller -->
         </div>
     </div>
 </div>
-{% endblock content %}
-    
+{% endblock top_sellers %}
 
-{% block service %}
-
+{% block howto %}
 <div class="rn-service-area rn-section-gapTop">
     <div class="container">
         <div class="row">
@@ -1225,13 +1261,12 @@
                         </div>
                         <div class="subtitle">Step-01</div>
                         <div class="content">
-                            <h4 class="title"><a href="#">Set up your wallet</a></h4>
-                            <p class="description">Powerful features and inclusions, which makes Nuron standout,
-                                easily customizable and scalable.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
+                            <h4 class="title"><a href="javascript:void(0)">Set up your wallet</a></h4>
+                            <p class="description">{{settings.DOMAIN_NAME}} requires a cryptocurrency wallet to store and manage NFTs. Popular options include MetaMask and Trust Wallet..</p>
+                            <a class="read-more-button" href="{% url 'register' %}"><i class="feather-arrow-right"></i></a>
                         </div>
                     </div>
-                    <a class="over-link" href="#"></a>
+                    <a class="over-link" href="{% url 'register' %}"></a>
                 </div>
             </div>
             <!-- End single service -->
@@ -1244,13 +1279,12 @@
                         </div>
                         <div class="subtitle">Step-02</div>
                         <div class="content">
-                            <h4 class="title"><a href="#">Create your collection</a></h4>
-                            <p class="description">A great collection of beautiful website templates for your need.
-                                Choose the best suitable template.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
+                            <h4 class="title"><a href="javascript:void(0)">Fund your wallet</a></h4>
+                            <p class="description">To buy NFTs, you'll need to add cryptocurrency, such as Ethereum, to your wallet.</p>
+                            <a class="read-more-button" href="{% url 'register' %}"><i class="feather-arrow-right"></i></a>
                         </div>
                     </div>
-                    <a class="over-link" href="#"></a>
+                    <a class="over-link" href="{% url 'register' %}"></a>
                 </div>
             </div>
             <!-- End single service -->
@@ -1263,13 +1297,12 @@
                         </div>
                         <div class="subtitle">Step-03</div>
                         <div class="content">
-                            <h4 class="title"><a href="#">Add your NFT's</a></h4>
-                            <p class="description">We've made the template fully responsive, so it looks great on
-                                all devices: desktop, tablets and.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
+                            <h4 class="title"><a href="javascript:void(0)">Add your NFT's</a></h4>
+                             <p class="description">Explore the marketplace and discover unique NFTs in various categories such as art, collectibles, and virtual real estate.</p> 
+                            <a class="read-more-button" href="{% url 'register' %}"><i class="feather-arrow-right"></i></a>
                         </div>
                     </div>
-                    <a class="over-link" href="#"></a>
+                    <a class="over-link" href="{% url 'register' %}"></a>
                 </div>
             </div>
             <!-- End single service -->
@@ -1282,22 +1315,19 @@
                         </div>
                         <div class="subtitle">Step-04</div>
                         <div class="content">
-                            <h4 class="title"><a href="#">Sell Your NFT's</a></h4>
-                            <p class="description">I throw myself down among the tall grass by the stream as I
-                                lie close to the earth NFT's.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
+                            <h4 class="title"><a href="javascript:void(0)">Sell Your NFT's</a></h4>
+                            <p class="description">If you have your own NFTs, you can list them for sale on {{settings.DOMAIN_NAME}} and reach a wide audience of potential buyers.`</p>
+                            <a class="read-more-button" href="{% url 'register' %}"><i class="feather-arrow-right"></i></a>
                         </div>
                     </div>
-                    <a class="over-link" href="#"></a>
+                    <a class="over-link" href="{% url 'register' %}"></a>
                 </div>
             </div>
             <!-- End single service -->
         </div>
     </div>
 </div>
-    
-{% endblock service %}
-    
+{% endblock howto %}
 
 {% block top_collection %}
 {% comment %} <div class="rn-collection-area rn-section-gapTop">
@@ -1319,15 +1349,15 @@
                 <a href="javascript:void(0)" class="rn-collection-inner-one">
                     <div class="collection-wrapper">
                         <div class="collection-big-thumbnail">
-                            <img src="static/static/assets/images/collection/collection-lg-01.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-lg-01.jpg" alt="Nft_Profile">
                         </div>
                         <div class="collenction-small-thumbnail">
-                            <img src="static/static/assets/images/collection/collection-sm-01.jpg" alt="Nft_Profile">
-                            <img src="static/static/assets/images/collection/collection-sm-02.jpg" alt="Nft_Profile">
-                            <img src="static/static/assets/images/collection/collection-sm-03.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-01.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-02.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-03.jpg" alt="Nft_Profile">
                         </div>
                         <div class="collection-profile">
-                            <img src="static/static/assets/images/client/client-15.png" alt="Nft_Profile">
+                            <img src="static/assets/images/client/client-15.png" alt="Nft_Profile">
                         </div>
                         <div class="collection-deg">
                             <h6 class="title">Cubic Trad</h6>
@@ -1342,15 +1372,15 @@
                 <a href="javascript:void(0)" class="rn-collection-inner-one">
                     <div class="collection-wrapper">
                         <div class="collection-big-thumbnail">
-                            <img src="static/static/assets/images/collection/collection-lg-03.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-lg-03.jpg" alt="Nft_Profile">
                         </div>
                         <div class="collenction-small-thumbnail">
-                            <img src="static/static/assets/images/collection/collection-sm-04.jpg" alt="Nft_Profile">
-                            <img src="static/static/assets/images/collection/collection-sm-05.jpg" alt="Nft_Profile">
-                            <img src="static/static/assets/images/collection/collection-sm-06.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-04.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-05.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-06.jpg" alt="Nft_Profile">
                         </div>
                         <div class="collection-profile">
-                            <img src="static/static/assets/images/client/client-12.png" alt="Nft_Profile">
+                            <img src="static/assets/images/client/client-12.png" alt="Nft_Profile">
                         </div>
                         <div class="collection-deg">
                             <h6 class="title">Diamond Dog</h6>
@@ -1365,15 +1395,15 @@
                 <a href="javascript:void(0)" class="rn-collection-inner-one">
                     <div class="collection-wrapper">
                         <div class="collection-big-thumbnail">
-                            <img src="static/static/assets/images/collection/collection-lg-02.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-lg-02.jpg" alt="Nft_Profile">
                         </div>
                         <div class="collenction-small-thumbnail">
-                            <img src="static/static/assets/images/collection/collection-sm-07.jpg" alt="Nft_Profile">
-                            <img src="static/static/assets/images/collection/collection-sm-08.jpg" alt="Nft_Profile">
-                            <img src="static/static/assets/images/collection/collection-sm-09.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-07.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-08.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-09.jpg" alt="Nft_Profile">
                         </div>
                         <div class="collection-profile">
-                            <img src="static/static/assets/images/client/client-13.png" alt="Nft_Profile">
+                            <img src="static/assets/images/client/client-13.png" alt="Nft_Profile">
                         </div>
                         <div class="collection-deg">
                             <h6 class="title">Morgan11</h6>
@@ -1388,15 +1418,15 @@
                 <a href="javascript:void(0)" class="rn-collection-inner-one">
                     <div class="collection-wrapper">
                         <div class="collection-big-thumbnail">
-                            <img src="static/static/assets/images/collection/collection-lg-04.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-lg-04.jpg" alt="Nft_Profile">
                         </div>
                         <div class="collenction-small-thumbnail">
-                            <img src="static/static/assets/images/collection/collection-sm-10.jpg" alt="Nft_Profile">
-                            <img src="static/static/assets/images/collection/collection-sm-11.jpg" alt="Nft_Profile">
-                            <img src="static/static/assets/images/collection/collection-sm-12.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-10.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-11.jpg" alt="Nft_Profile">
+                            <img src="static/assets/images/collection/collection-sm-12.jpg" alt="Nft_Profile">
                         </div>
                         <div class="collection-profile">
-                            <img src="static/static/assets/images/client/client-14.png" alt="Nft_Profile">
+                            <img src="static/assets/images/client/client-14.png" alt="Nft_Profile">
                         </div>
                         <div class="collection-deg">
                             <h6 class="title">Orthogon#720</h6>
