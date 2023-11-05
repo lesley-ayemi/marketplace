@@ -15,7 +15,7 @@ from accounts.models import MoreDetails, User
 class HomePage(TemplateView):
     template_name = 'pages/home.html'
     def get(self, request):
-        randoms = CreateNftModel.objects.filter(Q(list_for_sale=True) and Q(minted=True)).order_by('?')[:10]
+        randoms = CreateNftModel.objects.filter(Q(list_for_sale=True) and Q(minted=True) and Q(nft_type='art')).order_by('?')[:10]
         offers = CreateNftModel.objects.filter(Q(status='BUY') and Q(minted=True)).order_by('?')[:2]
         context = {
             'randoms':randoms,

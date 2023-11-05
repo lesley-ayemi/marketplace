@@ -31,23 +31,23 @@
                                 <div class="card-thumbnail">
                                     <a href="{% url 'explore-detail' offer.slug %}">
                                         {% if offer.nft_type == 'art' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="">
+                                        <img src="{{offer.upload_nft.url}}" alt="">
                                         {% elif offer.nft_type == 'video' %}
-                                        <video controls src="{{nft.upload_nft.url}}" width="620" poster="{{nft.upload_nft.url}}"></video>
+                                        <video controls src="{{offer.upload_nft.url}}" width="620" poster="{{offer.upload_nft.url}}"></video>
                                         {% elif offer.nft_type == 'music' %}
-                                        <audio src="{{nft.upload_nft.url}}" controls></audio>
+                                        <audio src="{{offer.upload_nft.url}}" controls></audio>
                                         {% elif offer.nft_type == 'trading-cards/collectible' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                        <img src="{{offer.upload_nft.url}}" alt="Nft_Profile">
                                         {% elif offer.nft_type == 'text' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                        <img src="{{offer.upload_nft.url}}" alt="Nft_Profile">
                                         {% elif offer.nft_type == 'memes' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                        <img src="{{offer.upload_nft.url}}" alt="Nft_Profile">
                                         {% elif offer.nft_type == 'domain-name' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                        <img src="{{offer.upload_nft.url}}" alt="Nft_Profile">
                                         {% elif offer.nft_type == 'virtual-style' %}
-                                        <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                        <img src="{{offer.upload_nft.url}}" alt="Nft_Profile">
                                         {% elif offer.nft_type == 'pdf' %}
-                                        <p>Link to open pdf <a href="{{nft.upload_nft.url}}">Here</a></p>
+                                        <p>Link to open pdf <a href="{{offer.upload_nft.url}}">Here</a></p>
                                         {% else %}
                                             <p>file format is not supported</p>   
                                         {% endif %}
@@ -1144,23 +1144,23 @@
                     <div class="card-thumbnail">
                         <a href="{% url 'explore-detail' random.slug %}">
                             {% if random.nft_type == 'art' %}
-                            <img src="{{nft.upload_nft.url}}" alt="">
+                            <img src="{{random.upload_nft.url}}" alt="">
                             {% elif random.nft_type == 'video' %}
-                            <video controls src="{{nft.upload_nft.url}}" width="620" poster="{{nft.upload_nft.url}}"></video>
+                            <video controls src="{{random.upload_nft.url}}" width="620" poster="{{random.upload_nft.url}}"></video>
                             {% elif random.nft_type == 'music' %}
-                            <audio src="{{nft.upload_nft.url}}" controls></audio>
+                            <audio src="{{random.upload_nft.url}}" controls></audio>
                             {% elif random.nft_type == 'trading-cards/collectible' %}
-                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                            <img src="{{random.upload_nft.url}}" alt="Nft_Profile">
                             {% elif random.nft_type == 'text' %}
-                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                            <img src="{{random.upload_nft.url}}" alt="Nft_Profile">
                             {% elif random.nft_type == 'memes' %}
-                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                            <img src="{{random.upload_nft.url}}" alt="Nft_Profile">
                             {% elif random.nft_type == 'domain-name' %}
-                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                            <img src="{{random.upload_nft.url}}" alt="Nft_Profile">
                             {% elif random.nft_type == 'virtual-style' %}
-                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                            <img src="{{random.upload_nft.url}}" alt="Nft_Profile">
                             {% elif random.nft_type == 'pdf' %}
-                            <p>Link to open pdf <a href="{{nft.upload_nft.url}}">Here</a></p>
+                            <p>Link to open pdf <a href="{{random.upload_nft.url}}">Here</a></p>
                             {% else %}
                                 <p>file format is not supported</p>   
                             {% endif %}
