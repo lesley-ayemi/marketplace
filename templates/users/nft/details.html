@@ -32,14 +32,12 @@
                         <div class="nav rn-pd-nav rn-pd-rt-content nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
                                 <span class="rn-pd-sm-thumbnail">
-                                    
-                                    {% if nft.nft_type == 'art' %}
                                     {% if nft.upload_nft %}
-                                    <img src="{{nft.upload_nft.url}}" alt="">
-                                    {% else %}
-                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
                                         
-                                    {% endif %}
+                                    
+                                        
+                                    {% if nft.nft_type == 'art' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="">
                                     {% elif nft.nft_type == 'video' %}
                                     <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
                                     {% elif nft.nft_type == 'music' %}
@@ -59,7 +57,9 @@
                                     {% else %}
                                      <p>file format is not supported</p>   
                                     {% endif %}
-                                        
+                                    {% else %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    {% endif %}
                                 </span>
                             </button>
                             <!-- <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
@@ -78,12 +78,16 @@
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                 <div class="rn-pd-thumbnail">
                                     
+                                    {% if nft.upload_nft %}
+                                        
+                                    
+                                        
                                     {% if nft.nft_type == 'art' %}
                                     <img src="{{nft.upload_nft.url}}" alt="">
                                     {% elif nft.nft_type == 'video' %}
-                                    <video controls src="{{nft.upload_nft.url}}" width="620" poster="{{nft.upload_nft.url}}"></video>
+                                    <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
                                     {% elif nft.nft_type == 'music' %}
-                                    <audio src="{{nft.upload_nft.url}}" controls></audio>
+                                    <img src="{% static 'assets/images/portfolio/portfolio-02.jpg' %}" alt="">
                                     {% elif nft.nft_type == 'trading-cards/collectible' %}
                                     <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
                                     {% elif nft.nft_type == 'text' %}
@@ -95,9 +99,12 @@
                                     {% elif nft.nft_type == 'virtual-style' %}
                                     <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
                                     {% elif nft.nft_type == 'pdf' %}
-                                    <p>Link to open pdf <a href="{{nft.upload_nft.url}}">Here</a></p>
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
                                     {% else %}
                                      <p>file format is not supported</p>   
+                                    {% endif %}
+                                    {% else %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
                                     {% endif %}
                                         
                                 </div>
