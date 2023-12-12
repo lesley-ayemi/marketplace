@@ -33,9 +33,13 @@
                             <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
                                 <span class="rn-pd-sm-thumbnail">
                                     
-                                    {% if nft.upload_nft %}
                                     {% if nft.nft_type == 'art' %}
+                                    {% if nft.upload_nft %}
                                     <img src="{{nft.upload_nft.url}}" alt="">
+                                    {% else %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                        
+                                    {% endif %}
                                     {% elif nft.nft_type == 'video' %}
                                     <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
                                     {% elif nft.nft_type == 'music' %}
@@ -54,10 +58,6 @@
                                     <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
                                     {% else %}
                                      <p>file format is not supported</p>   
-                                    {% endif %}
-                                    {% else %}
-                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
-                                        
                                     {% endif %}
                                         
                                 </span>
