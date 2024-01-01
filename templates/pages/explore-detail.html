@@ -71,6 +71,10 @@
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                 <div class="rn-pd-thumbnail">
                                     
+                                    {% if nft.upload_nft %}
+                                        
+                                    
+                                        
                                     {% if nft.nft_type == 'art' %}
                                     <img src="{{nft.upload_nft.url}}" alt="">
                                     {% elif nft.nft_type == 'video' %}
@@ -91,6 +95,9 @@
                                     <p>Link to open pdf <a href="{{nft.upload_nft.url}}">Here</a></p>
                                     {% else %}
                                      <p>file format is not supported</p>   
+                                    {% endif %}
+                                    {% else %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
                                     {% endif %}
                                         
                                 </div>
