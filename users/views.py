@@ -25,7 +25,7 @@ class UsersDashboard(LoginRequiredMixin, TemplateView):
     def get(self, request):
         current_site = get_current_site(request)
         created = CreateNftModel.objects.filter(creator=self.request.user.uuid).order_by('-created')
-        owned = CreateNftModel.objects.filter(creator=self.request.user.uuid, purchased_by=self.request.user.uuid).order_by('-created')
+        owned = CreateNftModel.objects.filter(purchased_by=self.request.user.uuid).order_by('-created')
         total_purchases = CreateNftModel.objects.filter(purchased_by=self.request.user.uuid).count()
         sales = CreateNftModel.objects.filter(creator=self.request.user.uuid, list_for_sale=True).order_by('-created')
         my_collections = NftCollection.objects.filter(user_collection=self.request.user.uuid)
