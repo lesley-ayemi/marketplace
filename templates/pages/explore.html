@@ -68,7 +68,27 @@
                     <div class="card-thumbnail">
                         <a href="{% url 'explore-detail' nft.slug %}">
 
-                            <img src="{{nft.upload_nft.url}}" alt="{{nft.upload_nft}}">
+                            {% if nft.nft_type == 'art' %}
+                            <img src="{{nft.upload_nft.url}}" alt="">
+                            {% elif nft.nft_type == 'video' %}
+                            <video controls src="{{nft.upload_nft.url}}" width="620" poster="{{nft.upload_nft.url}}"></video>
+                            {% elif nft.nft_type == 'music' %}
+                            <audio src="{{nft.upload_nft.url}}" controls></audio>
+                            {% elif nft.nft_type == 'trading-cards/collectible' %}
+                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                            {% elif nft.nft_type == 'text' %}
+                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                            {% elif nft.nft_type == 'memes' %}
+                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                            {% elif nft.nft_type == 'domain-name' %}
+                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                            {% elif nft.nft_type == 'virtual-style' %}
+                            <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                            {% elif nft.nft_type == 'pdf' %}
+                            <p>Link to open pdf <a href="{{nft.upload_nft.url}}">Here</a></p>
+                            {% else %}
+                                <p>file format is not supported</p>   
+                            {% endif %}
                         </a>
                     </div>
                     <div class="product-share-wrapper">
