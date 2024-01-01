@@ -71,6 +71,8 @@
                     <div class="product-style-one no-overlay with-placeBid">
                         <div class="card-thumbnail">
                             <a href="{{sale.get_absolute_url}}">
+                                
+                                {% if sale.upload_nft %}
                                 {% if sale.nft_type == 'art' %}
                                     <img src="{{sale.upload_nft.url}}" alt="">
                                     {% elif sale.nft_type == 'video' %}
@@ -93,6 +95,11 @@
                                     {% else %}
                                      <p>file format is not supported</p>   
                                     {% endif %}
+                                    {% else %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    
+                                {% endif %}
+                                    
                                 <!-- <img src="{{sale.upload_nft.url}}" alt="NFT_portfolio"> -->
                             </a>
                             <a href="{% url 'explore-detail' sale.slug %}" class="btn btn-primary">View</a>
@@ -147,7 +154,8 @@
                     <div class="product-style-one no-overlay with-placeBid">
                         <div class="card-thumbnail">
                             <a href="{% url 'explore-detail' owned.slug %}">
-                                
+                                    
+                                    {% if owned.upload_nft %}
                                     {% if owned.nft_type == 'art' %}
                                     <img src="{{owned.upload_nft.url}}" alt="">
                                     {% elif owned.nft_type == 'video' %}
@@ -169,6 +177,11 @@
                                     {% else %}
                                      <p>file format is not supported</p>   
                                     {% endif %}
+                                    {% else %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                        
+                                    {% endif %}
+                                        
                                     
                                 <!-- <img style="object-fit:scale-down; width: 350px; height: 200px;" src="{{owned.upload_nft.url}}" alt="NFT_portfolio"> -->
                             </a>
