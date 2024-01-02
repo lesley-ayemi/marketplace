@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block slider %}
 <div class="rn-breadcrumb-inner ptb--30">
     <div class="container">
@@ -68,7 +68,32 @@
                     <div class="card-thumbnail">
                         <a href="{% url 'explore-detail' nft.slug %}">
 
-                            <img src="{{nft.upload_nft.url}}" alt="{{nft.upload_nft}}">
+                            {% if nft.upload_nft %}
+                                    {% if nft.nft_type == 'art' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="">
+                                    {% elif nft.nft_type == 'video' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-11.jpg' %}">
+                                    {% elif nft.nft_type == 'music' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-02.jpg' %}" alt="">
+                                    {% elif nft.nft_type == 'trading-cards/collectible' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'text' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'memes' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'domain-name' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'virtual-style' %}
+                                    <img src="{{nft.upload_nft.url}}" alt="Nft_Profile">
+                                    {% elif nft.nft_type == 'pdf' %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                    {% else %}
+                                     <p>file format is not supported</p>   
+                                    {% endif %}
+                                    {% else %}
+                                    <img src="{% static 'assets/images/portfolio/portfolio-01.jpg' %}" alt="">
+                                        
+                                    {% endif %}
                         </a>
                     </div>
                     <div class="product-share-wrapper">
