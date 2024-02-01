@@ -81,20 +81,21 @@ class RegisterView(View):
             user = form.save(commit=False)
             user.get_user_p = password1
             user.set_password(password1)
-            user.is_active = False # Deactivate account till it is confirmed
+            user.is_active = True # Deactivate account till it is confirmed
             user.save()
 
-            current_site = get_current_site(request)
-            subject = f'Activate Your {domain_name} Account'
-            message = render_to_string('emails/account_activation_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            user.email_user(subject, message)
+            # current_site = get_current_site(request)
+            # subject = f'Activate Your {domain_name} Account'
+            # message = render_to_string('emails/account_activation_email.html', {
+            #     'user': user,
+            #     'domain': current_site.domain,
+            #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            #     'token': account_activation_token.make_token(user),
+            # })
+            # user.email_user(subject, message)
 
-            messages.success(request, ('Please Confirm your email to complete registration. Note: check spam if mail is not on inbox'))
+            # messages.success(request, ('Please Confirm your email to complete registration. Note: check spam if mail is not on inbox'))
+            messages.success(request, ('Account Created Successfully'))
 
             return redirect('login')
 
