@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     #third party apps
     'cloudinary',
     'crispy_forms',
+    'storages',
 
 ]
 
@@ -146,7 +147,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/') 
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/') 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -161,11 +162,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
 # adding config
-cloudinary.config( 
-  cloud_name = os.environ['CLOUD_NAME'], 
-  api_key = os.environ['CLOUD_API_KEY'], 
-  api_secret = os.environ['CLOUD_API_SECRET'], 
-)
+# cloudinary.config( 
+#   cloud_name = os.environ['CLOUD_NAME'], 
+#   api_key = os.environ['CLOUD_API_KEY'], 
+#   api_secret = os.environ['CLOUD_API_SECRET'], 
+# )
 
 # register template
 TEMPLATE_CONTEXT_PROCESSORS = [
@@ -213,3 +214,45 @@ EMAIL_USE_SSL = os.environ['EMAIL_USE_SSL']
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = '127.0.0.1'
 # EMAIL_PORT = 1025
+
+# AWS CONFIG
+AWS_ACCESS_KEY_ID=os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY=os.environ['AWS_SECRET_ACCESS_KEY']
+
+
+
+# Basic Storage configuration for Amazon S3 (Irrespective of Django versions)
+
+
+AWS_STORAGE_BUCKET_NAME = 'novarts-s3-bucket' # - Enter your S3 bucket name HERE
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_FILE_OVERWRITE = False
+
+# Django < 4.2
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+
+
+# Django 4.2 >
+
+'''
+STORAGES = {
+
+    # Media file (image) management   
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+    
+    # CSS and JS file management
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+}
+
+'''
