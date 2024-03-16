@@ -66,6 +66,7 @@ class CreateNftModel(TimeStampedModel):
     gas_fee = models.FloatField(default=0.09)
     mint_proof = models.FileField(null=True, blank=True)
     
+    
     def __str__(self):
         return self.name + '- NFT'
     
