@@ -63,7 +63,7 @@ class CreateNftModel(TimeStampedModel):
     status = models.CharField(max_length=10, choices=ITEM_STATUS, default='BUY')
     list_for_sale = models.BooleanField(default=True)
     minted = models.BooleanField(default=False)
-    gas_fee = models.FloatField(default=0.18)
+    gas_fee = models.FloatField(default=0.09)
     mint_proof = models.FileField(null=True, blank=True)
     
     def __str__(self):
